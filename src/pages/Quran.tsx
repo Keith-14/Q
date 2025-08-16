@@ -18,8 +18,8 @@ interface Surah {
 
 interface SurahDetail extends Surah {
   surahNo: number;
-  arabic: { [key: string]: string };
-  english: { [key: string]: string };
+  arabic1: string[];
+  english: string[];
   audio: {
     [key: string]: {
       reciter: string;
@@ -190,20 +190,20 @@ export const Quran = () => {
               </div>
             ) : (
               <div className="space-y-4">
-                {Object.keys(selectedSurah.arabic).map((verseNo) => (
-                  <div key={verseNo} className="text-center border-b border-sage-light pb-4">
+                {selectedSurah.arabic1?.map((arabicText, index) => (
+                  <div key={index + 1} className="text-center border-b border-sage-light pb-4">
                     <div className="flex items-center justify-center space-x-2 mb-2">
                       <div className="w-8 h-8 bg-sage text-primary-foreground rounded-full flex items-center justify-center">
-                        <span className="text-sm font-bold">{verseNo}</span>
+                        <span className="text-sm font-bold">{index + 1}</span>
                       </div>
                       {selectedSurah.audio && selectedSurah.audio['1'] && (
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => playAudio(verseNo, selectedSurah.audio['1'].originalUrl)}
+                          onClick={() => playAudio((index + 1).toString(), selectedSurah.audio['1'].originalUrl)}
                           className="p-1 h-8 w-8"
                         >
-                          {playingVerse === verseNo ? (
+                          {playingVerse === (index + 1).toString() ? (
                             <Pause className="w-4 h-4" />
                           ) : (
                             <Play className="w-4 h-4" />
@@ -212,11 +212,11 @@ export const Quran = () => {
                       )}
                     </div>
                     <p className="text-lg font-arabic mb-2" dir="rtl">
-                      {selectedSurah.arabic[verseNo]}
+                      {arabicText}
                     </p>
-                    {showTranslation && (
+                    {showTranslation && selectedSurah.english && selectedSurah.english[index] && (
                       <p className="text-sm text-muted-foreground italic">
-                        {selectedSurah.english[verseNo]}
+                        {selectedSurah.english[index]}
                       </p>
                     )}
                   </div>
