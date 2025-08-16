@@ -14,6 +14,7 @@ import { Account } from "./pages/Account";
 import { PrayerTimes } from "./pages/PrayerTimes";
 import { Progress } from "./pages/Progress";
 import { FAQ } from "./pages/FAQ";
+import { Zakat } from "./pages/Zakat";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -36,6 +37,7 @@ const App = () => (
           <Route path="/prayer-times" element={<PrayerTimes />} />
           <Route path="/progress" element={<Progress />} />
           <Route path="/faq" element={<FAQ />} />
+          <Route path="/zakat" element={<Zakat />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

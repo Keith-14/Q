@@ -11,12 +11,48 @@ import {
   MapPin
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 export const Home = () => {
   const navigate = useNavigate();
+  const [location, setLocation] = useState("Getting location...");
+  const [currentDate, setCurrentDate] = useState("");
   
-  // Get current Islamic date (simplified for demo)
-  const currentDate = "Wed, 17 Muharram 1447";
+  useEffect(() => {
+    // Get user's location
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const { latitude, longitude } = position.coords;
+          
+          // Get location name using reverse geocoding
+          try {
+            const response = await fetch(
+              `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
+            );
+            const data = await response.json();
+            setLocation(`${data.city || data.locality || 'Unknown'}, ${data.countryName || 'Unknown'}`);
+          } catch (error) {
+            setLocation("Location unavailable");
+          }
+        },
+        () => {
+          setLocation("Location access denied");
+        }
+      );
+    }
+    
+    // Get current date and Islamic date
+    const now = new Date();
+    const islamicDate = new Intl.DateTimeFormat('en-u-ca-islamic', {
+      weekday: 'short',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    }).format(now);
+    
+    setCurrentDate(islamicDate);
+  }, []);
 
   return (
     <Layout>
@@ -35,7 +71,7 @@ export const Home = () => {
           <h1 className="text-3xl font-bold text-sage mb-2">HOME</h1>
           <div className="flex items-center justify-center space-x-2">
             <MapPin className="h-4 w-4 text-sage" />
-            <span className="text-sm text-muted-foreground">Mumbai, India</span>
+            <span className="text-sm text-muted-foreground">{location}</span>
           </div>
           <p className="text-lg text-foreground mt-2">{currentDate}</p>
         </div>
