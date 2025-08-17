@@ -102,6 +102,18 @@ export const Home = () => {
             subtitle="WATCH MAKKAH LIVE"
             onClick={() => navigate('/makkah-live')}
           />
+          <FeatureCard
+            icon={Search}
+            title="ISLAMIC STORE"
+            subtitle="SHOP ISLAMIC ITEMS"
+            onClick={() => navigate('/shop')}
+          />
+          <FeatureCard
+            icon={MapPin}
+            title="SALAH TRACKER"
+            subtitle="MY PROGRESS"
+            onClick={() => navigate('/progress')}
+          />
         </div>
 
         {/* Daily Hadith */}
