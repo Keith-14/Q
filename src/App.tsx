@@ -20,6 +20,7 @@ import { Zakat } from "./pages/Zakat";
 import { Hajj } from "./pages/Hajj";
 import { BusinessAccount } from "./pages/BusinessAccount";
 import { Cart } from "./pages/Cart";
+import { SellerDashboard } from "./pages/SellerDashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -55,6 +56,7 @@ const App = () => (
               <Route path="/shop" element={<ProtectedRoute><Shop /></ProtectedRoute>} />
               <Route path="/places" element={<ProtectedRoute><Places /></ProtectedRoute>} />
               <Route path="/account" element={<ProtectedRoute><Account /></ProtectedRoute>} />
+              <Route path="/seller-dashboard" element={<ProtectedRoute><SellerDashboard /></ProtectedRoute>} />
               <Route path="/prayer-times" element={<ProtectedRoute><PrayerTimes /></ProtectedRoute>} />
               <Route path="/progress" element={<ProtectedRoute><Progress /></ProtectedRoute>} />
               <Route path="/faq" element={<ProtectedRoute><FAQ /></ProtectedRoute>} />

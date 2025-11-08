@@ -7,7 +7,8 @@ import {
   MapPin, 
   LogOut,
   ChevronRight,
-  User
+  User,
+  Store
 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -16,12 +17,26 @@ export const Account = () => {
   const { signOut, user, userRole } = useAuth();
   const navigate = useNavigate();
 
-  const accountOptions = [
-    { icon: Lock, label: 'Change Password', action: () => navigate('/change-password') },
-    { icon: TrendingUp, label: 'My Progress', action: () => navigate('/progress') },
-    { icon: ShoppingBag, label: 'My Orders', action: () => navigate('/orders') },
-    { icon: MapPin, label: 'Location', action: () => navigate('/location') },
-  ];
+  const getAccountOptions = () => {
+    const baseOptions = [
+      { icon: Lock, label: 'Change Password', action: () => navigate('/change-password') },
+      { icon: TrendingUp, label: 'My Progress', action: () => navigate('/progress') },
+      { icon: ShoppingBag, label: 'My Orders', action: () => navigate('/orders') },
+      { icon: MapPin, label: 'Location', action: () => navigate('/location') },
+    ];
+
+    if (userRole === 'seller') {
+      baseOptions.unshift({
+        icon: Store,
+        label: 'Seller Dashboard',
+        action: () => navigate('/seller-dashboard')
+      });
+    }
+
+    return baseOptions;
+  };
+
+  const accountOptions = getAccountOptions();
 
   const getRoleBadge = () => {
     if (!userRole) return null;
