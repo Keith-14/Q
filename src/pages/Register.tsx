@@ -65,12 +65,19 @@ export const Register = () => {
 
     try {
       if (isSignIn) {
-        const { error } = await signIn(email, password);
+        const { error, role } = await signIn(email, password);
         if (error) {
           toast.error(error.message);
         } else {
           toast.success('Signed in successfully!');
-          navigate('/');
+          // Redirect based on role
+          if (role === 'seller') {
+            navigate('/seller-dashboard');
+          } else if (role === 'travel_partner') {
+            navigate('/business-account');
+          } else {
+            navigate('/');
+          }
         }
       } else {
         if (!fullName) {
@@ -79,12 +86,19 @@ export const Register = () => {
           return;
         }
         
-        const { error } = await signUp(email, password, selectedRole, fullName);
+        const { error, role } = await signUp(email, password, selectedRole, fullName);
         if (error) {
           toast.error(error.message);
         } else {
           toast.success('Account created successfully!');
-          navigate('/');
+          // Redirect based on role
+          if (role === 'seller') {
+            navigate('/seller-dashboard');
+          } else if (role === 'travel_partner') {
+            navigate('/business-account');
+          } else {
+            navigate('/');
+          }
         }
       }
     } catch (error: any) {

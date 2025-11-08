@@ -10,8 +10,8 @@ interface AuthContextType {
   session: Session | null;
   userRole: UserRole;
   loading: boolean;
-  signUp: (email: string, password: string, role: UserRole, fullName: string) => Promise<{ error: any }>;
-  signIn: (email: string, password: string) => Promise<{ error: any }>;
+  signUp: (email: string, password: string, role: UserRole, fullName: string) => Promise<{ error: any; role?: UserRole }>;
+  signIn: (email: string, password: string) => Promise<{ error: any; role?: UserRole }>;
   signOut: () => Promise<void>;
 }
 
@@ -101,7 +101,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         .from('user_roles')
         .insert({ user_id: data.user.id, role });
 
-      if (roleError) return { error: roleError };
+      if (roleError) return { error, role: undefined };
 
       // Insert profile
       const { error: profileError } = await supabase
@@ -111,24 +111,36 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           full_name: fullName 
         });
 
-      if (profileError) return { error: profileError };
+      if (profileError) return { error: profileError, role: undefined };
 
-      return { error: null };
+      return { error: null, role };
     } catch (error: any) {
-      return { error };
+      return { error, role: undefined };
     }
   };
 
   const signIn = async (email: string, password: string) => {
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
-      return { error };
+      if (error) return { error, role: undefined };
+      if (!data.user) return { error: { message: 'Sign in failed' }, role: undefined };
+
+      // Fetch user role
+      const { data: roleData, error: roleError } = await supabase
+        .from('user_roles')
+        .select('role')
+        .eq('user_id', data.user.id)
+        .single();
+
+      if (roleError) return { error: roleError, role: undefined };
+
+      return { error: null, role: roleData?.role as UserRole };
     } catch (error: any) {
-      return { error };
+      return { error, role: undefined };
     }
   };
 
