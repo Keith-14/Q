@@ -2,11 +2,12 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { CartProvider } from "./contexts/CartContext";
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { Home } from "./pages/Home";
 import { LoadingScreen } from "./pages/LoadingScreen";
-import { Login } from "./pages/Login";
+import { Register } from "./pages/Register";
 import { Quran } from "./pages/Quran";
 import { Qibla } from "./pages/Qibla";
 import { Shop } from "./pages/Shop";
@@ -23,34 +24,50 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return <LoadingScreen />;
+  }
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return <>{children}</>;
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <CartProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-        <Routes>
-          <Route path="/loading" element={<LoadingScreen />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/quran" element={<Quran />} />
-          <Route path="/qibla" element={<Qibla />} />
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/places" element={<Places />} />
-          <Route path="/account" element={<Account />} />
-          <Route path="/prayer-times" element={<PrayerTimes />} />
-          <Route path="/progress" element={<Progress />} />
-          <Route path="/faq" element={<FAQ />} />
-          <Route path="/zakat" element={<Zakat />} />
-          <Route path="/hajj" element={<Hajj />} />
-          <Route path="/business-account" element={<BusinessAccount />} />
-          <Route path="/cart" element={<Cart />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+      <BrowserRouter>
+        <AuthProvider>
+          <CartProvider>
+            <Toaster />
+            <Sonner />
+            <Routes>
+              <Route path="/loading" element={<LoadingScreen />} />
+              <Route path="/login" element={<Register />} />
+              <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+              <Route path="/quran" element={<ProtectedRoute><Quran /></ProtectedRoute>} />
+              <Route path="/qibla" element={<ProtectedRoute><Qibla /></ProtectedRoute>} />
+              <Route path="/shop" element={<ProtectedRoute><Shop /></ProtectedRoute>} />
+              <Route path="/places" element={<ProtectedRoute><Places /></ProtectedRoute>} />
+              <Route path="/account" element={<ProtectedRoute><Account /></ProtectedRoute>} />
+              <Route path="/prayer-times" element={<ProtectedRoute><PrayerTimes /></ProtectedRoute>} />
+              <Route path="/progress" element={<ProtectedRoute><Progress /></ProtectedRoute>} />
+              <Route path="/faq" element={<ProtectedRoute><FAQ /></ProtectedRoute>} />
+              <Route path="/zakat" element={<ProtectedRoute><Zakat /></ProtectedRoute>} />
+              <Route path="/hajj" element={<ProtectedRoute><Hajj /></ProtectedRoute>} />
+              <Route path="/business-account" element={<ProtectedRoute><BusinessAccount /></ProtectedRoute>} />
+              <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </CartProvider>
+        </AuthProvider>
       </BrowserRouter>
-      </CartProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
