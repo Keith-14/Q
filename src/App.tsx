@@ -21,6 +21,7 @@ import { Hajj } from "./pages/Hajj";
 import { BusinessAccount } from "./pages/BusinessAccount";
 import { Cart } from "./pages/Cart";
 import { SellerDashboard } from "./pages/SellerDashboard";
+import { MakkahLive } from "./pages/MakkahLive";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -64,6 +65,7 @@ const App = () => (
               <Route path="/hajj" element={<ProtectedRoute><Hajj /></ProtectedRoute>} />
               <Route path="/business-account" element={<ProtectedRoute><BusinessAccount /></ProtectedRoute>} />
               <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
+              <Route path="/makkah-live" element={<ProtectedRoute><MakkahLive /></ProtectedRoute>} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
