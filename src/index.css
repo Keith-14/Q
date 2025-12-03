@@ -8,40 +8,40 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 42 15% 95%;
-    --foreground: 156 20% 25%;
+    --background: 195 60% 96%;
+    --foreground: 210 30% 20%;
 
-    --card: 42 25% 97%;
-    --card-foreground: 156 20% 25%;
+    --card: 0 0% 100%;
+    --card-foreground: 210 30% 20%;
 
-    --popover: 42 25% 97%;
-    --popover-foreground: 156 20% 25%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 30% 20%;
 
-    --primary: 156 25% 45%;
-    --primary-foreground: 42 25% 97%;
+    --primary: 188 70% 52%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 156 15% 85%;
-    --secondary-foreground: 156 25% 25%;
+    --secondary: 188 70% 92%;
+    --secondary-foreground: 188 70% 32%;
 
-    --muted: 42 15% 90%;
-    --muted-foreground: 156 15% 55%;
+    --muted: 195 48% 92%;
+    --muted-foreground: 210 15% 45%;
 
-    --accent: 156 20% 80%;
-    --accent-foreground: 156 25% 25%;
+    --accent: 188 75% 88%;
+    --accent-foreground: 210 30% 20%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 42 25% 97%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 156 15% 85%;
-    --input: 156 15% 85%;
-    --ring: 156 25% 45%;
+    --border: 195 40% 88%;
+    --input: 195 40% 88%;
+    --ring: 188 70% 52%;
 
     /* Custom Islamic app colors */
-    --sage: 156 25% 45%;
-    --sage-light: 156 15% 85%;
-    --sage-dark: 156 30% 35%;
-    --cream: 42 25% 97%;
-    --cream-dark: 42 15% 90%;
+    --sage: 188 70% 52%;
+    --sage-light: 188 75% 90%;
+    --sage-dark: 210 80% 40%;
+    --cream: 195 60% 96%;
+    --cream-dark: 195 48% 92%;
     
     /* Gradients */
     --gradient-sage: linear-gradient(135deg, hsl(var(--sage)), hsl(var(--sage-dark)));
