@@ -11,6 +11,8 @@ import {
   Compass,
   Search,
   MapPin,
+  BarChart3,
+  Heart,
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
@@ -137,6 +139,17 @@ export const Home = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const quickActions = [
+    { label: 'Qibla', Icon: Compass, onClick: () => navigate('/qibla') },
+    { label: 'Quran', Icon: BookOpen, onClick: () => navigate('/quran') },
+    { label: 'Track', Icon: BarChart3, onClick: () => navigate('/progress') },
+    { label: 'Mood', Icon: Heart, onClick: () => navigate('/makkah-live') },
+    { label: 'Prayer', Icon: Clock, onClick: () => navigate('/prayer-times') },
+    { label: 'Zakat', Icon: Calculator, onClick: () => navigate('/zakat') },
+    { label: 'Store', Icon: Search, onClick: () => navigate('/shop') },
+    { label: 'Progress', Icon: MapPin, onClick: () => navigate('/progress') },
+  ];
+
   return (
     <Layout>
       <div className="px-4 py-6 space-y-6">
@@ -161,14 +174,9 @@ export const Home = () => {
           />
         </section>
 
-        {/* Quick actions row */}
+        {/* All quick actions icons */}
         <section aria-label="Quick actions">
-          <QuickActionsRow
-            onQibla={() => navigate('/qibla')}
-            onQuran={() => navigate('/quran')}
-            onTrack={() => navigate('/progress')}
-            onMood={() => navigate('/makkah-live')}
-          />
+          <QuickActionsRow items={quickActions} />
         </section>
 
         {/* Daily Dua */}
@@ -179,37 +187,6 @@ export const Home = () => {
         {/* Today's Verse */}
         <section aria-label="Today's verse">
           <TodaysVerseCard />
-        </section>
-
-        {/* Additional tools to keep existing functionality */}
-        <section aria-label="More Islamic tools" className="space-y-3">
-          <h2 className="text-sm font-medium text-muted-foreground">More tools</h2>
-          <div className="grid grid-cols-2 gap-4">
-            <FeatureCard
-              icon={Clock}
-              title="PRAYER TIMES"
-              subtitle="VIEW ALL TIMES"
-              onClick={() => navigate('/prayer-times')}
-            />
-            <FeatureCard
-              icon={Calculator}
-              title="ZAKAT"
-              subtitle="ZAKAT CALCULATOR"
-              onClick={() => navigate('/zakat')}
-            />
-            <FeatureCard
-              icon={Search}
-              title="ISLAMIC STORE"
-              subtitle="SHOP ISLAMIC ITEMS"
-              onClick={() => navigate('/shop')}
-            />
-            <FeatureCard
-              icon={Compass}
-              title="SALAH TRACKER"
-              subtitle="MY PROGRESS"
-              onClick={() => navigate('/progress')}
-            />
-          </div>
         </section>
       </div>
     </Layout>

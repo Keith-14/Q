@@ -1,25 +1,16 @@
-import { Compass, BookOpen, BarChart3, Heart } from "lucide-react";
+import { LucideIcon } from "lucide-react";
 
-interface QuickActionsRowProps {
-  onQibla: () => void;
-  onQuran: () => void;
-  onTrack: () => void;
-  onMood: () => void;
+interface QuickActionItem {
+  label: string;
+  Icon: LucideIcon;
+  onClick: () => void;
 }
 
-export const QuickActionsRow = ({
-  onQibla,
-  onQuran,
-  onTrack,
-  onMood,
-}: QuickActionsRowProps) => {
-  const items = [
-    { label: "Qibla", Icon: Compass, onClick: onQibla },
-    { label: "Quran", Icon: BookOpen, onClick: onQuran },
-    { label: "Track", Icon: BarChart3, onClick: onTrack },
-    { label: "Mood", Icon: Heart, onClick: onMood },
-  ] as const;
+interface QuickActionsRowProps {
+  items: QuickActionItem[];
+}
 
+export const QuickActionsRow = ({ items }: QuickActionsRowProps) => {
   return (
     <div className="grid grid-cols-4 gap-3">
       {items.map(({ label, Icon, onClick }) => (
