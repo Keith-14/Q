@@ -22,6 +22,7 @@ import { BusinessAccount } from "./pages/BusinessAccount";
 import { Cart } from "./pages/Cart";
 import { SellerDashboard } from "./pages/SellerDashboard";
 import { MakkahLive } from "./pages/MakkahLive";
+import { Forum } from "./pages/Forum";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -55,6 +56,7 @@ const App = () => (
               <Route path="/quran" element={<ProtectedRoute><Quran /></ProtectedRoute>} />
               <Route path="/qibla" element={<ProtectedRoute><Qibla /></ProtectedRoute>} />
               <Route path="/shop" element={<ProtectedRoute><Shop /></ProtectedRoute>} />
+              <Route path="/forum" element={<ProtectedRoute><Forum /></ProtectedRoute>} />
               <Route path="/places" element={<ProtectedRoute><Places /></ProtectedRoute>} />
               <Route path="/account" element={<ProtectedRoute><Account /></ProtectedRoute>} />
               <Route path="/seller-dashboard" element={<ProtectedRoute><SellerDashboard /></ProtectedRoute>} />
