@@ -105,56 +105,81 @@ export const Places = () => {
     setLocationDialogOpen(false);
   };
 
+  // Overpass API endpoints (fallback servers)
+  const OVERPASS_SERVERS = [
+    'https://overpass-api.de/api/interpreter',
+    'https://overpass.kumi.systems/api/interpreter',
+    'https://maps.mail.ru/osm/tools/overpass/api/interpreter',
+  ];
+
   // Build Overpass query based on place type
   const buildOverpassQuery = (lat: number, lon: number, radius: number, type: PlaceType) => {
     if (type === 'mosque') {
       return `
-        [out:json][timeout:30];
+        [out:json][timeout:25];
         (
           node["amenity"="place_of_worship"]["religion"="muslim"](around:${radius},${lat},${lon});
           node["building"="mosque"](around:${radius},${lat},${lon});
           way["amenity"="place_of_worship"]["religion"="muslim"](around:${radius},${lat},${lon});
           way["building"="mosque"](around:${radius},${lat},${lon});
-          relation["amenity"="place_of_worship"]["religion"="muslim"](around:${radius},${lat},${lon});
         );
         out center;
       `;
     } else {
+      // Simplified query for halal restaurants - search by cuisine and diet tags
       return `
-        [out:json][timeout:30];
+        [out:json][timeout:25];
         (
-          node["amenity"="restaurant"]["diet:halal"="yes"](around:${radius},${lat},${lon});
-          node["amenity"="restaurant"]["cuisine"~"halal"](around:${radius},${lat},${lon});
-          node["amenity"="fast_food"]["diet:halal"="yes"](around:${radius},${lat},${lon});
-          node["amenity"="cafe"]["diet:halal"="yes"](around:${radius},${lat},${lon});
-          way["amenity"="restaurant"]["diet:halal"="yes"](around:${radius},${lat},${lon});
-          way["amenity"="restaurant"]["cuisine"~"halal"](around:${radius},${lat},${lon});
+          node["diet:halal"="yes"](around:${radius},${lat},${lon});
+          node["cuisine"~"halal|indian|pakistani|middle_eastern|arabic|turkish|kebab|afghan"](around:${radius},${lat},${lon});
+          way["diet:halal"="yes"](around:${radius},${lat},${lon});
         );
         out center;
       `;
     }
   };
 
+  // Fetch with retry across multiple servers
+  const fetchWithRetry = async (query: string): Promise<any> => {
+    let lastError: Error | null = null;
+    
+    for (const server of OVERPASS_SERVERS) {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 20000);
+        
+        const response = await fetch(server, {
+          method: 'POST',
+          body: `data=${encodeURIComponent(query)}`,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          signal: controller.signal,
+        });
+        
+        clearTimeout(timeoutId);
+        
+        if (response.ok) {
+          return await response.json();
+        }
+        lastError = new Error(`Server ${server} returned ${response.status}`);
+      } catch (err) {
+        lastError = err as Error;
+        console.log(`Server ${server} failed, trying next...`);
+      }
+    }
+    
+    throw lastError || new Error('All servers failed');
+  };
+
   // Find nearby places using Overpass API
   const findNearbyPlaces = async (lat: number, lon: number, type: PlaceType) => {
     setLoading(true);
     try {
-      const radius = 5000; // 5km radius as requested
+      const radius = 5000; // 5km radius
       const overpassQuery = buildOverpassQuery(lat, lon, radius, type);
 
-      const response = await fetch('https://overpass-api.de/api/interpreter', {
-        method: 'POST',
-        body: `data=${encodeURIComponent(overpassQuery)}`,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`API error: ${response.status}`);
-      }
-
-      const data = await response.json();
+      const data = await fetchWithRetry(overpassQuery);
       
       const typeLabel = type === 'mosque' ? 'mosques' : 'halal restaurants';
       
