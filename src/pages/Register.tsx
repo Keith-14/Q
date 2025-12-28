@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 import { User, Briefcase, Plane } from 'lucide-react';
+import { LanguageSelector } from '@/components/LanguageSelector';
 
 type UserRole = 'normal_user' | 'seller' | 'travel_partner';
 
@@ -121,6 +122,10 @@ export const Register = () => {
 
   return (
     <div className="min-h-screen bg-cream flex items-center justify-center max-w-md mx-auto relative overflow-hidden">
+      {/* Language Selector */}
+      <div className="absolute top-4 right-4 z-20">
+        <LanguageSelector />
+      </div>
       {/* Islamic pattern background */}
       <div className="absolute inset-0 opacity-30">
         <div 
