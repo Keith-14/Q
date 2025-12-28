@@ -26,52 +26,48 @@ export const PrayerOverviewCard = ({
   const activePrayer = normalizePrayerName(currentPrayerName);
 
   return (
-    <Card className="relative overflow-hidden rounded-3xl border-none bg-gradient-to-br from-sage-dark via-primary to-sage-dark px-5 py-5 text-primary-foreground shadow-xl">
-      {/* Subtle decorative element - reduced opacity */}
-      <div className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-cream/5" />
-      <div className="pointer-events-none absolute -left-4 -bottom-4 h-20 w-20 rounded-full bg-cream/5" />
-
+    <Card className="relative overflow-hidden border-0 bg-gradient-to-br from-primary via-primary/95 to-primary/85 px-5 py-6 text-primary-foreground shadow-lg">
       <div className="relative z-10 flex items-start justify-between gap-4">
         <div>
-          <p className="text-xs font-medium uppercase tracking-widest text-cream/80">
+          <p className="text-xs font-medium uppercase tracking-widest text-primary-foreground/70">
             Next Prayer
           </p>
-          <p className="mt-2 text-2xl font-bold tracking-tight text-cream drop-shadow-sm">
+          <p className="mt-2 text-2xl font-bold tracking-tight">
             {activePrayer || "Upcoming"}
           </p>
-          <p className="mt-2 text-xs text-cream/70 max-w-[180px] leading-relaxed">
+          <p className="mt-2 text-xs text-primary-foreground/60 max-w-[180px] leading-relaxed">
             {nextTimeLabel || "Prayer times update throughout the day."}
           </p>
         </div>
 
         <div className="text-right">
-          <p className="text-xs font-medium uppercase tracking-widest text-cream/80">
+          <p className="text-xs font-medium uppercase tracking-widest text-primary-foreground/70">
             Current Time
           </p>
-          <p className="mt-2 text-3xl font-bold tabular-nums tracking-tight text-cream drop-shadow-sm">
+          <p className="mt-2 text-3xl font-bold tabular-nums tracking-tight">
             {currentTime || "--:--:--"}
           </p>
         </div>
       </div>
 
       {/* Prayer indicator strip */}
-      <div className="relative z-10 mt-5 flex items-center justify-between rounded-2xl bg-sage-dark/50 backdrop-blur-sm px-4 py-3 border border-cream/10">
+      <div className="relative z-10 mt-6 flex items-center justify-between rounded-2xl bg-primary-foreground/10 backdrop-blur-sm px-4 py-3.5">
         {PRAYER_NAMES.map((name) => (
-          <div key={name} className="flex flex-col items-center gap-1.5">
+          <div key={name} className="flex flex-col items-center gap-2">
             <span
               className={cn(
-                "h-2.5 w-2.5 rounded-full transition-all duration-300",
+                "h-2 w-2 rounded-full transition-all duration-300",
                 activePrayer === name 
-                  ? "bg-cream shadow-[0_0_8px_rgba(255,255,255,0.4)]" 
-                  : "bg-cream/30"
+                  ? "bg-primary-foreground scale-125" 
+                  : "bg-primary-foreground/30"
               )}
             />
             <span
               className={cn(
                 "text-[10px] tracking-wide transition-all duration-300",
                 activePrayer === name 
-                  ? "font-semibold text-cream" 
-                  : "text-cream/60"
+                  ? "font-semibold text-primary-foreground" 
+                  : "text-primary-foreground/50"
               )}
             >
               {name}

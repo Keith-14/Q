@@ -18,12 +18,12 @@ export const QuickActionsRow = ({ items }: QuickActionsRowProps) => {
           key={label}
           type="button"
           onClick={onClick}
-          className="flex flex-col items-center justify-center rounded-2xl bg-card px-2 py-3 text-foreground shadow-md transition-transform duration-200 hover:scale-105"
+          className="flex flex-col items-center justify-center rounded-2xl bg-card border border-border/50 px-2 py-3.5 text-foreground shadow-sm transition-all duration-200 hover:shadow-md hover:border-primary/20 active:scale-[0.98]"
         >
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 text-primary">
-            <Icon className="h-4 w-4" />
+          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+            <Icon className="h-5 w-5" strokeWidth={2} />
           </span>
-          <span className="mt-1 text-[11px] font-medium">{label}</span>
+          <span className="mt-2 text-[11px] font-medium text-muted-foreground">{label}</span>
         </button>
       ))}
     </div>

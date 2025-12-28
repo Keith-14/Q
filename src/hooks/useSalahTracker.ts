@@ -37,7 +37,14 @@ export const useSalahTracker = () => {
   const [streak, setStreak] = useState<SalahStreak>({ current_streak: 0, longest_streak: 0, last_updated: '' });
   const [weeklyLogs, setWeeklyLogs] = useState<SalahLog[]>([]);
 
-  const getToday = () => new Date().toISOString().split('T')[0];
+  // Use local date to avoid timezone issues
+  const getToday = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
 
   const getPrayerStatus = useCallback((): PrayerStatus[] => {
     return [
@@ -98,12 +105,20 @@ export const useSalahTracker = () => {
     const weekAgo = new Date(today);
     weekAgo.setDate(today.getDate() - 6);
 
+    // Use local date format for queries
+    const formatLocalDate = (d: Date) => {
+      const year = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    };
+
     const { data, error } = await supabase
       .from('salah_log')
       .select('*')
       .eq('user_id', user.id)
-      .gte('date', weekAgo.toISOString().split('T')[0])
-      .lte('date', today.toISOString().split('T')[0])
+      .gte('date', formatLocalDate(weekAgo))
+      .lte('date', formatLocalDate(today))
       .order('date', { ascending: true });
 
     if (error) {
@@ -133,7 +148,9 @@ export const useSalahTracker = () => {
 
     for (let i = 0; i < logs.length; i++) {
       const log = logs[i];
-      const logDate = new Date(log.date);
+      // Parse date string as local date (not UTC)
+      const [year, month, day] = log.date.split('-').map(Number);
+      const logDate = new Date(year, month - 1, day);
       logDate.setHours(0, 0, 0, 0);
 
       const expectedDate = new Date(today);
@@ -248,7 +265,11 @@ export const useSalahTracker = () => {
     for (let i = 6; i >= 0; i--) {
       const date = new Date(today);
       date.setDate(today.getDate() - i);
-      const dateStr = date.toISOString().split('T')[0];
+      // Use local date format
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      const dateStr = `${year}-${month}-${day}`;
       const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
 
       const log = weeklyLogs.find(l => l.date === dateStr);
