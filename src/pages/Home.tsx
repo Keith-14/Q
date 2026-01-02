@@ -164,13 +164,13 @@ export const Home = () => {
 
   return (
     <Layout showHeader={false}>
-      <div className="px-5 py-4 space-y-6">
+      <div className="px-5 py-4 space-y-6 font-arabic">
         {/* Top controls */}
         <div className="flex items-center justify-between">
           <Button 
             variant="ghost" 
             size="icon" 
-            className="text-foreground hover:bg-primary/10 hover:text-primary rounded-xl h-10 w-10 border border-transparent hover:border-primary/30"
+            className="text-foreground hover:bg-primary/8 hover:text-primary rounded-xl h-10 w-10 border border-transparent hover:border-primary/20"
             onClick={() => setIsMenuOpen(true)}
           >
             <Menu className="h-5 w-5" strokeWidth={1.5} />
@@ -178,7 +178,7 @@ export const Home = () => {
           <Button 
             variant="ghost" 
             size="icon" 
-            className="text-foreground hover:bg-primary/10 hover:text-primary rounded-xl h-10 w-10 border border-transparent hover:border-primary/30"
+            className="text-foreground hover:bg-primary/8 hover:text-primary rounded-xl h-10 w-10 border border-transparent hover:border-primary/20"
           >
             <Bell className="h-5 w-5" strokeWidth={1.5} />
           </Button>
@@ -191,7 +191,7 @@ export const Home = () => {
               <p className="text-sm text-muted-foreground">
                 {greeting}
               </p>
-              <h1 className="text-2xl font-bold text-gold-gradient tracking-tight drop-shadow-[0_0_20px_hsl(45_85%_58%/0.2)]">{t('home.title')}</h1>
+              <h1 className="text-2xl font-bold text-emerald-gradient tracking-tight drop-shadow-[0_0_15px_hsl(145_70%_45%/0.15)]">{t('home.title')}</h1>
               <div className="flex items-center gap-2 text-xs text-muted-foreground">
                 <MapPin className="h-3 w-3 text-primary" strokeWidth={2} />
                 {locationLoading ? (
@@ -248,9 +248,9 @@ export const Home = () => {
         className={`fixed inset-0 z-50 ${isMenuOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}
         onClick={() => setIsMenuOpen(false)}
       >
-        <div className={`absolute inset-0 bg-background/80 backdrop-blur-sm transition-opacity duration-300 ${isMenuOpen ? 'opacity-100' : 'opacity-0'}`} />
+        <div className={`absolute inset-0 bg-background/85 backdrop-blur-sm transition-opacity duration-300 ${isMenuOpen ? 'opacity-100' : 'opacity-0'}`} />
         <div 
-          className={`absolute left-0 top-0 h-full w-80 bg-card border-r border-primary/30 shadow-2xl transition-transform duration-300 ease-out ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
+          className={`absolute left-0 top-0 h-full w-80 bg-card border-r border-primary/20 shadow-2xl transition-transform duration-300 ease-out ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
           onClick={(e) => e.stopPropagation()}
         >
           <SideMenuContent onClose={() => setIsMenuOpen(false)} />
@@ -279,14 +279,14 @@ const SideMenuContent = ({ onClose }: { onClose: () => void }) => {
   ];
 
   return (
-    <div className="flex flex-col h-full">
-      <div className="flex items-center justify-between px-6 py-5 bg-gradient-to-r from-primary/20 to-primary/10 border-b border-primary/30">
+    <div className="flex flex-col h-full font-arabic">
+      <div className="flex items-center justify-between px-6 py-5 bg-gradient-to-r from-primary/15 to-primary/5 border-b border-primary/20">
         <h2 className="text-xl font-semibold tracking-tight text-primary">Barakah</h2>
         <Button 
           variant="ghost" 
           size="icon" 
           onClick={onClose}
-          className="hover:bg-primary/10 rounded-xl h-10 w-10 text-primary border border-primary/30"
+          className="hover:bg-primary/8 rounded-xl h-10 w-10 text-primary border border-primary/20"
         >
           ✕
         </Button>
@@ -299,7 +299,7 @@ const SideMenuContent = ({ onClose }: { onClose: () => void }) => {
               navigate(item.path);
               onClose();
             }}
-            className="w-full text-left px-4 py-3.5 rounded-xl text-foreground hover:bg-primary/10 hover:text-primary transition-colors duration-200 font-medium"
+            className="w-full text-left px-4 py-3.5 rounded-xl text-foreground hover:bg-primary/8 hover:text-primary transition-colors duration-200 font-medium"
           >
             {t(item.labelKey)}
           </button>
