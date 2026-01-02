@@ -42,47 +42,46 @@ export const SideMenu = ({ isOpen, onClose }: SideMenuProps) => {
       {/* Overlay with blur */}
       <div 
         className={cn(
-          "fixed inset-0 bg-background/85 backdrop-blur-md z-40 transition-all duration-400 ease-out",
+          "fixed inset-0 bg-background/90 backdrop-blur-md z-40 transition-all duration-400 ease-out",
           isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         )}
         onClick={onClose}
       />
       
-      {/* Menu with premium styling */}
+      {/* Menu with minimal dark styling */}
       <div 
         className={cn(
-          "fixed top-0 left-0 h-full w-80 max-w-[85vw] glass-gold z-50 transform transition-transform duration-400 ease-out shadow-2xl",
+          "fixed top-0 left-0 h-full w-80 max-w-[85vw] glass-dark z-50 transform transition-transform duration-400 ease-out shadow-2xl font-arabic",
           isOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
-        {/* Premium header with gradient */}
-        <div className="relative overflow-hidden px-6 py-6 flex items-center justify-between border-b border-primary/30">
-          {/* Background glow */}
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/15 via-primary/10 to-transparent" />
-          <div className="absolute top-0 left-0 w-32 h-32 bg-[radial-gradient(circle_at_top_left,hsl(45_85%_58%/0.2),transparent_60%)]" />
+        {/* Minimal header */}
+        <div className="relative overflow-hidden px-6 py-6 flex items-center justify-between border-b border-primary/20">
+          {/* Subtle glow */}
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-transparent" />
           
-          <h2 className="relative text-xl font-bold text-gold-gradient tracking-tight flex items-center gap-2">
+          <h2 className="relative text-xl font-bold text-emerald-gradient tracking-tight flex items-center gap-2">
             Menu
-            <Sparkles className="h-4 w-4 text-primary/60" />
+            <Sparkles className="h-4 w-4 text-primary/50" />
           </h2>
           <button 
             onClick={onClose}
-            className="relative p-2.5 hover:bg-primary/15 rounded-xl transition-all duration-300 text-primary border border-primary/30 hover:border-primary/50 hover:shadow-[0_0_15px_-5px_hsl(45_85%_58%/0.4)]"
+            className="relative p-2.5 hover:bg-primary/10 rounded-xl transition-all duration-300 text-primary border border-primary/20 hover:border-primary/40"
           >
             <X className="h-5 w-5" strokeWidth={1.5} />
           </button>
         </div>
 
-        {/* Menu Items with hover effects */}
+        {/* Menu Items */}
         <div className="py-3 px-3">
           {menuItems.map(({ icon: Icon, label, path }, index) => (
             <button
               key={path}
               onClick={() => handleNavigate(path)}
-              className="group w-full flex items-center gap-4 px-4 py-4 my-1 rounded-xl text-foreground hover:bg-gradient-to-r hover:from-primary/15 hover:to-transparent transition-all duration-300 ease-out"
+              className="group w-full flex items-center gap-4 px-4 py-4 my-1 rounded-xl text-foreground hover:bg-gradient-to-r hover:from-primary/10 hover:to-transparent transition-all duration-300 ease-out"
               style={{ animationDelay: `${index * 50}ms` }}
             >
-              <div className="p-2.5 rounded-xl bg-gradient-to-br from-primary/15 to-primary/5 border border-primary/25 group-hover:border-primary/50 group-hover:shadow-[0_0_15px_-5px_hsl(45_85%_58%/0.4)] transition-all duration-300">
+              <div className="p-2.5 rounded-xl bg-gradient-to-br from-primary/12 to-primary/5 border border-primary/15 group-hover:border-primary/35 group-hover:shadow-[0_0_12px_-5px_hsl(145_70%_45%/0.3)] transition-all duration-300">
                 <Icon className="h-5 w-5 text-primary group-hover:scale-110 transition-transform duration-300" strokeWidth={1.5} />
               </div>
               <span className="font-medium text-base group-hover:text-primary transition-colors duration-300">{label}</span>

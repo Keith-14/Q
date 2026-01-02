@@ -2,113 +2,104 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system - Dark Atmospheric Islamic Theme with Premium Effects
+/* Definition of the design system - Minimal Premium Black & Green Islamic Theme
 All colors MUST be HSL.
 */
 
 @layer base {
   :root {
-    --background: 140 20% 5%;
-    --foreground: 45 50% 90%;
+    /* Deep black base */
+    --background: 0 0% 4%;
+    --foreground: 0 0% 95%;
 
-    --card: 140 25% 9%;
-    --card-foreground: 45 50% 90%;
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 95%;
 
-    --popover: 140 25% 9%;
-    --popover-foreground: 45 50% 90%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 95%;
 
-    --primary: 45 85% 58%;
-    --primary-foreground: 140 20% 5%;
+    /* Emerald green primary */
+    --primary: 145 70% 45%;
+    --primary-foreground: 0 0% 2%;
 
-    --secondary: 140 30% 12%;
-    --secondary-foreground: 45 50% 90%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 95%;
 
-    --muted: 140 20% 14%;
-    --muted-foreground: 45 25% 55%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 55%;
 
-    --accent: 140 35% 16%;
-    --accent-foreground: 45 50% 90%;
+    --accent: 145 50% 20%;
+    --accent-foreground: 0 0% 95%;
 
     --destructive: 0 72% 55%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 140 40% 18%;
-    --input: 140 25% 12%;
-    --ring: 45 85% 58%;
+    --border: 0 0% 15%;
+    --input: 0 0% 10%;
+    --ring: 145 70% 45%;
 
-    /* Premium gold palette */
-    --gold: 45 85% 58%;
-    --gold-light: 45 80% 72%;
-    --gold-dark: 42 90% 42%;
-    --gold-glow: 45 100% 65%;
-    
-    /* Rich emerald palette */
-    --emerald: 145 55% 32%;
-    --emerald-light: 145 45% 42%;
-    --emerald-dark: 145 65% 18%;
-    --emerald-glow: 145 70% 40%;
+    /* Emerald palette */
+    --emerald: 145 70% 45%;
+    --emerald-light: 145 60% 55%;
+    --emerald-dark: 145 80% 30%;
+    --emerald-glow: 145 80% 50%;
     
     /* Premium gradients */
-    --gradient-dark: linear-gradient(180deg, hsl(140 20% 3%), hsl(140 25% 7%));
-    --gradient-card: linear-gradient(145deg, hsl(140 30% 11%), hsl(140 25% 7%));
-    --gradient-gold: linear-gradient(135deg, hsl(45 85% 62%), hsl(42 90% 48%));
-    --gradient-gold-shine: linear-gradient(135deg, hsl(45 80% 72%), hsl(45 85% 58%), hsl(42 90% 45%));
-    --gradient-emerald: linear-gradient(135deg, hsl(145 55% 35%), hsl(145 65% 22%));
-    --gradient-glow: radial-gradient(ellipse at center, hsl(45 85% 58% / 0.2), transparent 60%);
-    --gradient-radial-gold: radial-gradient(circle at 50% 0%, hsl(45 85% 58% / 0.15), transparent 50%);
+    --gradient-dark: linear-gradient(180deg, hsl(0 0% 2%), hsl(0 0% 6%));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 9%), hsl(0 0% 5%));
+    --gradient-emerald: linear-gradient(135deg, hsl(145 70% 50%), hsl(145 80% 35%));
+    --gradient-emerald-shine: linear-gradient(135deg, hsl(145 60% 60%), hsl(145 70% 45%), hsl(145 80% 32%));
+    --gradient-glow: radial-gradient(ellipse at center, hsl(145 70% 45% / 0.15), transparent 60%);
+    --gradient-radial-emerald: radial-gradient(circle at 50% 0%, hsl(145 70% 45% / 0.12), transparent 50%);
     
     /* Premium shadows */
-    --shadow-glow: 0 0 40px -8px hsl(45 85% 58% / 0.35);
-    --shadow-card: 0 8px 32px -8px hsl(0 0% 0% / 0.6);
-    --shadow-gold: 0 0 30px -5px hsl(45 85% 58% / 0.5);
-    --shadow-emerald: 0 0 30px -5px hsl(145 55% 35% / 0.4);
+    --shadow-glow: 0 0 40px -8px hsl(145 70% 45% / 0.3);
+    --shadow-card: 0 8px 32px -8px hsl(0 0% 0% / 0.7);
+    --shadow-emerald: 0 0 30px -5px hsl(145 70% 45% / 0.4);
 
     --radius: 1rem;
 
-    --sidebar-background: 140 25% 7%;
-    --sidebar-foreground: 45 50% 90%;
-    --sidebar-primary: 45 85% 58%;
-    --sidebar-primary-foreground: 140 20% 5%;
-    --sidebar-accent: 140 30% 14%;
-    --sidebar-accent-foreground: 45 50% 90%;
-    --sidebar-border: 140 40% 18%;
-    --sidebar-ring: 45 85% 58%;
+    --sidebar-background: 0 0% 5%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 145 70% 45%;
+    --sidebar-primary-foreground: 0 0% 2%;
+    --sidebar-accent: 0 0% 12%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 0 0% 15%;
+    --sidebar-ring: 145 70% 45%;
   }
 
   .dark {
-    --background: 140 20% 5%;
-    --foreground: 45 50% 90%;
-    --card: 140 25% 9%;
-    --card-foreground: 45 50% 90%;
-    --popover: 140 25% 9%;
-    --popover-foreground: 45 50% 90%;
-    --primary: 45 85% 58%;
-    --primary-foreground: 140 20% 5%;
-    --secondary: 140 30% 12%;
-    --secondary-foreground: 45 50% 90%;
-    --muted: 140 20% 14%;
-    --muted-foreground: 45 25% 55%;
-    --accent: 140 35% 16%;
-    --accent-foreground: 45 50% 90%;
+    --background: 0 0% 4%;
+    --foreground: 0 0% 95%;
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 145 70% 45%;
+    --primary-foreground: 0 0% 2%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 95%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 55%;
+    --accent: 145 50% 20%;
+    --accent-foreground: 0 0% 95%;
     --destructive: 0 62% 45%;
-    --destructive-foreground: 45 50% 90%;
-    --border: 140 40% 18%;
-    --input: 140 25% 12%;
-    --ring: 45 85% 58%;
-    --gold: 45 85% 58%;
-    --gold-light: 45 80% 72%;
-    --gold-dark: 42 90% 42%;
-    --emerald: 145 55% 32%;
-    --emerald-light: 145 45% 42%;
-    --emerald-dark: 145 65% 18%;
-    --sidebar-background: 140 25% 7%;
-    --sidebar-foreground: 45 50% 90%;
-    --sidebar-primary: 45 85% 58%;
-    --sidebar-primary-foreground: 140 20% 5%;
-    --sidebar-accent: 140 30% 14%;
-    --sidebar-accent-foreground: 45 50% 90%;
-    --sidebar-border: 140 40% 18%;
-    --sidebar-ring: 45 85% 58%;
+    --destructive-foreground: 0 0% 95%;
+    --border: 0 0% 15%;
+    --input: 0 0% 10%;
+    --ring: 145 70% 45%;
+    --emerald: 145 70% 45%;
+    --emerald-light: 145 60% 55%;
+    --emerald-dark: 145 80% 30%;
+    --sidebar-background: 0 0% 5%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 145 70% 45%;
+    --sidebar-primary-foreground: 0 0% 2%;
+    --sidebar-accent: 0 0% 12%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 0 0% 15%;
+    --sidebar-ring: 145 70% 45%;
   }
 }
 
@@ -119,6 +110,11 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground antialiased;
+    font-family: 'Amiri', 'Scheherazade New', serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Scheherazade New', 'Amiri', serif;
   }
 }
 
@@ -135,34 +131,29 @@ All colors MUST be HSL.
 
 @keyframes pulse-glow {
   0%, 100% { 
-    box-shadow: 0 0 20px -5px hsl(45 85% 58% / 0.4);
+    box-shadow: 0 0 20px -5px hsl(145 70% 45% / 0.3);
     opacity: 1;
   }
   50% { 
-    box-shadow: 0 0 35px -5px hsl(45 85% 58% / 0.6);
+    box-shadow: 0 0 35px -5px hsl(145 70% 45% / 0.5);
     opacity: 0.9;
   }
 }
 
 @keyframes border-glow {
   0%, 100% { 
-    border-color: hsl(45 85% 58% / 0.3);
-    box-shadow: inset 0 0 20px hsl(45 85% 58% / 0.05);
+    border-color: hsl(145 70% 45% / 0.2);
+    box-shadow: inset 0 0 20px hsl(145 70% 45% / 0.03);
   }
   50% { 
-    border-color: hsl(45 85% 58% / 0.5);
-    box-shadow: inset 0 0 30px hsl(45 85% 58% / 0.1);
+    border-color: hsl(145 70% 45% / 0.4);
+    box-shadow: inset 0 0 30px hsl(145 70% 45% / 0.06);
   }
 }
 
 @keyframes shine-sweep {
   0% { left: -100%; }
   100% { left: 200%; }
-}
-
-@keyframes star-twinkle {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.2); }
 }
 
 /* Smooth transition utilities */
@@ -179,13 +170,18 @@ All colors MUST be HSL.
     transition: all 350ms cubic-bezier(0.4, 0, 0.2, 1);
   }
   
+  /* Arabic-style font utility */
+  .font-arabic {
+    font-family: 'Scheherazade New', 'Amiri', serif;
+  }
+  
   /* Premium glow effects */
-  .glow-gold {
-    box-shadow: 0 0 30px -5px hsl(45 85% 58% / 0.5);
+  .glow-emerald {
+    box-shadow: 0 0 30px -5px hsl(145 70% 45% / 0.4);
   }
   
   .glow-soft {
-    box-shadow: 0 0 40px -8px hsl(45 85% 58% / 0.3);
+    box-shadow: 0 0 40px -8px hsl(145 70% 45% / 0.25);
   }
   
   .glow-pulse {
@@ -201,7 +197,7 @@ All colors MUST be HSL.
     background: linear-gradient(
       90deg,
       transparent 0%,
-      hsl(45 85% 70% / 0.1) 50%,
+      hsl(145 70% 55% / 0.08) 50%,
       transparent 100%
     );
     background-size: 200% 100%;
@@ -224,7 +220,7 @@ All colors MUST be HSL.
     background: linear-gradient(
       90deg,
       transparent,
-      hsl(45 85% 70% / 0.08),
+      hsl(145 70% 55% / 0.05),
       transparent
     );
     animation: shine-sweep 6s ease-in-out infinite;
@@ -236,29 +232,9 @@ All colors MUST be HSL.
     animation: float 4s ease-in-out infinite;
   }
   
-  /* Starry background with more stars */
-  .bg-stars {
-    background-image: 
-      radial-gradient(1.5px 1.5px at 10% 15%, hsl(45 80% 75% / 0.5), transparent),
-      radial-gradient(1px 1px at 25% 35%, hsl(45 70% 70% / 0.3), transparent),
-      radial-gradient(1.5px 1.5px at 40% 10%, hsl(45 80% 75% / 0.4), transparent),
-      radial-gradient(1px 1px at 55% 45%, hsl(45 70% 70% / 0.3), transparent),
-      radial-gradient(2px 2px at 70% 20%, hsl(45 85% 80% / 0.6), transparent),
-      radial-gradient(1px 1px at 85% 55%, hsl(45 70% 70% / 0.3), transparent),
-      radial-gradient(1.5px 1.5px at 15% 70%, hsl(45 80% 75% / 0.4), transparent),
-      radial-gradient(1px 1px at 30% 85%, hsl(45 70% 70% / 0.3), transparent),
-      radial-gradient(2px 2px at 50% 60%, hsl(45 85% 80% / 0.5), transparent),
-      radial-gradient(1px 1px at 65% 75%, hsl(45 70% 70% / 0.3), transparent),
-      radial-gradient(1.5px 1.5px at 80% 40%, hsl(45 80% 75% / 0.4), transparent),
-      radial-gradient(1px 1px at 95% 85%, hsl(45 70% 70% / 0.3), transparent),
-      radial-gradient(1px 1px at 5% 50%, hsl(45 70% 70% / 0.3), transparent),
-      radial-gradient(2px 2px at 90% 10%, hsl(45 85% 80% / 0.5), transparent);
-    background-size: 100% 100%;
-  }
-  
-  /* Gradient text */
-  .text-gold-gradient {
-    background: linear-gradient(135deg, hsl(45 80% 72%), hsl(45 85% 58%), hsl(42 90% 48%));
+  /* Gradient text - Emerald */
+  .text-emerald-gradient {
+    background: linear-gradient(135deg, hsl(145 60% 55%), hsl(145 70% 45%), hsl(145 80% 35%));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -266,18 +242,18 @@ All colors MUST be HSL.
   
   /* Glass morphism effect */
   .glass {
-    background: hsl(140 25% 9% / 0.7);
+    background: hsl(0 0% 7% / 0.8);
     backdrop-filter: blur(20px);
-    border: 1px solid hsl(45 85% 58% / 0.15);
+    border: 1px solid hsl(145 70% 45% / 0.1);
   }
   
-  .glass-gold {
-    background: linear-gradient(135deg, hsl(140 30% 11% / 0.8), hsl(140 25% 7% / 0.9));
+  .glass-dark {
+    background: linear-gradient(135deg, hsl(0 0% 9% / 0.9), hsl(0 0% 5% / 0.95));
     backdrop-filter: blur(20px);
-    border: 1px solid hsl(45 85% 58% / 0.25);
+    border: 1px solid hsl(145 70% 45% / 0.15);
     box-shadow: 
-      0 8px 32px hsl(0 0% 0% / 0.3),
-      inset 0 1px 0 hsl(45 85% 70% / 0.1);
+      0 8px 32px hsl(0 0% 0% / 0.4),
+      inset 0 1px 0 hsl(0 0% 100% / 0.03);
   }
 
   /* Interactive hover states */
@@ -287,7 +263,7 @@ All colors MUST be HSL.
   
   .hover-lift:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 40px -8px hsl(45 85% 58% / 0.35);
+    box-shadow: 0 12px 40px -8px hsl(145 70% 45% / 0.25);
   }
   
   .hover-scale {
@@ -323,9 +299,9 @@ All colors MUST be HSL.
   .card-interactive:hover {
     transform: translateY(-3px);
     box-shadow: 
-      0 15px 40px -10px hsl(0 0% 0% / 0.5),
-      0 0 30px -5px hsl(45 85% 58% / 0.2);
-    border-color: hsl(45 85% 58% / 0.4);
+      0 15px 40px -10px hsl(0 0% 0% / 0.6),
+      0 0 30px -5px hsl(145 70% 45% / 0.15);
+    border-color: hsl(145 70% 45% / 0.3);
   }
   
   .card-interactive:active {
@@ -353,7 +329,7 @@ All colors MUST be HSL.
     content: '';
     position: absolute;
     inset: -2px;
-    background: linear-gradient(135deg, hsl(45 85% 62%), hsl(42 90% 48%));
+    background: linear-gradient(135deg, hsl(145 70% 50%), hsl(145 80% 35%));
     border-radius: inherit;
     opacity: 0;
     transition: opacity 300ms ease;
@@ -362,6 +338,6 @@ All colors MUST be HSL.
   }
   
   .btn-glow:hover::before {
-    opacity: 0.6;
+    opacity: 0.5;
   }
 }

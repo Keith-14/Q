@@ -32,27 +32,20 @@ export const Layout = ({ children, showNavigation = true, showHeader = true }: L
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col max-w-md mx-auto relative overflow-hidden">
-      {/* Multi-layer atmospheric background */}
+    <div className="min-h-screen bg-background flex flex-col max-w-md mx-auto relative overflow-hidden font-arabic">
+      {/* Minimal atmospheric background - Black & Green */}
       <div className="fixed inset-0 pointer-events-none">
-        {/* Base gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[hsl(140_25%_7%)] via-[hsl(140_20%_5%)] to-[hsl(140_15%_3%)]" />
+        {/* Deep black base gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[hsl(0_0%_6%)] via-[hsl(0_0%_4%)] to-[hsl(0_0%_2%)]" />
         
-        {/* Starry layer */}
-        <div className="absolute inset-0 bg-stars opacity-70" />
+        {/* Subtle emerald glow at top */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-[radial-gradient(ellipse_at_top,hsl(145_70%_45%/0.08),transparent_60%)]" />
         
-        {/* Top gold glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[radial-gradient(ellipse_at_top,hsl(45_85%_58%/0.12),transparent_60%)]" />
-        
-        {/* Center horizon glow */}
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-full h-[300px] bg-[radial-gradient(ellipse_at_center,hsl(45_85%_50%/0.08),transparent_70%)]" />
-        
-        {/* Subtle emerald accent */}
-        <div className="absolute bottom-0 left-0 w-1/2 h-[400px] bg-[radial-gradient(ellipse_at_bottom_left,hsl(145_55%_30%/0.08),transparent_60%)]" />
-        <div className="absolute bottom-0 right-0 w-1/2 h-[400px] bg-[radial-gradient(ellipse_at_bottom_right,hsl(145_55%_30%/0.08),transparent_60%)]" />
+        {/* Bottom emerald accent */}
+        <div className="absolute bottom-0 left-0 right-0 h-[200px] bg-[radial-gradient(ellipse_at_bottom,hsl(145_70%_40%/0.06),transparent_70%)]" />
         
         {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent" />
       </div>
       
       {showHeader && <TopHeader onMenuClick={handleMenuClick} />}
