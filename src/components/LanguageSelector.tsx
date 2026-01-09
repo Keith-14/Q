@@ -15,7 +15,7 @@ const languages: { code: Language; label: string; nativeLabel: string }[] = [
 ];
 
 export const LanguageSelector = () => {
-  const { language, setLanguage, t } = useLanguage();
+  const { language, setLanguage } = useLanguage();
 
   const currentLang = languages.find((l) => l.code === language);
 
@@ -25,26 +25,26 @@ export const LanguageSelector = () => {
         <Button
           variant="outline"
           size="sm"
-          className="gap-2 rounded-xl bg-white/90 border-sage/30 hover:bg-white text-sage"
+          className="gap-2 rounded-xl bg-foreground/95 border-primary/25 text-primary hover:bg-foreground hover:text-primary"
         >
-          <Globe className="h-4 w-4" />
-          <span className="text-sm font-medium">{currentLang?.nativeLabel}</span>
+          <Globe className="h-4 w-4 text-primary" />
+          <span className="text-sm font-medium text-primary">{currentLang?.nativeLabel}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent 
         align="center" 
-        className="w-48 bg-white border-sage/20 rounded-xl shadow-lg"
+        className="w-48 rounded-xl border border-border bg-popover text-primary shadow-lg"
       >
         {languages.map((lang) => (
           <DropdownMenuItem
             key={lang.code}
             onClick={() => setLanguage(lang.code)}
-            className={`flex items-center justify-between px-4 py-3 cursor-pointer rounded-lg ${
-              language === lang.code ? 'bg-sage/10 text-sage' : 'text-sage/80 hover:bg-sage/5'
+            className={`flex items-center justify-between px-4 py-3 cursor-pointer rounded-lg text-primary focus:bg-primary/10 focus:text-primary hover:bg-primary/5 hover:text-primary ${
+              language === lang.code ? 'bg-primary/15 font-semibold' : ''
             }`}
           >
             <span className="font-medium">{lang.nativeLabel}</span>
-            <span className="text-xs text-sage/50">{lang.label}</span>
+            <span className="text-xs opacity-70">{lang.label}</span>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
