@@ -151,11 +151,11 @@ export const Home = () => {
 
   const quickActions = [
     { label: t('action.makkah_live'), Icon: Heart, onClick: () => navigate('/makkah-live') },
-    { label: t('action.track'), Icon: BarChart3, onClick: () => navigate('/progress') },
+    { label: t('action.mood'), Icon: BarChart3, onClick: () => navigate('/mood') },
     { label: t('action.quran'), Icon: BookOpen, onClick: () => navigate('/quran') },
     { label: t('action.qibla'), Icon: Compass, onClick: () => navigate('/qibla') },
     { label: t('action.travel'), Icon: MapPin, onClick: () => navigate('/hajj') },
-    { label: t('action.store'), Icon: Search, onClick: () => navigate('/shop') },
+    { label: t('action.news'), Icon: Search, onClick: () => navigate('/news') },
     { label: t('action.zakat'), Icon: Calculator, onClick: () => navigate('/zakat') },
     { label: t('action.prayer'), Icon: Clock, onClick: () => navigate('/prayer-times') },
   ];
@@ -282,6 +282,11 @@ const SideMenuContent = ({ onClose }: { onClose: () => void }) => {
     { code: 'en' as const, label: 'English' },
     { code: 'ur' as const, label: 'اردو' },
     { code: 'ar' as const, label: 'العربية' },
+    { code: 'tr' as const, label: 'Türkçe' },
+    { code: 'id' as const, label: 'Indonesia' },
+    { code: 'ms' as const, label: 'Melayu' },
+    { code: 'ta' as const, label: 'தமிழ்' },
+    { code: 'bn' as const, label: 'বাংলা' },
   ];
 
   return (
@@ -313,13 +318,13 @@ const SideMenuContent = ({ onClose }: { onClose: () => void }) => {
 
         {/* Language Selection */}
         <div className="mt-4 pt-4 border-t border-primary/15">
-          <p className="px-4 text-xs uppercase tracking-wider text-muted-foreground mb-2">{t('languageSelector.title')}</p>
-          <div className="flex gap-2 px-4">
+          <p className="px-4 text-xs uppercase tracking-wider text-muted-foreground mb-3">{t('languageSelector.title')}</p>
+          <div className="grid grid-cols-3 gap-2 px-4">
             {languages.map((lang) => (
               <button
                 key={lang.code}
                 onClick={() => setLanguage(lang.code)}
-                className={`flex-1 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
+                className={`py-2.5 px-2 rounded-xl text-sm font-medium transition-all duration-200 ${
                   language === lang.code
                     ? 'bg-primary/15 text-primary border border-primary/30'
                     : 'text-muted-foreground hover:bg-primary/8 hover:text-primary border border-transparent'
