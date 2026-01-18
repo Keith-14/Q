@@ -22,32 +22,45 @@ export const BottomNavigation = () => {
         <div className="flex justify-around py-2">
           {navItems.map(({ icon: Icon, labelKey, path }) => {
             const isActive = location.pathname === path;
+            const isGuftagu = path === '/forum';
             return (
               <button
                 key={path}
                 onClick={() => navigate(path)}
                 className={cn(
-                  "flex flex-col items-center py-3 px-4 text-xs font-medium transition-all duration-300 ease-out rounded-xl group",
+                  "flex flex-col items-center py-3 px-4 text-xs font-medium transition-all duration-300 ease-out rounded-xl group relative",
                   isActive 
                     ? "text-primary" 
                     : "text-muted-foreground hover:text-foreground"
                 )}
               >
+                {/* Green solid circle behind Guftagu tab */}
+                {isGuftagu && (
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="w-[62px] h-[62px] rounded-full bg-primary/80" />
+                  </div>
+                )}
                 <div className={cn(
-                  "p-2 rounded-xl transition-all duration-300 relative",
-                  isActive && "bg-gradient-to-br from-primary/20 to-primary/5"
+                  "p-2 rounded-xl transition-all duration-300 relative z-10",
+                  isActive && !isGuftagu && "bg-gradient-to-br from-primary/20 to-primary/5"
                 )}>
-                  {isActive && (
+                  {isActive && !isGuftagu && (
                     <div className="absolute inset-0 rounded-xl bg-primary/15 blur-lg" />
                   )}
                   <Icon className={cn(
                     "h-5 w-5 transition-all duration-300 relative z-10",
-                    isActive ? "text-primary drop-shadow-[0_0_8px_hsl(145_70%_45%/0.5)]" : "group-hover:scale-110"
-                  )} strokeWidth={isActive ? 2.5 : 1.5} />
+                    isGuftagu 
+                      ? "text-black" 
+                      : isActive 
+                        ? "text-primary drop-shadow-[0_0_8px_hsl(145_70%_45%/0.5)]" 
+                        : "group-hover:scale-110"
+                  )} strokeWidth={isGuftagu ? 2.5 : isActive ? 2.5 : 1.5} />
                 </div>
                 <span className={cn(
-                  "mt-1.5 transition-all duration-300",
-                  isActive && "font-bold text-emerald-gradient"
+                  "mt-1.5 transition-all duration-300 relative z-10",
+                  isGuftagu 
+                    ? "text-black font-bold" 
+                    : isActive && "font-bold text-emerald-gradient"
                 )}>{t(labelKey)}</span>
               </button>
             );
