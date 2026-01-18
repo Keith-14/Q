@@ -5,6 +5,7 @@ import { DailyDuaCard } from '@/components/home/DailyDuaCard';
 import { TodaysVerseCard } from '@/components/home/TodaysVerseCard';
 import { IslamicNewsCard } from '@/components/home/IslamicNewsCard';
 import { BarakahLogo } from '@/components/BarakahLogo';
+import { LanguageSelector } from '@/components/LanguageSelector';
 import {
   Clock,
   BookOpen,
@@ -45,16 +46,17 @@ export const Home = () => {
         return;
       }
 
-      const metaName = user.user_metadata?.full_name;
-      if (metaName) {
-        setUserName(metaName.split(' ')[0]);
+      // Firebase user has displayName
+      const displayName = user.displayName;
+      if (displayName) {
+        setUserName(displayName.split(' ')[0]);
         return;
       }
 
       const { data } = await supabase
         .from('profiles')
         .select('full_name')
-        .eq('user_id', user.id)
+        .eq('user_id', user.uid)
         .single();
 
       if (data?.full_name) {
@@ -175,13 +177,16 @@ export const Home = () => {
           >
             <Menu className="h-5 w-5" strokeWidth={1.5} />
           </Button>
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            className="text-foreground hover:bg-primary/8 hover:text-primary rounded-xl h-10 w-10 border border-transparent hover:border-primary/20"
-          >
-            <Bell className="h-5 w-5" strokeWidth={1.5} />
-          </Button>
+          <div className="flex items-center gap-2">
+            <LanguageSelector />
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="text-foreground hover:bg-primary/8 hover:text-primary rounded-xl h-10 w-10 border border-transparent hover:border-primary/20"
+            >
+              <Bell className="h-5 w-5" strokeWidth={1.5} />
+            </Button>
+          </div>
         </div>
 
         {/* Welcome + Prayer overview */}
@@ -191,7 +196,7 @@ export const Home = () => {
               <p className="text-sm text-muted-foreground">
                 {greeting}
               </p>
-              <h1 className="text-2xl font-bold text-emerald-gradient tracking-tight drop-shadow-[0_0_15px_hsl(145_70%_45%/0.15)]">{t('home.title')}</h1>
+              <h1 className="text-2xl font-bold text-[#ffebc9] tracking-tight">{t('home.title')}</h1>
               <div className="flex items-center gap-2 text-xs text-muted-foreground">
                 <MapPin className="h-3 w-3 text-primary" strokeWidth={2} />
                 {locationLoading ? (
