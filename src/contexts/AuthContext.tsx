@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { User } from 'firebase/auth';
-import { auth, onAuthStateChanged, signUpWithEmail, signInWithEmail, signInWithGoogle, firebaseSignOut } from 'src/lib/firebase';
+import { auth, onAuthStateChanged, signUpWithEmail, signInWithEmail, signInWithGoogle, firebaseSignOut } from '@/lib/firebase';
 import { supabase } from '@/integrations/supabase/client';
 import { useNavigate } from 'react-router-dom';
 
