@@ -55,7 +55,13 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 const App = () => {
   // Optional preview access: ?preview=true
   const allowPreview =
-    new URLSearchParams(window.location.search).get("preview") === "true";
+    new URLSearchParams(window.location.search)
+      .get("preview")
+      ?.toLowerCase() === "true";
+
+  const params = new URLSearchParams(window.location.search);
+  console.log("PREVIEW PARAM:", params.get("preview"));
+  console.log("SITE MODE:", import.meta.env.VITE_SITE_MODE);
 
   // 🔒 PRE-LAUNCH GATE (blocks EVERYTHING)
   if (SITE_MODE === "prelaunch" && !allowPreview) {
