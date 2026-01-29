@@ -5,7 +5,10 @@ import { cn } from '@/lib/utils';
 
 interface FeatureCardProps {
   icon: LucideIcon;
+  emoji: string; 
   title: string;
+  description: string;
+  index: number;
   subtitle?: string;
   className?: string;
   onClick?: () => void;
