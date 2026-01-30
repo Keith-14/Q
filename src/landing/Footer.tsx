@@ -26,7 +26,7 @@ const socialLinks = [
 
 export const Footer = () => {
   return (
-    <footer className="relative overflow-hidden bg-primary text-primary-foreground">
+    <footer className="relative overflow-hidden bg-teal-600 text-primary-foreground">
       {/* Islamic Pattern Overlay */}
       <div className="absolute inset-0 opacity-5">
         <div className="islamic-pattern w-full h-full" />
@@ -39,7 +39,7 @@ export const Footer = () => {
             <Link to="/" className="flex items-center gap-2 mb-4">
               <motion.div
   whileHover={{ rotate: 10 }}
-  className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center"
+  className="w-10 h-10 rounded-xl bg-teal-600 flex items-center justify-center"
 >
   <img
     src={barakahLogo}

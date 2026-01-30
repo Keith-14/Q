@@ -56,7 +56,7 @@ export default function Header() {
           <Link to="/" className="flex items-center gap-2">
             <motion.div
   whileHover={{ rotate: 10 }}
-  className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center"
+  className="w-10 h-10 rounded-xl bg-teal-600 flex items-center justify-center"
 >
   <img
     src={barakahLogo}
@@ -65,7 +65,7 @@ export default function Header() {
   />
 </motion.div>
 
-            <span className="font-display font-bold text-2xl text-primary">
+            <span className="font-display font-bold text-2xl text-teal-600">
               BARAKAH
             </span>
           </Link>
@@ -76,9 +76,9 @@ export default function Header() {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`relative font-medium transition-colors hover:text-primary ${
+                className={`relative font-medium transition-colors hover:text-teal-600 ${
                   location.pathname === link.path
-                    ? "text-primary"
+                    ? "text-teal-600"
                     : "text-gray-700"
                 }`}
               >
@@ -97,7 +97,7 @@ export default function Header() {
           <div className="hidden md:block">
             <Button
               onClick={scrollToWaitlist}
-              className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-6"
+              className="!bg-teal-600 hover:!bg-teal-700 text-primary-foreground font-semibold px-6"
             >
               Join Waitlist
             </Button>
@@ -152,7 +152,7 @@ export default function Header() {
                 >
                   <Button
                     onClick={scrollToWaitlist}
-                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold mt-2"
+                    className="w-full !bg-teal-600 hover:!bg-teal-700 text-primary-foreground font-semibold mt-2"
                   >
                     Join Waitlist
                   </Button>
