@@ -58,7 +58,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-amber-50 overflow-hidden">
+    <div className="min-h-screen bg-[#ffeaba] overflow-hidden">
       <motion.div
         variants={containerVariants}
         initial="hidden"
