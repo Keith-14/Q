@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import barakahLogo from "@/assets/barakah-logo.png";
+import barakahLogo from "@/assets/barakah_logo_header.jpeg";
 
 
 const navLinks = [
@@ -56,12 +56,11 @@ export default function Header() {
           <Link to="/" className="flex items-center gap-2">
             <motion.div
   whileHover={{ rotate: 10 }}
-  className="w-10 h-10 rounded-xl bg-teal-600 flex items-center justify-center"
 >
   <img
     src={barakahLogo}
     alt="Barakah logo"
-    className="w-6 h-6 object-contain"
+    className="w-10 h-10 object-contain"
   />
 </motion.div>
 

@@ -6,21 +6,15 @@ const contactInfo = [
   {
     icon: Mail,
     title: 'Email',
-    value: 'support@barakah.app',
+    value: ' info@barakah.services',
     description: 'We will respond within 24 hours',
   },
   {
     icon: Phone,
     title: 'Phone',
-    value: '+1 (555) 123-4567',
-    description: 'Mon-Fri, 9AM-6PM EST',
-  },
-  {
-    icon: MapPin,
-    title: 'Location',
-    value: 'San Francisco, USA',
-    description: 'Global remote team',
-  },
+    value: '+91 88791 33172',
+    description: 'Mon-Fri, 9AM-6PM IST',
+  }
 ];
 
 export default function Contact() {

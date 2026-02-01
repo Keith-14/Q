@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Instagram, Twitter, Youtube, Mail } from "lucide-react";
-import barakahLogo from "@/assets/barakah-logo.png";
+import barakahLogo from "@/assets/barakah_logo_header.jpeg";
 
 
 const footerLinks = {
@@ -26,7 +26,7 @@ const socialLinks = [
 
 export const Footer = () => {
   return (
-    <footer className="relative overflow-hidden bg-teal-600 text-primary-foreground">
+    <footer className="relative overflow-hidden bg-gradient-to-b from-[#34453a] to-[#161d17] text-[#F2D9A3]">
       {/* Islamic Pattern Overlay */}
       <div className="absolute inset-0 opacity-5">
         <div className="islamic-pattern w-full h-full" />
@@ -44,12 +44,12 @@ export const Footer = () => {
   <img
     src={barakahLogo}
     alt="Barakah logo"
-    className="w-6 h-6 object-contain"
+    className="w-10 h-10 object-contain"
   />
 </motion.div>
               <span className="font-display font-bold text-2xl">BARAKAH</span>
             </Link>
-            <p className="text-primary-foreground/80 max-w-md mb-6">
+            <p className="text-[#F2D9A3] max-w-md mb-6">
               One Ummah, One App. Your complete Muslim lifestyle companion for
               prayer times, community, halal services, and Islamic learning.
             </p>
@@ -80,7 +80,7 @@ export const Footer = () => {
                 <li key={link.path}>
                   <Link
                     to={link.path}
-                    className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"
+                    className="text-[#F2D9A3]/80 hover:text-[#F2D9A3] transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -120,7 +120,7 @@ export const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-primary-foreground/20 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-primary-foreground/60 text-sm">
+          <p className="text-[#F2D9A3] text-sm">
             © 2026 BARAKAH. All rights reserved.
           </p>
           <div className="flex gap-6">
@@ -128,8 +128,7 @@ export const Footer = () => {
               <Link
                 key={link.path}
                 to={link.path}
-                className="text-primary-foreground/60 hover:text-primary-foreground text-sm transition-colors"
-              >
+                className="text-[#F2D9A3] hover:text-[#F2D9A3] text-sm transition-colors">
                 {link.name}
               </Link>
             ))}
