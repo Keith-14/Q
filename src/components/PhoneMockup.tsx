@@ -11,7 +11,7 @@ export default function PhoneMockup() {
         repeatType: "reverse",
         ease: "easeInOut",
       }}
-      className="relative hidden lg:flex justify-center"
+      className="relative flex justify-center"
     >
       {/* Glow */}
       <div className="absolute inset-0 blur-3xl bg-gradient-to-br from-emerald-400/30 to-teal-400/30 rounded-full" />
