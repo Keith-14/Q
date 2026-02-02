@@ -56,18 +56,24 @@ export default function Home() {
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/waitlist', {
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({
+          access_key: '782be68b-b4d4-422b-9ae6-2f3d161f8922',
+          email: email,
+          subject: 'Welcome to BARAKAH - Your Muslim Lifestyle Companion',
+          message: `Welcome to BARAKAH!\n\nThank you for joining our community. We're excited to have you on this journey.\n\nBARAKAH is your complete Muslim lifestyle companion featuring:\n\n• Prayer times and reminders\n• Islamic community connection\n• Halal services directory\n• Islamic learning resources\n• And much more!\n\nWe'll be launching soon. Stay tuned for updates!\n\nBest regards,\nThe BARAKAH Team`,
+          from_name: 'BARAKAH Team',
+        }),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to join waitlist');
+        throw new Error(data.message || 'Failed to join waitlist');
       }
 
       setIsSubmitted(true);
