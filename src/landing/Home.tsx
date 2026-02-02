@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle2 } from 'lucide-react';
 import PhoneMockup from "@/components/PhoneMockup";
+import { sendThankYouEmail } from '@/lib/email';
 
 export default function Home() {
   const [email, setEmail] = useState('');
@@ -46,14 +47,20 @@ export default function Home() {
     },
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
-      setIsSubmitted(true);
-      setTimeout(() => {
-        setIsSubmitted(false);
-        setEmail('');
-      }, 3000);
+      try {
+        await sendThankYouEmail(email);
+        setIsSubmitted(true);
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setEmail('');
+        }, 3000);
+      } catch (error) {
+        console.error('Failed to send email:', error);
+        alert('Failed to send email. Please try again.');
+      }
     }
   };
 
