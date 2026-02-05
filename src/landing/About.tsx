@@ -40,8 +40,8 @@ export default function About() {
           <h1 className="text-5xl sm:text-6xl font-bold text-[#34453a] mb-6">
             About <span className="text-teal-700">BARAKAH</span>
           </h1>
-          <p className="text-xl text-[#5f5a4f] max-w-3xl mx-auto">
-            A mission-driven platform dedicated to empowering Muslim communities through technology, spirituality, and meaningful connection.
+          <p className="text-3xl text-[#5f5a4f] max-w-3xl mx-auto">
+            Built by Muslims for Muslims
           </p>
         </motion.div>
 

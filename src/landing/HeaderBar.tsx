@@ -5,7 +5,6 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import barakahLogo from "@/assets/barakah_logo_header.jpeg";
 
-
 const navLinks = [
   { name: "Home", path: "/" },
   { name: "Features", path: "/features" },
@@ -22,7 +21,6 @@ export default function Header() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -47,23 +45,27 @@ export default function Header() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? "glass-nav py-3" : "bg-transparent py-5"
-        }`}
+        className={`
+          fixed top-0 left-0 right-0 z-50
+          transition-all duration-300
+          ${
+            isScrolled
+              ? "bg-[#ffeaba]/90 backdrop-blur-md shadow-sm py-3"
+              : "bg-[#ffeaba]/70 backdrop-blur-sm py-5"
+          }
+        `}
       >
         <div className="container mx-auto px-4 flex items-center justify-between">
+          
           {/* LOGO */}
           <Link to="/" className="flex items-center gap-2">
-            <motion.div
-  whileHover={{ rotate: 10 }}
->
-  <img
-    src={barakahLogo}
-    alt="Barakah logo"
-    className="w-10 h-10 object-contain"
-  />
-</motion.div>
-
+            <motion.div whileHover={{ rotate: 10 }}>
+              <img
+                src={barakahLogo}
+                alt="Barakah logo"
+                className="w-10 h-10 object-contain"
+              />
+            </motion.div>
             <span className="font-display font-bold text-2xl text-teal-600">
               BARAKAH
             </span>
@@ -75,17 +77,17 @@ export default function Header() {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`relative font-medium transition-colors hover:text-teal-600 ${
+                className={`relative font-medium transition-colors ${
                   location.pathname === link.path
-                    ? "text-teal-600"
-                    : "text-gray-700"
+                    ? "text-teal-700"
+                    : "text-gray-800 hover:text-teal-600"
                 }`}
               >
                 {link.name}
                 {location.pathname === link.path && (
                   <motion.div
                     layoutId="activeNav"
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full"
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-teal-600 rounded-full"
                   />
                 )}
               </Link>
@@ -96,7 +98,7 @@ export default function Header() {
           <div className="hidden md:block">
             <Button
               onClick={scrollToWaitlist}
-              className="!bg-teal-600 hover:!bg-teal-700 text-primary-foreground font-semibold px-6"
+              className="!bg-teal-600 hover:!bg-teal-700 text-white font-semibold px-6"
             >
               Join Waitlist
             </Button>
@@ -105,7 +107,7 @@ export default function Header() {
           {/* MOBILE TOGGLE */}
           <button
             onClick={() => setIsMobileMenuOpen((v) => !v)}
-            className="md:hidden p-2 text-gray-900 hover:text-primary transition-colors"
+            className="md:hidden p-2 text-gray-900 hover:text-teal-600 transition-colors"
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -122,7 +124,7 @@ export default function Header() {
             transition={{ duration: 0.2 }}
             className="fixed inset-x-0 top-[72px] z-40 md:hidden"
           >
-            <div className="glass-card mx-4 p-6">
+            <div className="mx-4 p-6 rounded-2xl bg-[#ffeaba]/95 backdrop-blur-md shadow-lg">
               <nav className="flex flex-col gap-4">
                 {navLinks.map((link, index) => (
                   <motion.div
@@ -135,8 +137,8 @@ export default function Header() {
                       to={link.path}
                       className={`block py-2 font-medium transition-colors ${
                         location.pathname === link.path
-                          ? "text-primary"
-                          : "text-gray-700"
+                          ? "text-teal-700"
+                          : "text-gray-800"
                       }`}
                     >
                       {link.name}
@@ -151,7 +153,7 @@ export default function Header() {
                 >
                   <Button
                     onClick={scrollToWaitlist}
-                    className="w-full !bg-teal-600 hover:!bg-teal-700 text-primary-foreground font-semibold mt-2"
+                    className="w-full !bg-teal-600 hover:!bg-teal-700 text-white font-semibold mt-2"
                   >
                     Join Waitlist
                   </Button>

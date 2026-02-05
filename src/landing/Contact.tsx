@@ -12,7 +12,7 @@ const contactInfo = [
   {
     icon: Phone,
     title: "Phone",
-    value: "+91 88791 33172",
+    value: "+44 07448371436",
     description: "Mon-Fri, 9AM-6PM IST",
   },
 ];
