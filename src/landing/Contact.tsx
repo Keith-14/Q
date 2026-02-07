@@ -1,21 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Phone, CheckCircle2 } from "lucide-react";
-
-const contactInfo = [
-  {
-    icon: Mail,
-    title: "Email",
-    value: "info@barakah.services",
-    description: "We will respond within 24 hours",
-  },
-  {
-    icon: Phone,
-    title: "Phone",
-    value: "+44 07448371436",
-    description: "Mon-Fri, 9AM-6PM IST",
-  },
-];
+import { Mail, Phone, MapPin, Clock, CheckCircle2 } from "lucide-react";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -54,124 +39,150 @@ export default function Contact() {
             Get in <span className="text-teal-600">Touch</span>
           </h1>
           <p className="text-xl text-[#5f5a4f] max-w-2xl mx-auto">
-            Have a question or feedback? We'd love to hear from you.
+            Have a question or feedback? We'd love to hear from you 💬
           </p>
         </div>
 
-        {/* Contact Info Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-20 max-w-4xl mx-auto">
-          {contactInfo.map((info) => {
-            const Icon = info.icon;
-            return (
-              <motion.div
-                key={info.title}
-                whileHover={{ y: -6 }}
-                className="p-8 rounded-2xl bg-gradient-to-b from-[#34453a] to-[#161d17] text-white shadow-lg shadow-black/30 border border-white/10 text-center"
-              >
-                <div className="w-16 h-16 rounded-xl bg-white/10 flex items-center justify-center mx-auto mb-6">
-                  <Icon className="w-8 h-8 text-teal-400" />
-                </div>
-                <h3 className="text-xl font-bold mb-2">{info.title}</h3>
-                <p className="text-teal-300 font-semibold mb-2">
-                  {info.value}
-                </p>
-                <p className="text-white/70 text-sm">
-                  {info.description}
-                </p>
-              </motion.div>
-            );
-          })}
-        </div>
+        {/* MAIN GRID */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
 
-        {/* Contact Form */}
-        <div className="max-w-2xl mx-auto p-12 rounded-2xl bg-gradient-to-b from-[#34453a] to-[#161d17] text-white shadow-xl shadow-black/40 border border-white/10">
-          <h2 className="text-3xl font-bold mb-8">
-            Send Us a Message
-          </h2>
+          {/* LEFT — CONTACT FORM */}
+          <div className="p-12 rounded-2xl bg-gradient-to-b from-[#34453a] to-[#161d17] text-white shadow-xl shadow-black/40 border border-white/10">
+            <h2 className="text-3xl font-bold mb-8">
+              Send us a message
+            </h2>
 
-          {isSubmitted ? (
-            <div className="py-12 text-center">
-              <CheckCircle2 className="w-16 h-16 text-teal-400 mx-auto mb-6" />
-              <h3 className="text-2xl font-bold mb-2">
-                Message Sent!
-              </h3>
-              <p className="text-white/70">
-                Thank you for reaching out. We'll get back to you soon.
-              </p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {[
-                { label: "Full Name", name: "name", required: true },
-                { label: "Email Address", name: "email", required: true },
-                { label: "Subject", name: "subject", required: false },
-              ].map((field) => (
-                <div key={field.name}>
+            {isSubmitted ? (
+              <div className="py-12 text-center">
+                <CheckCircle2 className="w-16 h-16 text-teal-400 mx-auto mb-6" />
+                <h3 className="text-2xl font-bold mb-2">
+                  Message Sent!
+                </h3>
+                <p className="text-white/70">
+                  Thank you for reaching out. We'll get back to you soon.
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
                   <label className="block text-sm font-semibold mb-2">
-                    {field.label}
+                    Your Name
                   </label>
                   <input
                     type="text"
-                    name={field.name}
-                    value={(formData as any)[field.name]}
+                    name="name"
+                    value={formData.name}
                     onChange={handleChange}
-                    required={field.required}
-                    className="w-full px-4 py-3 rounded-lg bg-[#fff2d6] text-[#34453a] border border-[#e6cfa2] focus:border-teal-500 focus:outline-none transition"
+                    required
+                    placeholder="Enter your name"
+                    className="w-full px-4 py-3 rounded-lg bg-[#fff2d6] text-[#34453a]
+                               border border-[#e6cfa2] focus:border-teal-500 focus:outline-none"
                   />
                 </div>
-              ))}
 
-              {/* Message */}
-              <div>
-                <label className="block text-sm font-semibold mb-2">
-                  Message
-                </label>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={5}
-                  className="w-full px-4 py-3 rounded-lg bg-[#fff2d6] text-[#34453a] border border-[#e6cfa2] focus:border-teal-500 focus:outline-none transition resize-none"
-                />
-              </div>
+                <div>
+                  <label className="block text-sm font-semibold mb-2">
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    placeholder="Enter your email"
+                    className="w-full px-4 py-3 rounded-lg bg-[#fff2d6] text-[#34453a]
+                               border border-[#e6cfa2] focus:border-teal-500 focus:outline-none"
+                  />
+                </div>
 
-              <motion.button
-                type="submit"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full py-4 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-lg transition"
-              >
-                Send Message
-              </motion.button>
-            </form>
-          )}
-        </div>
+                <div>
+                  <label className="block text-sm font-semibold mb-2">
+                    Message
+                  </label>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    rows={5}
+                    placeholder="How can we help you?"
+                    className="w-full px-4 py-3 rounded-lg bg-[#fff2d6] text-[#34453a]
+                               border border-[#e6cfa2] focus:border-teal-500 focus:outline-none resize-none"
+                  />
+                </div>
 
-        {/* FAQ Section */}
-        <div className="mt-20 p-12 rounded-2xl bg-gradient-to-b from-[#34453a] to-[#161d17] text-white shadow-lg shadow-black/30 border border-white/10">
-          <h2 className="text-3xl font-bold mb-8 text-center">
-            Frequently Asked Questions
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <motion.button
+                  type="submit"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full py-4 bg-teal-600 hover:bg-teal-700
+                             text-white font-semibold rounded-lg transition"
+                >
+                  Send Message
+                </motion.button>
+              </form>
+            )}
+          </div>
+
+          {/* RIGHT — OTHER WAYS */}
+          <div className="space-y-6">
+
+            <h3 className="text-2xl font-bold text-[#34453a] mb-4">
+              Other ways to reach us
+            </h3>
+
             {[
-              { q: "When will BARAKAH launch?", a: "We are targeting Q1 2026." },
-              { q: "Is BARAKAH free to use?", a: "Yes, with optional premium features." },
-              { q: "How is my data protected?", a: "We use enterprise-grade encryption." },
-              { q: "Can I suggest features?", a: "Absolutely! We value community feedback." },
-            ].map((faq) => (
-              <motion.div
-                key={faq.q}
-                whileHover={{ y: -4 }}
-                className="p-6 rounded-xl bg-white/10 border border-white/10"
-              >
-                <h3 className="font-bold mb-3">{faq.q}</h3>
-                <p className="text-white/70">{faq.a}</p>
-              </motion.div>
-            ))}
+              {
+                icon: Mail,
+                title: "Email",
+                value: "info@barakah.services",
+              },
+              {
+                icon: Phone,
+                title: "Phone",
+                value: "+44 07448371436",
+              },
+              {
+                icon: MapPin,
+                title: "Location",
+                value: "Serving Muslims Worldwide 🌍",
+              },
+            ].map((item) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={item.title}
+                  className="p-6 rounded-xl bg-gradient-to-b from-[#34453a] to-[#161d17]
+                             text-white shadow-lg shadow-black/30 border border-white/10
+                             flex gap-4 items-center"
+                >
+                  <div className="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center">
+                    <Icon className="text-teal-400" />
+                  </div>
+                  <div>
+                    <p className="font-semibold">{item.title}</p>
+                    <p className="text-white/70 text-sm">{item.value}</p>
+                  </div>
+                </div>
+              );
+            })}
+
+            {/* RESPONSE TIME */}
+            <div className="p-6 rounded-xl bg-gradient-to-b from-[#34453a] to-[#161d17]
+                            text-white shadow-lg shadow-black/30 border border-white/10 text-center">
+              <Clock className="mx-auto mb-3 text-teal-400" />
+              <p className="font-semibold mb-1">
+                Response Time
+              </p>
+              <p className="text-white/70 text-sm">
+                We typically respond within 24–48 hours during business days.
+                For urgent matters, please reach out via social media.
+              </p>
+            </div>
+
           </div>
         </div>
-
       </div>
     </div>
   );

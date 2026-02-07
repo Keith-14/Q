@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 const features = [
   {
-    emoji: "🕋",
+    emoji: "🕌",
     title: "Prayer Times & Qibla",
     description:
       "Accurate prayer times based on your location with alerts, reminders, and precise Qibla direction anywhere in the world.",
@@ -32,10 +32,10 @@ const features = [
       "Access Quran, Hadith collections, and structured Islamic education resources.",
   },
   {
-    emoji: "📊",
-    title: "Progress Analytics",
+    emoji: "👈🏼",
+    title: "Mood Analytics",
     description:
-      "Visual insights into your spiritual journey with detailed progress statistics.",
+      "Visual insights into your spiritual journey with detailed Mood Analytics",
   },
   {
     emoji: "🛒",
@@ -60,6 +60,18 @@ const features = [
     title: "Hajj & Umrah Packages",
     description:
       "Explore trusted Hajj and Umrah travel packages with guidance, planning, and support.",
+  },
+    {
+    emoji: "📰",
+    title: "Muslim News",
+    description:
+      "Stay updated with trusted global and local news relevant to the Muslim Ummah.",
+  },
+  {
+    emoji: "📱",
+    title: "Halal Scanner",
+    description:
+      "Scan food labels and product ingredients to instantly verify halal compliance with AI-powered insights.",
   },
 ];
 
@@ -97,7 +109,7 @@ export default function Features() {
             <span className="text-teal-700"> Spiritual Journey</span>
           </h1>
           <p className="text-xl text-[#5f5a4f] max-w-2xl mx-auto">
-            Everything you need to enhance your Muslim lifestyle — worship, learning, commerce, and travel.
+            Everything you need to enhance your Muslim lifestyle — worship, learning, commerce, and travel✨
           </p>
         </motion.div>
 

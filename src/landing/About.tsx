@@ -1,5 +1,6 @@
-import { motion } from "framer-motion";
-import { Heart, Eye, Lightbulb } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Heart, Eye, Lightbulb, ChevronDown } from "lucide-react";
 
 const values = [
   { icon: Heart, title: "Community First", description: "Building a strong, supportive global Muslim community." },
@@ -10,7 +11,36 @@ const values = [
   { icon: "🌍", title: "Global Impact", description: "Creating positive change across Muslim communities worldwide." },
 ];
 
+const faqs = [
+  {
+    q: "When will BARAKAH be available?",
+    a: "We are currently targeting an initial launch in early 2026. Join the waitlist to stay updated.",
+  },
+  {
+    q: "Will BARAKAH be free to use?",
+    a: "Yes. BARAKAH will be free to use with optional premium features for advanced tools.",
+  },
+  {
+    q: "Which platforms will BARAKAH support?",
+    a: "BARAKAH will be available on iOS, Android, and the web.",
+  },
+  {
+    q: "How are prayer times calculated?",
+    a: "Prayer times are calculated using globally accepted calculation methods with location-based accuracy.",
+  },
+  {
+    q: "How can I contribute or provide feedback?",
+    a: "You can reach out via the Contact page or social media. Community feedback is highly valued.",
+  },
+  {
+    q: "Is my data secure?",
+    a: "Yes. We use enterprise-grade encryption and privacy-first design principles.",
+  },
+];
+
 export default function About() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { staggerChildren: 0.12, delayChildren: 0.2 } },
@@ -22,7 +52,7 @@ export default function About() {
   };
 
   const cardVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
+    hidden: { opacity: 0, scale: 0.95 },
     visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
   };
 
@@ -34,14 +64,13 @@ export default function About() {
         animate="visible"
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20"
       >
-
         {/* Hero */}
         <motion.div variants={itemVariants} className="text-center mb-20">
           <h1 className="text-5xl sm:text-6xl font-bold text-[#34453a] mb-6">
             About <span className="text-teal-700">BARAKAH</span>
           </h1>
           <p className="text-3xl text-[#5f5a4f] max-w-3xl mx-auto">
-            Built by Muslims for Muslims
+            Built by Muslims for Muslims 💚
           </p>
         </motion.div>
 
@@ -51,7 +80,8 @@ export default function About() {
             <motion.div
               key={title}
               variants={itemVariants}
-              className="p-10 rounded-2xl bg-gradient-to-b from-[#34453a] to-[#161d17] text-white shadow-lg shadow-black/30 border border-white/10"
+              className="p-10 rounded-2xl bg-gradient-to-b from-[#34453a] to-[#161d17]
+                         text-white shadow-lg shadow-black/30 border border-white/10"
             >
               <h2 className="text-3xl font-bold mb-4">{title}</h2>
               <p className="text-white/80 text-lg leading-relaxed">
@@ -74,8 +104,6 @@ export default function About() {
         {/* Values Grid */}
         <motion.div
           variants={containerVariants}
-          initial="hidden"
-          animate="visible"
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24"
         >
           {values.map((value) => (
@@ -83,7 +111,8 @@ export default function About() {
               key={value.title}
               variants={cardVariants}
               whileHover={{ y: -6 }}
-              className="p-8 rounded-2xl bg-gradient-to-b from-[#34453a] to-[#161d17] text-white shadow-lg shadow-black/30 border border-white/10 transition"
+              className="p-8 rounded-2xl bg-gradient-to-b from-[#34453a] to-[#161d17]
+                         text-white shadow-lg shadow-black/30 border border-white/10"
             >
               <div className="w-14 h-14 rounded-xl bg-white/10 flex items-center justify-center mb-6">
                 {typeof value.icon === "string" ? (
@@ -101,7 +130,8 @@ export default function About() {
         {/* Story */}
         <motion.div
           variants={itemVariants}
-          className="p-12 rounded-2xl bg-gradient-to-b from-[#34453a] to-[#161d17] text-white shadow-lg shadow-black/30 border border-white/10"
+          className="p-12 rounded-2xl bg-gradient-to-b from-[#34453a] to-[#161d17]
+                     text-white shadow-lg shadow-black/30 border border-white/10 mb-24"
         >
           <h2 className="text-3xl font-bold mb-6">Our Story</h2>
           <p className="text-white/80 text-lg leading-relaxed mb-4">
@@ -112,6 +142,49 @@ export default function About() {
           </p>
         </motion.div>
 
+        {/* FAQ SECTION */}
+        <motion.div variants={itemVariants} className="text-center mb-16">
+          <p className="uppercase tracking-widest text-teal-700 text-sm mb-2">FAQ</p>
+          <h2 className="text-4xl font-bold text-[#34453a]">
+            Frequently Asked Questions
+          </h2>
+        </motion.div>
+
+        <div className="max-w-4xl mx-auto space-y-4">
+          {faqs.map((faq, idx) => (
+            <motion.div
+              key={faq.q}
+              whileHover={{ y: -2 }}
+              className="p-6 rounded-2xl bg-gradient-to-b from-[#34453a] to-[#161d17]
+                         text-white shadow-lg shadow-black/30 border border-white/10 cursor-pointer"
+              onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
+            >
+              <div className="flex justify-between items-center">
+                <h3 className="font-semibold text-lg">{faq.q}</h3>
+                <ChevronDown
+                  className={`transition-transform ${
+                    openIndex === idx ? "rotate-180" : ""
+                  }`}
+                />
+              </div>
+
+              <AnimatePresence>
+                {openIndex === idx && (
+                  <motion.p
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-white/70 mt-4 leading-relaxed"
+                  >
+                    {faq.a}
+                  </motion.p>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          ))}
+        </div>
+
         {/* CTA */}
         <motion.div variants={itemVariants} className="text-center mt-24">
           <p className="text-[#5f5a4f] mb-8 text-lg">
@@ -121,12 +194,12 @@ export default function About() {
             href="#"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="inline-block px-8 py-4 bg-teal-700 hover:bg-teal-800 text-white font-semibold rounded-lg transition"
+            className="inline-block px-8 py-4 bg-teal-700 hover:bg-teal-800
+                       text-white font-semibold rounded-lg transition"
           >
             Become Part of BARAKAH
           </motion.a>
         </motion.div>
-
       </motion.div>
     </div>
   );

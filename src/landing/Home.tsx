@@ -161,18 +161,16 @@ May Allah put barakah in your journey 🤍
 
 {/* EVERYTHING YOU NEED */}
 <section className="bg-[#ffeaba] py-20">
-  <motion.div
-    initial="hidden"
-    whileInView="visible"
-    viewport={{ once: true }}
-    variants={{
-      hidden: {},
-      visible: {
-        transition: { staggerChildren: 0.15 },
-      },
-    }}
-    className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-  >
+<motion.div
+  variants={containerVariants}
+  initial="hidden"
+  animate="visible"
+  className="
+    max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
+    pt-24 sm:pt-28 md:pt-20
+    pb-12 md:pb-20
+  "
+>
     {/* Header */}
     <motion.div
       variants={{
@@ -287,7 +285,7 @@ function Stats() {
   const isInView = useInView(ref, { once: true });
 
   const stats = [
-    { value: "1.8B+", label: "Muslims Worldwide" },
+    { value: "2B+", label: "Muslims Worldwide" },
     { value: "5", label: "Daily Prayers" },
     { value: "∞", label: "Blessings" },
     { value: "1", label: "Ummah United" },
