@@ -1,3 +1,4 @@
+import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const features = [
@@ -76,6 +77,22 @@ const features = [
 ];
 
 export default function Features() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const scrollToWaitlist = () => {
+    const el = document.getElementById("waitlist");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    } else if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => {
+        const element = document.getElementById("waitlist");
+        if (element) element.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    }
+  };
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -152,14 +169,14 @@ export default function Features() {
           <p className="text-[#5f5a4f] mb-8 text-lg">
             Ready to transform your spiritual life?
           </p>
-          <motion.a
-            href="#"
+          <motion.button
+            onClick={scrollToWaitlist}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="inline-block px-8 py-4 bg-teal-700 hover:bg-teal-800 text-white font-semibold rounded-lg transition"
+            className="inline-block px-8 py-4 bg-teal-700 hover:bg-teal-800 text-white font-semibold rounded-lg transition cursor-pointer"
           >
             Join the Waitlist
-          </motion.a>
+          </motion.button>
         </motion.div>
       </motion.div>
     </div>

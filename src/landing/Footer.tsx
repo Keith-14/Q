@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Instagram, Twitter, Youtube, Mail,Linkedin } from "lucide-react";
-import barakahLogo from "@/assets/barakah_logo_header.jpeg";
+import barakahLogo from "@/assets/barakah logo.png";
 
 
 const footerLinks = {
@@ -38,7 +38,7 @@ export const Footer = () => {
             <Link to="/" className="flex items-center gap-2 mb-4">
               <motion.div
   whileHover={{ rotate: 10 }}
-  className="w-10 h-10 rounded-xl bg-teal-600 flex items-center justify-center"
+  className="flex items-center justify-center"
 >
   <img
     src={barakahLogo}
@@ -46,6 +46,7 @@ export const Footer = () => {
     className="w-10 h-10 object-contain"
   />
 </motion.div>
+
               <span className="font-display font-bold text-2xl">BARAKAH</span>
             </Link>
             <p className="text-[#F2D9A3] max-w-md mb-6">

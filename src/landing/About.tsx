@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart, Eye, Lightbulb, ChevronDown } from "lucide-react";
 
@@ -40,6 +41,21 @@ const faqs = [
 
 export default function About() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const scrollToWaitlist = () => {
+    const el = document.getElementById("waitlist");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    } else if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => {
+        const element = document.getElementById("waitlist");
+        if (element) element.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    }
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -190,15 +206,15 @@ export default function About() {
           <p className="text-[#5f5a4f] mb-8 text-lg">
             Join us in this meaningful journey.
           </p>
-          <motion.a
-            href="#"
+          <motion.button
+            onClick={scrollToWaitlist}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="inline-block px-8 py-4 bg-teal-700 hover:bg-teal-800
-                       text-white font-semibold rounded-lg transition"
+                       text-white font-semibold rounded-lg transition cursor-pointer"
           >
-            Become Part of BARAKAH
-          </motion.a>
+            Join the Waitlist
+          </motion.button>
         </motion.div>
       </motion.div>
     </div>
