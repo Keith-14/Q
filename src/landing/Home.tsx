@@ -96,12 +96,9 @@ export default function Home() {
               variants={itemVariants}
               className="text-lg sm:text-xl text-slate-600 max-w-xl leading-relaxed"
             >
-              <span className="block">
-                Your everyday companion for faithful life who gives you a righteous feeling.
-              </span>
-              <span className="block mt-3 font-medium">
-                Carry your faith everywhere. Carry Barakah.
-              </span>
+              Unlock purposeful living with an all-in-one ecosystem for Muslims. 
+            Get personalized AI guidance, community support, and reliable resources for 
+            worship, travel, and daily habits, turning sincerity into everyday barakah.
             </motion.p>
           </motion.div>
 

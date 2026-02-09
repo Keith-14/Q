@@ -51,8 +51,12 @@ export const Footer = () => {
               <span className="font-display font-bold text-2xl">BARAKAH</span>
             </Link>
             <p className="text-[#F2D9A3] max-w-md mb-6">
-              One Ummah, One App. Your complete Muslim lifestyle companion for
-              prayer times, community, halal services, and Islamic learning.
+<span className="block">
+                Your everyday companion for faithful life who gives you a righteous feeling.
+              </span>
+              <span className="block mt-3 font-medium">
+                Carry your faith everywhere. Carry Barakah.
+              </span>
             </p>
 
             {/* Social Links */}

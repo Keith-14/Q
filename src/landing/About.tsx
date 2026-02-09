@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Heart, Eye, Lightbulb, ChevronDown } from "lucide-react";
+import { Eye, Lightbulb, ChevronDown } from "lucide-react";
 
 const values = [
-  { icon: Heart, title: "Community First", description: "Building a strong, supportive global Muslim community." },
+  { icon: "💚", title: "Community First", description: "Building a strong, supportive global Muslim community." },
   { icon: Eye, title: "Transparency", description: "Open and honest communication with our users and partners." },
   { icon: Lightbulb, title: "Innovation", description: "Continuous improvement to serve the Ummah better." },
   { icon: "🔒", title: "Privacy & Security", description: "Protecting your data with enterprise-grade encryption." },
@@ -64,17 +64,24 @@ export default function About() {
         animate="visible"
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20"
       >
-        {/* Hero */}
+        {/* HERO */}
         <motion.div variants={itemVariants} className="text-center mb-20">
+          <div className="flex justify-center mb-6">
+            <div className="w-14 h-14 rounded-2xl bg-white/40 backdrop-blur-sm flex items-center justify-center shadow-sm">
+              <span className="text-2xl">💚</span>
+            </div>
+          </div>
+
           <h1 className="text-5xl sm:text-6xl font-bold text-[#34453a] mb-6">
             About <span className="text-teal-700">BARAKAH</span>
           </h1>
-          <p className="text-3xl text-[#5f5a4f] max-w-3xl mx-auto">
-            Built by Muslims for Muslims 💚
+
+          <p className="text-xl text-[#5f5a4f] max-w-3xl mx-auto">
+            Built by Muslims, for Muslims.
           </p>
         </motion.div>
 
-        {/* Mission & Vision */}
+        {/* MISSION & VISION */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-24">
           {["Our Mission", "Our Vision"].map((title, idx) => (
             <motion.div
@@ -93,7 +100,7 @@ export default function About() {
           ))}
         </div>
 
-        {/* Core Values */}
+        {/* CORE VALUES */}
         <motion.div variants={itemVariants} className="text-center mb-16">
           <h2 className="text-4xl font-bold text-[#34453a] mb-4">Our Core Values</h2>
           <p className="text-[#5f5a4f] text-lg">
@@ -101,7 +108,7 @@ export default function About() {
           </p>
         </motion.div>
 
-        {/* Values Grid */}
+        {/* VALUES GRID */}
         <motion.div
           variants={containerVariants}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24"
@@ -127,7 +134,7 @@ export default function About() {
           ))}
         </motion.div>
 
-        {/* Story */}
+        {/* STORY */}
         <motion.div
           variants={itemVariants}
           className="p-12 rounded-2xl bg-gradient-to-b from-[#34453a] to-[#161d17]
@@ -142,7 +149,7 @@ export default function About() {
           </p>
         </motion.div>
 
-        {/* FAQ SECTION */}
+        {/* FAQ */}
         <motion.div variants={itemVariants} className="text-center mb-16">
           <p className="uppercase tracking-widest text-teal-700 text-sm mb-2">FAQ</p>
           <h2 className="text-4xl font-bold text-[#34453a]">
