@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Instagram, Twitter, Youtube, Mail,Linkedin } from "lucide-react";
-import barakahLogo from "@/assets/barakah logo.png";
+import barakahLogo from "@/assets/barakah logo footer.png";
+
 
 
 const footerLinks = {

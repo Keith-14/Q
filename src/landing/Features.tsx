@@ -1,75 +1,82 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
+import emojiImg from "@/assets/emoji.png";
 
 const features = [
   {
-    emoji: "🕌",
+    icon: <span className="text-3xl">🕌</span>,
     title: "Prayer Times & Qibla",
     description:
       "Accurate prayer times based on your location with alerts, reminders, and precise Qibla direction anywhere in the world.",
   },
   {
-    emoji: "⚡",
+    icon: <span className="text-3xl">⚡</span>,
     title: "Prayer Tracking",
     description:
       "Monitor your daily prayers and build consistent spiritual habits with progress tracking.",
   },
   {
-    emoji: "👥",
+    icon: <span className="text-3xl">👥</span>,
     title: "Community Connection",
     description:
       "Connect with Muslims worldwide, share experiences, and build meaningful relationships.",
   },
   {
-    emoji: "❤️",
+    icon: <span className="text-3xl">❤️</span>,
     title: "Halal Finder",
     description:
       "Discover halal restaurants, certified products, and trusted services near you.",
   },
   {
-    emoji: "📖",
+    icon: <span className="text-3xl">📖</span>,
     title: "Islamic Learning",
     description:
       "Access Quran, Hadith collections, and structured Islamic education resources.",
   },
   {
-    emoji: "👈🏼",
+    icon: (
+      <img
+        src={emojiImg}
+        alt="Mood Analytics"
+        className="w-8 h-8 object-contain"
+      />
+    ),
     title: "Mood Analytics",
     description:
       "Visual insights into your spiritual journey with detailed Mood Analytics",
   },
   {
-    emoji: "🛒",
+    icon: <span className="text-3xl">🛒</span>,
     title: "Islamic Ecommerce",
     description:
       "Shop for halal products, Islamic books, prayer essentials, and more from trusted sellers.",
   },
   {
-    emoji: "🤖",
+    icon: <span className="text-3xl">🤖</span>,
     title: "AI Islamic Assistant",
     description:
       "Ask questions about Islam, prayer guidance, and daily practices with an AI-powered chatbot.",
   },
   {
-    emoji: "🧮",
+    icon: <span className="text-3xl">🧮</span>,
     title: "Zakat Calculator",
     description:
       "Easily calculate your Zakat accurately based on Islamic guidelines and current values.",
   },
   {
-    emoji: "🕋",
+    icon: <span className="text-3xl">🕋</span>,
     title: "Hajj & Umrah Packages",
     description:
       "Explore trusted Hajj and Umrah travel packages with guidance, planning, and support.",
   },
   {
-    emoji: "📰",
+    icon: <span className="text-3xl">📰</span>,
     title: "Muslim News",
     description:
       "Stay updated with trusted global and local news relevant to the Muslim Ummah.",
   },
   {
-    emoji: "📱",
+    icon: <span className="text-3xl">📱</span>,
     title: "Halal Scanner",
     description:
       "Scan food labels and product ingredients to instantly verify halal compliance with AI-powered insights.",
@@ -121,14 +128,11 @@ export default function Features() {
       >
         {/* Header */}
         <motion.div variants={itemVariants} className="text-center mb-20">
-          
-          {/* ✨ Sparkle Box (ADDED) */}
-<div className="flex justify-center mb-6">
-  <div className="w-14 h-14 rounded-2xl bg-white/40 backdrop-blur-sm flex items-center justify-center shadow-sm">
-    <span className="text-2xl">✨</span>
-  </div>
-</div>
-
+          <div className="flex justify-center mb-6">
+            <div className="w-14 h-14 rounded-2xl bg-white/40 backdrop-blur-sm flex items-center justify-center shadow-sm">
+              <span className="text-2xl">✨</span>
+            </div>
+          </div>
 
           <h1 className="text-5xl sm:text-6xl font-bold text-[#34453a] mb-6">
             Powerful Features for Your
@@ -137,7 +141,7 @@ export default function Features() {
 
           <p className="text-xl text-[#5f5a4f] max-w-2xl mx-auto">
             Everything you need to enhance your Muslim lifestyle — worship,
-            learning, commerce, and travel✨
+            learning, commerce, and travel ✨
           </p>
         </motion.div>
 
@@ -154,11 +158,11 @@ export default function Features() {
               className="group p-8 rounded-2xl bg-gradient-to-b from-[#34453a] to-[#161d17] text-white shadow-lg shadow-black/30 border border-white/10 transition"
             >
               <motion.div
-                whileHover={{ scale: 1.2 }}
+                whileHover={{ scale: 1.15 }}
                 transition={{ duration: 0.4 }}
-                className="w-16 h-16 rounded-xl bg-white/10 flex items-center justify-center mb-6 text-3xl"
+                className="w-16 h-16 rounded-xl bg-white/10 flex items-center justify-center mb-6"
               >
-                {feature.emoji}
+                {feature.icon}
               </motion.div>
 
               <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
