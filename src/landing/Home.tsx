@@ -95,8 +95,9 @@ export default function Home() {
               variants={itemVariants}
               className="text-lg sm:text-xl text-slate-600 max-w-xl"
             >
-              BARAKAH is your complete Muslim lifestyle companion — prayer times,
-              halal services, community & learning in one place.
+            Unlock purposeful living with an all-in-one ecosystem for Muslims. 
+            Get personalized AI guidance, community support, and reliable resources for 
+            worship, travel, and daily habits, turning sincerity into everyday barakah.
             </motion.p>
           </motion.div>
 

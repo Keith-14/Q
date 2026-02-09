@@ -62,7 +62,7 @@ const features = [
     description:
       "Explore trusted Hajj and Umrah travel packages with guidance, planning, and support.",
   },
-    {
+  {
     emoji: "📰",
     title: "Muslim News",
     description:
@@ -121,12 +121,23 @@ export default function Features() {
       >
         {/* Header */}
         <motion.div variants={itemVariants} className="text-center mb-20">
+          
+          {/* ✨ Sparkle Box (ADDED) */}
+<div className="flex justify-center mb-6">
+  <div className="w-14 h-14 rounded-2xl bg-white/40 backdrop-blur-sm flex items-center justify-center shadow-sm">
+    <span className="text-2xl">✨</span>
+  </div>
+</div>
+
+
           <h1 className="text-5xl sm:text-6xl font-bold text-[#34453a] mb-6">
             Powerful Features for Your
             <span className="text-teal-700"> Spiritual Journey</span>
           </h1>
+
           <p className="text-xl text-[#5f5a4f] max-w-2xl mx-auto">
-            Everything you need to enhance your Muslim lifestyle — worship, learning, commerce, and travel✨
+            Everything you need to enhance your Muslim lifestyle — worship,
+            learning, commerce, and travel✨
           </p>
         </motion.div>
 
