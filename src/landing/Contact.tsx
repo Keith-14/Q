@@ -2,6 +2,12 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Clock, CheckCircle2 } from "lucide-react";
 
+/* Header animation */
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+};
+
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
@@ -9,6 +15,7 @@ export default function Contact() {
     subject: "",
     message: "",
   });
+
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleChange = (
@@ -20,11 +27,18 @@ export default function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
     if (formData.name && formData.email && formData.message) {
       setIsSubmitted(true);
+
       setTimeout(() => {
         setIsSubmitted(false);
-        setFormData({ name: "", email: "", subject: "", message: "" });
+        setFormData({
+          name: "",
+          email: "",
+          subject: "",
+          message: "",
+        });
       }, 3000);
     }
   };
@@ -33,15 +47,28 @@ export default function Contact() {
     <div className="min-h-screen bg-[#ffeaba]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
 
-        {/* Header */}
-        <div className="text-center mb-20">
+        {/* HEADER */}
+        <motion.div
+          variants={itemVariants}
+          initial="hidden"
+          animate="visible"
+          transition={{ duration: 0.6 }}
+          className="text-center mb-20"
+        >
+          <div className="flex justify-center mb-6">
+            <div className="w-14 h-14 rounded-2xl bg-white/40 backdrop-blur-sm flex items-center justify-center shadow-sm">
+              <span className="text-2xl">💬</span>
+            </div>
+          </div>
+
           <h1 className="text-5xl sm:text-6xl font-bold text-[#34453a] mb-6">
             Get in <span className="text-teal-600">Touch</span>
           </h1>
+
           <p className="text-xl text-[#5f5a4f] max-w-2xl mx-auto">
             Have a question or feedback? We'd love to hear from you 💬
           </p>
-        </div>
+        </motion.div>
 
         {/* MAIN GRID */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">

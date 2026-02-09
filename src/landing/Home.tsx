@@ -91,13 +91,17 @@ export default function Home() {
               One Ummah, <span className="text-teal-600">One App</span>
             </motion.h1>
 
+            {/* UPDATED SPACING HERE */}
             <motion.p
               variants={itemVariants}
-              className="text-lg sm:text-xl text-slate-600 max-w-xl"
+              className="text-lg sm:text-xl text-slate-600 max-w-xl leading-relaxed"
             >
-            Unlock purposeful living with an all-in-one ecosystem for Muslims. 
-            Get personalized AI guidance, community support, and reliable resources for 
-            worship, travel, and daily habits, turning sincerity into everyday barakah.
+              <span className="block">
+                Your everyday companion for faithful life who gives you a righteous feeling.
+              </span>
+              <span className="block mt-3 font-medium">
+                Carry your faith everywhere. Carry Barakah.
+              </span>
             </motion.p>
           </motion.div>
 
