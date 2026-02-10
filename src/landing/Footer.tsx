@@ -20,7 +20,7 @@ const footerLinks = {
 
 const socialLinks = [
   { name: "Instagram", icon: Instagram, url: "https://instagram.com/barakahh.app" },
-  { name: "LinkedIn", icon: Linkedin, url: "https://linkedin.com/company/barakahapp" },
+//{ name: "LinkedIn", icon: Linkedin, url: "https://linkedin.com/company/barakahapp" },
   { name: "Email", icon: Mail, url: "mailto:info@barakah.services" },
 ];
 
