@@ -53,7 +53,7 @@ export const Footer = () => {
             </Link>
             <p className="text-[#F2D9A3] max-w-md mb-6">
 <span className="block">
-                Your everyday companion for faithful life who gives you a righteous feeling.
+                Your everyday companion for faithful life that gives you a righteous feeling.
               </span>
               <span className="block mt-3 font-medium">
                 Carry your faith everywhere. Carry Barakah.
