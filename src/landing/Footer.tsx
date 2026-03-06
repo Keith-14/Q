@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Instagram, Twitter, Youtube, Mail,Linkedin } from "lucide-react";
+import { Instagram, Facebook, Youtube, Mail,Linkedin } from "lucide-react";
 import barakahLogo from "@/assets/barakah logo footer.png";
 
 
@@ -20,8 +20,9 @@ const footerLinks = {
 
 const socialLinks = [
   { name: "Instagram", icon: Instagram, url: "https://instagram.com/barakahh.app" },
-//{ name: "LinkedIn", icon: Linkedin, url: "https://linkedin.com/company/barakahapp" },
+  { name: "LinkedIn", icon: Linkedin, url: "https://www.linkedin.com/company/getbarakah/about/" },
   { name: "Email", icon: Mail, url: "mailto:info@barakah.services" },
+  { name: "Facebook", icon: Facebook, url: "https://www.facebook.com/share/19Y3vkop3x/?mibextid=wwXIfr" },
 ];
 
 export const Footer = () => {
