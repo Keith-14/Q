@@ -38,19 +38,27 @@ export default function Home() {
     setIsLoading(true);
 
     try {
-      const response = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          access_key: '782be68b-b4d4-422b-9ae6-2f3d161f8922',
-          email,
-          subject: 'New BARAKAH Waitlist Signup',
-          message: `New user joined the waitlist:\n\nEmail: ${email}`,
-        }),
-      });
+      // Create a separate supabase client for the waitlist database
+      const { createClient } = await import('@supabase/supabase-js');
+      const waitlistSupabaseUrl = import.meta.env.VITE_WAITLIST_SUPABASE_URL;
+      const waitlistSupabaseKey = import.meta.env.VITE_WAITLIST_SUPABASE_ANON_KEY;
 
-      const data = await response.json();
-      if (!response.ok || !data.success) throw new Error(data.message);
+      if (!waitlistSupabaseUrl || !waitlistSupabaseKey || waitlistSupabaseKey === "YOUR_WAITLIST_ANON_KEY_HERE") {
+        throw new Error('Waitlist database not configured. Please add the anon key to your .env file.');
+      }
+
+      const waitlistSupabase = createClient(waitlistSupabaseUrl, waitlistSupabaseKey);
+
+      const { error: supabaseError } = await waitlistSupabase
+        .from('waitlist')
+        .insert([{ email }]);
+
+      if (supabaseError) {
+        if (supabaseError.code === '23505') {
+          throw new Error('This email is already on the waitlist.');
+        }
+        throw new Error(supabaseError.message);
+      }
 
       setIsSubmitted(true);
       setEmail('');
@@ -96,9 +104,9 @@ export default function Home() {
               variants={itemVariants}
               className="text-lg sm:text-xl text-slate-600 max-w-xl leading-relaxed"
             >
-              Unlock purposeful living with an all-in-one ecosystem for Muslims. 
-            Get personalized AI guidance, community support, and reliable resources for 
-            worship, travel, and daily habits, turning sincerity into everyday barakah.
+              Unlock purposeful living with an all-in-one ecosystem for Muslims.
+              Get personalized AI guidance, community support, and reliable resources for
+              worship, travel, and daily habits, turning sincerity into everyday barakah.
             </motion.p>
           </motion.div>
 
