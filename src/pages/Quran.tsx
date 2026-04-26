@@ -1,0 +1,404 @@
+import { Layout } from '@/components/Layout';
+import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useState, useEffect } from 'react';
+import { ChevronLeft, Play, Pause, Volume2, Search } from 'lucide-react';
+
+interface Surah {
+  surahName: string;
+  surahNameArabic: string;
+  surahNameArabicLong: string;
+  surahNameTranslation: string;
+  revelationPlace: string;
+  totalAyah: number;
+}
+
+interface SurahDetail extends Surah {
+  surahNo: number;
+  arabic1: string[];
+  english: string[];
+  audio: {
+    [key: string]: {
+      reciter: string;
+      url: string;
+      originalUrl: string;
+    };
+  };
+}
+
+const RECITERS: Record<string, string> = {
+  "1": "Mishary Rashid Al Afasy",
+  "2": "Abu Bakr Al Shatri",
+  "3": "Nasser Al Qatami",
+  "4": "Yasser Al Dosari",
+  "5": "Hani Ar Rifai"
+};
+
+const getStoredReciter = (): string => {
+  if (typeof window !== 'undefined') {
+    return localStorage.getItem('selectedReciter') || '1';
+  }
+  return '1';
+};
+
+export const Quran = () => {
+  const [showTranslation, setShowTranslation] = useState(true);
+  const [surahs, setSurahs] = useState<Surah[]>([]);
+  const [selectedSurah, setSelectedSurah] = useState<SurahDetail | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [loadingSurah, setLoadingSurah] = useState(false);
+  const [currentAudio, setCurrentAudio] = useState<HTMLAudioElement | null>(null);
+  const [playingVerse, setPlayingVerse] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isAutoPlaying, setIsAutoPlaying] = useState(false);
+  const [autoPlayIndex, setAutoPlayIndex] = useState(0);
+  const [selectedReciter, setSelectedReciter] = useState<string>(getStoredReciter());
+
+  // Persist reciter selection
+  const handleReciterChange = (reciterId: string) => {
+    setSelectedReciter(reciterId);
+    localStorage.setItem('selectedReciter', reciterId);
+    // Stop current audio when changing reciter
+    if (currentAudio) {
+      currentAudio.pause();
+      setCurrentAudio(null);
+      setPlayingVerse(null);
+      setIsAutoPlaying(false);
+    }
+  };
+
+  // Build verse audio URL for the selected reciter
+  const getVerseAudioUrl = (surahNo: number, verseNo: number): string => {
+    const paddedSurah = surahNo.toString().padStart(3, '0');
+    const paddedVerse = verseNo.toString().padStart(3, '0');
+    // Using Quran.com CDN for individual verse audio
+    const reciterIds: Record<string, string> = {
+      "1": "Alafasy_128kbps",
+      "2": "Abu_Bakr_Ash-Shaatree_128kbps",
+      "3": "Nasser_Alqatami_128kbps",
+      "4": "Yasser_Ad-Dussary_128kbps",
+      "5": "Hani_Rifai_192kbps"
+    };
+    return `https://everyayah.com/data/${reciterIds[selectedReciter]}/${paddedSurah}${paddedVerse}.mp3`;
+  };
+
+  // Fetch all surahs on component mount
+  useEffect(() => {
+    const fetchSurahs = async () => {
+      try {
+        const response = await fetch('https://quranapi.pages.dev/api/surah.json');
+        const data = await response.json();
+        setSurahs(data);
+      } catch (error) {
+        console.error('Error fetching surahs:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSurahs();
+  }, []);
+
+  // Fetch specific surah details
+  const fetchSurahDetails = async (surahNo: number) => {
+    setLoadingSurah(true);
+    try {
+      const response = await fetch(`https://quranapi.pages.dev/api/${surahNo}.json`);
+      const data = await response.json();
+      setSelectedSurah(data);
+    } catch (error) {
+      console.error('Error fetching surah details:', error);
+    } finally {
+      setLoadingSurah(false);
+    }
+  };
+
+  // Play audio for a verse using individual verse audio
+  const playAudio = (verseNo: number) => {
+    if (!selectedSurah) return;
+    
+    // Stop current audio if playing
+    if (currentAudio) {
+      currentAudio.pause();
+      setPlayingVerse(null);
+    }
+
+    // If clicking the same verse that's playing, just stop
+    if (playingVerse === verseNo.toString()) {
+      setCurrentAudio(null);
+      setIsAutoPlaying(false);
+      return;
+    }
+
+    // Get the audio URL for the specific verse
+    const audioUrl = getVerseAudioUrl(selectedSurah.surahNo, verseNo);
+    
+    // Play new audio
+    const audio = new Audio(audioUrl);
+    audio.play().catch(err => console.error('Audio playback error:', err));
+    setCurrentAudio(audio);
+    setPlayingVerse(verseNo.toString());
+
+    // Handle audio end
+    audio.onended = () => {
+      setPlayingVerse(null);
+      setCurrentAudio(null);
+      
+      // Continue auto-play if enabled
+      if (isAutoPlaying && selectedSurah) {
+        const nextVerse = verseNo + 1;
+        if (nextVerse <= selectedSurah.arabic1.length) {
+          setAutoPlayIndex(nextVerse - 1);
+          setTimeout(() => {
+            playAudio(nextVerse);
+          }, 500); // Small delay between verses
+        } else {
+          setIsAutoPlaying(false);
+          setAutoPlayIndex(0);
+        }
+      }
+    };
+  };
+
+  // Auto-play all verses in the chapter
+  const autoPlayChapter = () => {
+    if (!selectedSurah) return;
+    
+    if (isAutoPlaying) {
+      // Stop auto-play
+      if (currentAudio) {
+        currentAudio.pause();
+        setCurrentAudio(null);
+        setPlayingVerse(null);
+      }
+      setIsAutoPlaying(false);
+      setAutoPlayIndex(0);
+    } else {
+      // Start auto-play from first verse
+      setIsAutoPlaying(true);
+      setAutoPlayIndex(0);
+      playAudio(1);
+    }
+  };
+
+  // Filter surahs based on search query
+  const filteredSurahs = surahs.filter(surah => 
+    surah.surahName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    surah.surahNameTranslation.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    surah.surahNameArabic.includes(searchQuery)
+  );
+
+  if (loading) {
+    return (
+      <Layout>
+        <div className="px-4 py-6 space-y-6">
+          <h1 className="text-2xl font-bold text-primary">Quran</h1>
+          <div className="space-y-4">
+            {[...Array(5)].map((_, i) => (
+              <Card key={i} className="p-4 rounded-2xl">
+                <Skeleton className="h-6 w-3/4 mb-2" />
+                <Skeleton className="h-4 w-1/2" />
+              </Card>
+            ))}
+          </div>
+        </div>
+      </Layout>
+    );
+  }
+
+  // Show surah details view
+  if (selectedSurah) {
+    return (
+      <Layout>
+        <div className="px-4 py-6 space-y-6">
+          <div className="flex items-center space-x-4">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setSelectedSurah(null)}
+              className="flex items-center space-x-2 text-primary"
+            >
+              <ChevronLeft className="w-4 h-4" />
+              <span>Back</span>
+            </Button>
+            <h1 className="text-xl font-bold text-primary flex-1">
+              {selectedSurah.surahNameTranslation}
+            </h1>
+          </div>
+
+          <Card className="p-4 rounded-2xl bg-card">
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="w-10 h-10 bg-primary text-primary-foreground rounded-full flex items-center justify-center">
+                <span className="text-lg font-bold">{selectedSurah.surahNo}</span>
+              </div>
+              <div>
+                <h2 className="text-lg font-semibold text-primary">
+                  {selectedSurah.surahName}: {selectedSurah.surahNameTranslation}
+                </h2>
+                <p className="text-sm text-muted-foreground">
+                  {selectedSurah.totalAyah} verses • {selectedSurah.revelationPlace}
+                </p>
+              </div>
+            </div>
+
+            {/* Reciter Selection */}
+            <div className="mb-4">
+              <label className="text-sm font-medium mb-2 block text-foreground">Reciter</label>
+              <Select value={selectedReciter} onValueChange={handleReciterChange}>
+                <SelectTrigger className="w-full rounded-xl border-border">
+                  <SelectValue placeholder="Select reciter" />
+                </SelectTrigger>
+                <SelectContent className="bg-card border rounded-xl">
+                  {Object.entries(RECITERS).map(([id, name]) => (
+                    <SelectItem key={id} value={id}>
+                      {name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Auto-play and Translation Controls */}
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center space-x-2">
+                <Button
+                  variant={isAutoPlaying ? "destructive" : "default"}
+                  size="sm"
+                  onClick={autoPlayChapter}
+                  className={`flex items-center space-x-2 ${!isAutoPlaying ? 'bg-primary text-primary-foreground hover:bg-primary/90' : ''}`}
+                >
+                  {isAutoPlaying ? (
+                    <>
+                      <Pause className="w-4 h-4" />
+                      <span>Stop</span>
+                    </>
+                  ) : (
+                    <>
+                      <Volume2 className="w-4 h-4" />
+                      <span>Auto-play</span>
+                    </>
+                  )}
+                </Button>
+              </div>
+              <div className="flex items-center space-x-2">
+                <span className="text-sm font-medium text-foreground">Translation</span>
+                <Switch 
+                  checked={showTranslation} 
+                  onCheckedChange={setShowTranslation}
+                />
+                <span className="text-xs text-muted-foreground">
+                  {showTranslation ? 'ON' : 'OFF'}
+                </span>
+              </div>
+            </div>
+
+            {/* Verses */}
+            {loadingSurah ? (
+              <div className="space-y-4">
+                {[...Array(7)].map((_, i) => (
+                  <div key={i} className="text-center border-b border-border pb-4">
+                    <Skeleton className="w-8 h-8 rounded-full mx-auto mb-2" />
+                    <Skeleton className="h-6 w-full mb-2" />
+                    <Skeleton className="h-4 w-3/4 mx-auto" />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {selectedSurah.arabic1?.map((arabicText, index) => (
+                  <div key={index + 1} className="text-center border-b border-border pb-4">
+                    <div className="flex items-center justify-center space-x-2 mb-2">
+                      <div className="w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center">
+                        <span className="text-sm font-bold">{index + 1}</span>
+                      </div>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => playAudio(index + 1)}
+                        className="p-1 h-8 w-8 text-primary hover:bg-primary/10"
+                      >
+                        {playingVerse === (index + 1).toString() ? (
+                          <Pause className="w-4 h-4" />
+                        ) : (
+                          <Play className="w-4 h-4" />
+                        )}
+                      </Button>
+                    </div>
+                    <p className="text-lg font-arabic mb-2" dir="rtl">
+                      {arabicText}
+                    </p>
+                    {showTranslation && selectedSurah.english && selectedSurah.english[index] && (
+                      <p className="text-sm text-muted-foreground italic">
+                        {selectedSurah.english[index]}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </Card>
+        </div>
+      </Layout>
+    );
+  }
+
+  // Show surahs list view
+  return (
+    <Layout>
+      <div className="px-4 py-6 space-y-6">
+        <h1 className="text-2xl font-bold text-primary">Quran</h1>
+
+        {/* Search Bar */}
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+          <Input
+            placeholder="Search chapters..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="pl-10 rounded-2xl bg-card border-border"
+          />
+        </div>
+
+        <div className="space-y-3">
+          {filteredSurahs.map((surah, index) => {
+            // Find original index for surah number
+            const originalIndex = surahs.findIndex(s => s.surahName === surah.surahName);
+            return (
+              <Card 
+                key={originalIndex}
+                className="p-4 rounded-2xl cursor-pointer hover:bg-muted/50 transition-colors bg-card"
+                onClick={() => fetchSurahDetails(originalIndex + 1)}
+              >
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 bg-primary text-primary-foreground rounded-full flex items-center justify-center">
+                    <span className="text-sm font-bold">{originalIndex + 1}</span>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-primary">
+                      {surah.surahName}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      {surah.surahNameTranslation}
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-lg font-arabic mb-1" dir="rtl">
+                      {surah.surahNameArabic}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {surah.totalAyah} verses
+                    </p>
+                  </div>
+                </div>
+              </Card>
+            );
+          })}
+        </div>
+      </div>
+    </Layout>
+  );
+};
