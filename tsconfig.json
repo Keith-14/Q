@@ -7,7 +7,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@assets/*": ["./attached_assets/*"]
     },
     "noImplicitAny": false,
     "noUnusedParameters": false,

@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { CheckCircle2, AlertCircle, Loader2, ArrowRight } from 'lucide-react';
+import heroBg from '@assets/hero-bg_1777242380832.png';
 
 export default function Home() {
   /* ================= STATE ================= */
@@ -77,27 +78,11 @@ export default function Home() {
     <div className="min-h-screen bg-[#f6e7c8] overflow-hidden">
 
       {/* ================= HERO ================= */}
-      <section className="relative pt-[120px] pb-16">
-        {/* Crowd silhouette backdrop */}
-        <div
-          className="absolute inset-x-0 bottom-0 h-[70%] opacity-25 pointer-events-none"
-          style={{
-            backgroundImage:
-              "radial-gradient(ellipse at 50% 100%, rgba(120,80,40,0.5), transparent 60%)",
-          }}
-        />
-        <div
-          className="absolute inset-x-0 bottom-0 h-[55%] opacity-20 pointer-events-none"
-          style={{
-            backgroundImage:
-              "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 200' preserveAspectRatio='none'><g fill='%23824a25'><circle cx='40' cy='180' r='14'/><circle cx='80' cy='180' r='14'/><circle cx='120' cy='180' r='14'/><circle cx='160' cy='180' r='14'/><circle cx='200' cy='180' r='14'/><circle cx='240' cy='180' r='14'/><circle cx='280' cy='180' r='14'/><circle cx='320' cy='180' r='14'/><circle cx='360' cy='180' r='14'/><circle cx='400' cy='180' r='14'/><circle cx='440' cy='180' r='14'/><circle cx='480' cy='180' r='14'/><circle cx='520' cy='180' r='14'/><circle cx='560' cy='180' r='14'/><circle cx='600' cy='180' r='14'/><circle cx='640' cy='180' r='14'/><circle cx='680' cy='180' r='14'/><circle cx='720' cy='180' r='14'/><circle cx='760' cy='180' r='14'/><circle cx='800' cy='180' r='14'/><circle cx='840' cy='180' r='14'/><circle cx='880' cy='180' r='14'/><circle cx='920' cy='180' r='14'/><circle cx='960' cy='180' r='14'/><circle cx='1000' cy='180' r='14'/><circle cx='1040' cy='180' r='14'/><circle cx='1080' cy='180' r='14'/><circle cx='1120' cy='180' r='14'/><circle cx='1160' cy='180' r='14'/><rect x='28' y='180' width='24' height='40'/><rect x='68' y='180' width='24' height='40'/><rect x='108' y='180' width='24' height='40'/><rect x='148' y='180' width='24' height='40'/><rect x='188' y='180' width='24' height='40'/><rect x='228' y='180' width='24' height='40'/><rect x='268' y='180' width='24' height='40'/><rect x='308' y='180' width='24' height='40'/><rect x='348' y='180' width='24' height='40'/><rect x='388' y='180' width='24' height='40'/><rect x='428' y='180' width='24' height='40'/><rect x='468' y='180' width='24' height='40'/><rect x='508' y='180' width='24' height='40'/><rect x='548' y='180' width='24' height='40'/><rect x='588' y='180' width='24' height='40'/><rect x='628' y='180' width='24' height='40'/><rect x='668' y='180' width='24' height='40'/><rect x='708' y='180' width='24' height='40'/><rect x='748' y='180' width='24' height='40'/><rect x='788' y='180' width='24' height='40'/><rect x='828' y='180' width='24' height='40'/><rect x='868' y='180' width='24' height='40'/><rect x='908' y='180' width='24' height='40'/><rect x='948' y='180' width='24' height='40'/><rect x='988' y='180' width='24' height='40'/><rect x='1028' y='180' width='24' height='40'/><rect x='1068' y='180' width='24' height='40'/><rect x='1108' y='180' width='24' height='40'/><rect x='1148' y='180' width='24' height='40'/></g></svg>\")",
-            backgroundRepeat: "repeat-x",
-            backgroundPosition: "bottom",
-            backgroundSize: "auto 100%",
-          }}
-        />
-
-        <div className="relative max-w-7xl mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+      <section
+        className="relative pt-[120px] pb-16 bg-no-repeat bg-cover bg-center"
+        style={{ backgroundImage: `url(${heroBg})` }}
+      >
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center min-h-[560px]">
           {/* LEFT */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -173,15 +158,8 @@ export default function Home() {
             )}
           </motion.div>
 
-          {/* RIGHT - Phone with mosque arch */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="relative flex justify-center items-center min-h-[500px]"
-          >
-            <MosquePhoneScene />
-          </motion.div>
+          {/* RIGHT column intentionally empty — phone & mosque are part of background image */}
+          <div aria-hidden="true" />
         </div>
       </section>
 
@@ -340,142 +318,6 @@ function Stats() {
           </div>
         </motion.div>
       ))}
-    </div>
-  );
-}
-
-/* ================= MOSQUE + PHONE SCENE ================= */
-function MosquePhoneScene() {
-  return (
-    <div className="relative w-full max-w-[460px] aspect-[3/4]">
-      {/* Mosque arch background */}
-      <svg
-        viewBox="0 0 400 540"
-        className="absolute inset-0 w-full h-full"
-        aria-hidden="true"
-      >
-        <defs>
-          <linearGradient id="archGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#d8a06a" />
-            <stop offset="100%" stopColor="#b87a48" />
-          </linearGradient>
-          <linearGradient id="archGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#c89060" />
-            <stop offset="100%" stopColor="#a86838" />
-          </linearGradient>
-        </defs>
-
-        {/* Outer arch */}
-        <path
-          d="M200,30
-             C 130,30 80,90 80,170
-             L 80,500
-             L 320,500
-             L 320,170
-             C 320,90 270,30 200,30 Z"
-          fill="url(#archGrad)"
-          opacity="0.55"
-        />
-        {/* Inner arch */}
-        <path
-          d="M200,70
-             C 145,70 105,118 105,180
-             L 105,490
-             L 295,490
-             L 295,180
-             C 295,118 255,70 200,70 Z"
-          fill="url(#archGrad2)"
-          opacity="0.7"
-        />
-        {/* Top finial */}
-        <circle cx="200" cy="20" r="8" fill="#b87a48" opacity="0.7" />
-        <rect x="197" y="20" width="6" height="14" fill="#b87a48" opacity="0.7" />
-
-        {/* Pattern lines on arch */}
-        <g stroke="#8a5828" strokeWidth="1" opacity="0.35" fill="none">
-          <path d="M180,90 Q200,80 220,90" />
-          <path d="M170,110 Q200,95 230,110" />
-          <path d="M160,130 Q200,110 240,130" />
-        </g>
-      </svg>
-
-      {/* Side card LEFT */}
-      <div
-        className="absolute left-[-2%] top-[28%] w-[36%] aspect-[9/16] rounded-[22px] bg-gradient-to-br from-[#f8e1b8] to-[#e8c688] shadow-2xl rotate-[-12deg] border-[3px] border-white flex items-center justify-center"
-      >
-        <span className="text-[#b74628] text-3xl font-bold italic">B</span>
-      </div>
-
-      {/* Side card RIGHT */}
-      <div
-        className="absolute right-[-2%] top-[32%] w-[36%] aspect-[9/16] rounded-[22px] bg-gradient-to-br from-[#f8e1b8] to-[#e8c688] shadow-2xl rotate-[12deg] border-[3px] border-white flex items-center justify-center"
-      >
-        <span className="text-[#b74628] text-3xl font-bold italic">B</span>
-      </div>
-
-      {/* Center phone */}
-      <motion.div
-        animate={{ y: [-6, 6, -6] }}
-        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute left-1/2 top-[12%] -translate-x-1/2 w-[52%] aspect-[9/19] rounded-[32px] bg-[#1a1a1a] shadow-2xl border-[3px] border-[#2a2a2a] overflow-hidden"
-      >
-        <PhoneScreen />
-      </motion.div>
-    </div>
-  );
-}
-
-function PhoneScreen() {
-  return (
-    <div className="absolute inset-[3px] rounded-[28px] overflow-hidden bg-[#f6e7c8] flex flex-col">
-      {/* Status bar */}
-      <div className="h-5 bg-[#b74628] flex items-center justify-between px-3">
-        <span className="text-white text-[8px] font-semibold">Barakah</span>
-        <span className="text-white text-[7px]">●●●</span>
-      </div>
-
-      {/* Prayer card */}
-      <div className="bg-[#b74628] px-3 pb-3 text-white">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-[9px] font-semibold">Maghrib</p>
-            <p className="text-[6px] opacity-80">Mecca, Saudi Arabia</p>
-          </div>
-          <div className="text-right">
-            <p className="text-[14px] font-bold leading-none">7:00<span className="text-[8px]">PM</span></p>
-            <p className="text-[6px] opacity-80">in 2h 14m</p>
-          </div>
-        </div>
-
-        {/* Prayer pills */}
-        <div className="mt-2 bg-white/15 rounded-full p-1 flex gap-1">
-          {['Fajr', 'Dhuhr', 'Asr', 'Magh.', 'Isha'].map((p, i) => (
-            <div
-              key={p}
-              className={`flex-1 text-center text-[6px] py-1 rounded-full ${
-                i === 3 ? 'bg-[#f6c878] text-[#3a2a1f] font-semibold' : ''
-              }`}
-            >
-              {p}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* News section */}
-      <div className="flex-1 bg-white p-2">
-        <div className="flex items-center justify-between mb-1.5">
-          <p className="text-[9px] font-semibold text-[#3a2a1f]">News</p>
-          <span className="text-[#b74628] text-[8px]">⌕</span>
-        </div>
-        <div className="rounded-md overflow-hidden bg-gradient-to-br from-[#3a4a2a] to-[#1a2a1a] aspect-[16/9] relative">
-          <div className="absolute inset-0 opacity-60"
-               style={{
-                 backgroundImage: 'linear-gradient(135deg, #6a8a4a 0%, #2a3a1a 100%)',
-               }}
-          />
-        </div>
-      </div>
     </div>
   );
 }
