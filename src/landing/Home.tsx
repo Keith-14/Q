@@ -166,7 +166,7 @@ export default function Home() {
 
       {/* ================= STATS ================= */}
       <section className="relative bg-[#f6e7c8] z-20">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 -mt-[29px] sm:-mt-[37px]">
+        <div className="max-w-7xl mx-auto px-6 lg:px-20 -mt-[29px] sm:-mt-[37px]">
           <img
             src={statsBar}
             alt="The numbers behind our purpose. 2B+ Muslims worldwide, 5 daily prayers, 1 Ummah United."
