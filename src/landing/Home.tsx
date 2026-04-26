@@ -165,12 +165,14 @@ export default function Home() {
       </section>
 
       {/* ================= STATS ================= */}
-      <section className="bg-[#f6e7c8]">
-        <img
-          src={statsBar}
-          alt="The numbers behind our purpose. 2B+ Muslims worldwide, 5 daily prayers, 1 Ummah United."
-          className="block w-full h-auto"
-        />
+      <section className="relative bg-[#f6e7c8] -mt-16 sm:-mt-20 lg:-mt-24 z-20">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-10">
+          <img
+            src={statsBar}
+            alt="The numbers behind our purpose. 2B+ Muslims worldwide, 5 daily prayers, 1 Ummah United."
+            className="block w-full h-auto rounded-2xl shadow-xl"
+          />
+        </div>
       </section>
 
       {/* ================= QUOTE ================= */}
