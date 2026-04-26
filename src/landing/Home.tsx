@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { CheckCircle2, AlertCircle, Loader2, ArrowRight } from 'lucide-react';
 import heroBg from '@assets/hero-bg_1777242380832.png';
+import statsBar from '@assets/image_1777244421919.png';
 
 export default function Home() {
   /* ================= STATE ================= */
@@ -164,15 +165,12 @@ export default function Home() {
       </section>
 
       {/* ================= STATS ================= */}
-      <section className="bg-[#b74628] text-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 py-14 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-          <h2 className="text-3xl sm:text-4xl font-semibold leading-tight">
-            The numbers behind
-            <br />
-            our purpose.
-          </h2>
-          <Stats />
-        </div>
+      <section className="bg-[#f6e7c8]">
+        <img
+          src={statsBar}
+          alt="The numbers behind our purpose. 2B+ Muslims worldwide, 5 daily prayers, 1 Ummah United."
+          className="block w-full h-auto"
+        />
       </section>
 
       {/* ================= QUOTE ================= */}
@@ -285,39 +283,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-    </div>
-  );
-}
-
-/* ================= STATS ================= */
-function Stats() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
-
-  const stats = [
-    { value: "2B+", label: "Muslim", sub: "World Wide" },
-    { value: "5", label: "Daily", sub: "Prayers" },
-    { value: "1", label: "Ummah", sub: "United" },
-  ];
-
-  return (
-    <div ref={ref} className="grid grid-cols-3 gap-6 text-center text-white">
-      {stats.map((stat, index) => (
-        <motion.div
-          key={stat.label}
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: index * 0.15 }}
-        >
-          <div className="text-4xl sm:text-5xl font-semibold mb-2">
-            {stat.value}
-          </div>
-          <div className="text-white/85 text-xs sm:text-sm leading-tight">
-            <div>{stat.label}</div>
-            <div>{stat.sub}</div>
-          </div>
-        </motion.div>
-      ))}
     </div>
   );
 }
