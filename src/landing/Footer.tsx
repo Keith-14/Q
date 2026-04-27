@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Instagram, Facebook, Mail, Linkedin } from "lucide-react";
 import logo from "@assets/image_1777286071491.png";
+import footerBg from "@assets/image_1777287972017.png";
 
 const footerLinks = {
   navigation: [
@@ -25,7 +26,10 @@ const socialLinks = [
 
 export const Footer = () => {
   return (
-    <footer className="bg-[#2a190d] text-[#f0d9a8]">
+    <footer
+      className="text-[#f0d9a8] bg-[#2a190d] bg-cover bg-center"
+      style={{ backgroundImage: `url(${footerBg})` }}
+    >
       <div className="max-w-7xl mx-auto px-6 lg:px-10 py-14">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand Column */}
