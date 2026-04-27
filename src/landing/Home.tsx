@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { CheckCircle2, AlertCircle, Loader2, ArrowRight } from "lucide-react";
 import heroBg from "@assets/hero-bg_1777242380832.png";
 import statsBar from "@assets/image_1777244421919.png";
+import ctaBanner from "@assets/image_1777287361116.png";
 
 export default function Home() {
   /* ================= STATE ================= */
@@ -203,138 +204,47 @@ export default function Home() {
       {/* ================= FINAL CTA ================= */}
       <section id="waitlist" className="bg-[#f6e7c8] pb-24">
         <div className="max-w-5xl mx-auto px-6">
-          <div
-            className="relative rounded-[28px] overflow-hidden px-6 sm:px-10 pt-12 pb-20"
-            style={{
-              background: "linear-gradient(180deg, #f4d8a8 0%, #ecc88a 100%)",
-            }}
-          >
-            {/* Subtle dot pattern */}
-            <div
-              className="absolute inset-0 opacity-30 pointer-events-none"
-              style={{
-                backgroundImage:
-                  "radial-gradient(rgba(183,70,40,0.15) 1px, transparent 1px)",
-                backgroundSize: "14px 14px",
-              }}
+          <div className="relative">
+            <img
+              src={ctaBanner}
+              alt="Be the first to experience Barakah. Join our exclusive waitlist and be notified when we launch."
+              className="block w-full h-auto rounded-[28px] select-none"
+              draggable={false}
             />
 
-            {/* Sand dune */}
-            <div className="absolute inset-x-0 bottom-0 h-20 pointer-events-none">
-              <svg
-                viewBox="0 0 1000 120"
-                preserveAspectRatio="none"
-                className="w-full h-full"
+            {/* Working form overlaid on top of the form drawn into the banner */}
+            <form
+              onSubmit={handleCtaSubmit}
+              className="absolute left-[12%] right-[12%] top-[56%] -translate-y-1/2 flex items-center bg-white rounded-full p-[0.9%] shadow-md"
+            >
+              <input
+                type="email"
+                required
+                value={emailCta}
+                onChange={(e) => setEmailCta(e.target.value)}
+                placeholder="Enter your email"
+                className="flex-1 min-w-0 px-3 sm:px-5 py-2 sm:py-3 bg-transparent text-[#3a2a1f] placeholder:text-[#a89a86] text-[11px] sm:text-sm focus:outline-none"
+              />
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="px-3 sm:px-6 py-2 sm:py-3 bg-[#7a3a1c] hover:bg-[#6a3018] text-white text-[11px] sm:text-sm font-medium rounded-full flex items-center gap-1 sm:gap-1.5 transition-colors whitespace-nowrap"
               >
-                <path
-                  d="M0,120 L0,80 Q250,30 500,60 T1000,70 L1000,120 Z"
-                  fill="#c8783a"
-                />
-                <path
-                  d="M0,120 L0,100 Q300,70 600,90 T1000,95 L1000,120 Z"
-                  fill="#b86628"
-                />
-              </svg>
-            </div>
-
-            {/* Palm trees */}
-            <PalmTree className="absolute left-3 sm:left-6 bottom-6 w-16 sm:w-20 h-auto z-10" />
-            <PalmTree
-              className="absolute right-3 sm:right-6 bottom-6 w-16 sm:w-20 h-auto z-10"
-              flip
-            />
-
-            {/* Content */}
-            <div className="relative z-20 text-center">
-              <h3 className="text-2xl sm:text-3xl font-semibold text-[#3a2a1f]">
-                Be the First to{" "}
-                <span className="text-[#7a8a3a]">Experience</span> BARAKAH
-              </h3>
-              <p className="mt-3 text-sm text-[#5a4a3c]">
-                Join our exclusive waitlist and be notified when we launch.
-              </p>
-
-              <form
-                onSubmit={handleCtaSubmit}
-                className="mt-7 mx-auto max-w-md flex items-center bg-white rounded-full p-1.5 shadow-sm border border-[#e6cfa2]"
-              >
-                <input
-                  type="email"
-                  required
-                  value={emailCta}
-                  onChange={(e) => setEmailCta(e.target.value)}
-                  placeholder="Enter your email"
-                  className="flex-1 px-5 py-2 bg-transparent text-[#3a2a1f] placeholder:text-[#a89a86] text-sm focus:outline-none"
-                />
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className="px-5 py-2.5 bg-[#b74628] hover:bg-[#a23e22] text-white text-sm font-medium rounded-full flex items-center gap-1.5 transition-colors"
-                >
-                  {isLoading ? (
-                    <>
-                      <Loader2 className="animate-spin" size={14} />
-                      Joining
-                    </>
-                  ) : (
-                    <>
-                      Join Waitlist <ArrowRight size={14} />
-                    </>
-                  )}
-                </button>
-              </form>
-
-              <p className="mt-4 text-[11px] text-[#7a6a5a]">
-                🔒 We respect your privacy. Unsubscribe anytime.
-              </p>
-            </div>
+                {isLoading ? (
+                  <>
+                    <Loader2 className="animate-spin" size={12} />
+                    Joining
+                  </>
+                ) : (
+                  <>
+                    Join Waitlist <ArrowRight size={12} />
+                  </>
+                )}
+              </button>
+            </form>
           </div>
         </div>
       </section>
     </div>
-  );
-}
-
-/* ================= PALM TREE ================= */
-function PalmTree({ className, flip }: { className?: string; flip?: boolean }) {
-  return (
-    <svg
-      viewBox="0 0 100 160"
-      className={className}
-      style={{ transform: flip ? "scaleX(-1)" : undefined }}
-      aria-hidden="true"
-    >
-      {/* Trunk */}
-      <path
-        d="M48,160 Q46,120 50,80 Q54,50 50,30"
-        stroke="#6b3a1a"
-        strokeWidth="4"
-        fill="none"
-        strokeLinecap="round"
-      />
-      {/* Trunk segments */}
-      {Array.from({ length: 6 }).map((_, i) => (
-        <ellipse
-          key={i}
-          cx={49 + (i % 2 === 0 ? -1 : 1)}
-          cy={140 - i * 18}
-          rx="3"
-          ry="1.5"
-          fill="#5a2f15"
-        />
-      ))}
-      {/* Leaves */}
-      <g fill="#3d6b2c">
-        <path d="M50,30 Q20,20 5,35 Q25,30 50,40 Z" />
-        <path d="M50,30 Q80,20 95,35 Q75,30 50,40 Z" />
-        <path d="M50,30 Q15,40 5,65 Q30,50 50,40 Z" />
-        <path d="M50,30 Q85,40 95,65 Q70,50 50,40 Z" />
-        <path d="M50,30 Q40,5 25,2 Q42,20 50,32 Z" />
-        <path d="M50,30 Q60,5 75,2 Q58,20 50,32 Z" />
-      </g>
-      {/* Coconuts */}
-      <circle cx="46" cy="34" r="2.5" fill="#5a2f15" />
-      <circle cx="52" cy="36" r="2.5" fill="#5a2f15" />
-    </svg>
   );
 }
