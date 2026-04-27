@@ -204,12 +204,12 @@ export default function Home() {
       {/* ================= FINAL CTA ================= */}
       <section id="waitlist" className="bg-[#f6e7c8] pb-24">
         <div className="max-w-5xl mx-auto px-6">
-          <div className="relative">
+          <div className="relative rounded-[40px] overflow-hidden bg-[#f6e7c8]">
             <img
               src={ctaBanner}
               alt=""
               aria-hidden="true"
-              className="block w-full h-auto rounded-[28px] select-none"
+              className="block w-full h-auto select-none"
               draggable={false}
             />
 
