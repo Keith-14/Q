@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { CheckCircle2, AlertCircle, Loader2, ArrowRight } from 'lucide-react';
-import heroBg from '@assets/hero-bg_1777242380832.png';
-import statsBar from '@assets/image_1777244421919.png';
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { CheckCircle2, AlertCircle, Loader2, ArrowRight } from "lucide-react";
+import heroBg from "@assets/hero-bg_1777242380832.png";
+import statsBar from "@assets/image_1777244421919.png";
 
 export default function Home() {
   /* ================= STATE ================= */
-  const [email, setEmail] = useState('');
-  const [emailCta, setEmailCta] = useState('');
+  const [email, setEmail] = useState("");
+  const [emailCta, setEmailCta] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   /* ================= HANDLE HASH SCROLL ================= */
   useEffect(() => {
@@ -20,7 +20,7 @@ export default function Home() {
       const element = document.querySelector(window.location.hash);
       if (element) {
         setTimeout(() => {
-          element.scrollIntoView({ behavior: 'smooth' });
+          element.scrollIntoView({ behavior: "smooth" });
         }, 100);
       }
     }
@@ -28,38 +28,48 @@ export default function Home() {
 
   /* ================= SUBMIT (logic unchanged) ================= */
   const submitEmail = async (value: string) => {
-    setError('');
+    setError("");
     setIsLoading(true);
 
     try {
-      const { createClient } = await import('@supabase/supabase-js');
+      const { createClient } = await import("@supabase/supabase-js");
       const waitlistSupabaseUrl = import.meta.env.VITE_WAITLIST_SUPABASE_URL;
-      const waitlistSupabaseKey = import.meta.env.VITE_WAITLIST_SUPABASE_ANON_KEY;
+      const waitlistSupabaseKey = import.meta.env
+        .VITE_WAITLIST_SUPABASE_ANON_KEY;
 
-      if (!waitlistSupabaseUrl || !waitlistSupabaseKey || waitlistSupabaseKey === "YOUR_WAITLIST_ANON_KEY_HERE") {
-        throw new Error('Waitlist database not configured. Please add the anon key to your .env file.');
+      if (
+        !waitlistSupabaseUrl ||
+        !waitlistSupabaseKey ||
+        waitlistSupabaseKey === "YOUR_WAITLIST_ANON_KEY_HERE"
+      ) {
+        throw new Error(
+          "Waitlist database not configured. Please add the anon key to your .env file.",
+        );
       }
 
-      const waitlistSupabase = createClient(waitlistSupabaseUrl, waitlistSupabaseKey);
+      const waitlistSupabase = createClient(
+        waitlistSupabaseUrl,
+        waitlistSupabaseKey,
+      );
 
       const { error: supabaseError } = await waitlistSupabase
-        .from('waitlist')
+        .from("waitlist")
         .insert([{ email: value }]);
 
       if (supabaseError) {
-        if (supabaseError.code === '23505') {
-          throw new Error('This email is already on the waitlist.');
+        if (supabaseError.code === "23505") {
+          throw new Error("This email is already on the waitlist.");
         }
         throw new Error(supabaseError.message);
       }
 
       setIsSubmitted(true);
-      setEmail('');
-      setEmailCta('');
+      setEmail("");
+      setEmailCta("");
       setTimeout(() => setIsSubmitted(false), 5000);
     } catch (err: any) {
-      setError(err.message || 'Something went wrong');
-      setTimeout(() => setError(''), 5000);
+      setError(err.message || "Something went wrong");
+      setTimeout(() => setError(""), 5000);
     } finally {
       setIsLoading(false);
     }
@@ -77,7 +87,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#f6e7c8] overflow-hidden">
-
       {/* ================= HERO ================= */}
       <section
         className="relative pt-[120px] pb-16 bg-no-repeat bg-cover bg-center"
@@ -140,7 +149,7 @@ export default function Home() {
                 <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#b74628] to-[#7a3a1a] border-2 border-[#f6e7c8]" />
               </div>
               <p className="text-xs text-[#5a4a3c]">
-                <span className="font-semibold text-[#3a2a1f]">10+ users</span>{' '}
+                <span className="font-semibold text-[#3a2a1f]">10+ users</span>{" "}
                 have already joined
               </p>
             </div>
@@ -165,8 +174,8 @@ export default function Home() {
       </section>
 
       {/* ================= STATS ================= */}
-      <section className="relative bg-[#f6e7c8] z-20">
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 -mt-[29px] sm:-mt-[37px]">
+      <section className="relative z-30 -mt-[40px] sm:-mt-[60px]">
+        <div className="w-full">
           <img
             src={statsBar}
             alt="The numbers behind our purpose. 2B+ Muslims worldwide, 5 daily prayers, 1 Ummah United."
@@ -199,8 +208,7 @@ export default function Home() {
           <div
             className="relative rounded-[28px] overflow-hidden px-6 sm:px-10 pt-12 pb-20"
             style={{
-              background:
-                "linear-gradient(180deg, #f4d8a8 0%, #ecc88a 100%)",
+              background: "linear-gradient(180deg, #f4d8a8 0%, #ecc88a 100%)",
             }}
           >
             {/* Subtle dot pattern */}
@@ -241,7 +249,7 @@ export default function Home() {
             {/* Content */}
             <div className="relative z-20 text-center">
               <h3 className="text-2xl sm:text-3xl font-semibold text-[#3a2a1f]">
-                Be the First to{' '}
+                Be the First to{" "}
                 <span className="text-[#7a8a3a]">Experience</span> BARAKAH
               </h3>
               <p className="mt-3 text-sm text-[#5a4a3c]">
@@ -295,7 +303,7 @@ function PalmTree({ className, flip }: { className?: string; flip?: boolean }) {
     <svg
       viewBox="0 0 100 160"
       className={className}
-      style={{ transform: flip ? 'scaleX(-1)' : undefined }}
+      style={{ transform: flip ? "scaleX(-1)" : undefined }}
       aria-hidden="true"
     >
       {/* Trunk */}

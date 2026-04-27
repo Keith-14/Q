@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import logo from "@assets/image_1777286071491.png";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -30,7 +31,7 @@ export default function Header() {
   return (
     <>
       {/* ANNOUNCEMENT BAR */}
-      <div className="fixed top-0 left-0 right-0 z-[60] bg-[#5e6b35] text-[#f5e7c5] text-[11px] tracking-[0.2em] uppercase font-medium py-2">
+      <div className="relative z-[60] bg-[#5e6b35] text-[#f5e7c5] text-[11px] tracking-[0.2em] uppercase font-medium py-2">
         <div className="flex items-center justify-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full bg-[#f5e7c5]" />
           <span>We're Launching Soon</span>
@@ -42,15 +43,17 @@ export default function Header() {
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="fixed top-[32px] left-0 right-0 z-50 bg-[#f6e7c8]/95 backdrop-blur-sm"
+        className="relative z-50 bg-[#f6e7c8]"
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between">
           {/* LOGO */}
-          <Link to="/" className="flex items-center gap-1.5">
-            <span className="text-[#b74628] text-xl">✦</span>
-            <span className="font-display font-semibold text-xl text-[#b74628]">
-              Barakah
-            </span>
+          <Link to="/" className="flex items-center" aria-label="Barakah home">
+            <img
+              src={logo}
+              alt="Barakah"
+              className="h-9 sm:h-10 w-auto select-none"
+              draggable={false}
+            />
           </Link>
 
           {/* DESKTOP NAV */}

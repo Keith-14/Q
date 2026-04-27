@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Instagram, Facebook, Mail, Linkedin } from "lucide-react";
+import logo from "@assets/image_1777286071491.png";
 
 const footerLinks = {
   navigation: [
@@ -29,11 +30,13 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand Column */}
           <div className="lg:col-span-2 max-w-sm">
-            <Link to="/" className="flex items-center gap-1.5 mb-4">
-              <span className="text-[#f0d9a8] text-lg">✦</span>
-              <span className="font-display font-semibold text-lg tracking-wide">
-                BARAKAH
-              </span>
+            <Link to="/" className="inline-flex items-center mb-4" aria-label="Barakah home">
+              <img
+                src={logo}
+                alt="Barakah"
+                className="h-8 w-auto select-none brightness-0 invert opacity-90"
+                draggable={false}
+              />
             </Link>
             <p className="text-[13px] leading-relaxed text-[#f0d9a8]/85">
               Your everyday companion for faithful life that gives you a
