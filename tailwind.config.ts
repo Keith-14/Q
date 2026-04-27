@@ -22,6 +22,8 @@ export default {
                                 'arabic': ['"Reem Kufi"', 'sans-serif'],
                                 'body': ['"Reem Kufi"', '"Amiri"', 'sans-serif'],
                                 'serif-display': ['"DM Serif Display"', 'Georgia', 'serif'],
+                                'jakarta': ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+                                'cormorant': ['"Cormorant Garamond"', 'Georgia', 'serif'],
                         },
                         colors: {
                                 border: 'hsl(var(--border))',

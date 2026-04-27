@@ -187,14 +187,14 @@ export default function Home() {
       {/* ================= QUOTE ================= */}
       <section className="bg-[#f6e7c8] py-20">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <blockquote className="font-serif-display italic text-[28px] sm:text-[40px] leading-[1.35] text-[#3a1f10]">
+          <blockquote className="font-jakarta italic font-bold text-[26px] sm:text-[36px] leading-[1.35] text-[#3a1f10]">
             <span>&ldquo;The believers are but </span>
             <span className="text-[#7a8a3a]">brothers</span>
             <span>, so make</span>
             <br />
             <span>settlement between your brothers.&rdquo;</span>
           </blockquote>
-          <p className="mt-8 font-serif-display not-italic text-[#5a4a3c] text-lg sm:text-xl">
+          <p className="mt-8 font-cormorant not-italic text-[#5a4a3c] text-xl sm:text-2xl">
             — Surah Al-Hujurat 49:10
           </p>
         </div>
