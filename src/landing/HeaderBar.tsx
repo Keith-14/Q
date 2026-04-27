@@ -31,7 +31,7 @@ export default function Header() {
   return (
     <>
       {/* ANNOUNCEMENT BAR */}
-      <div className="relative z-[60] bg-[#5e6b35] text-[#f5e7c5] text-[11px] tracking-[0.2em] uppercase font-medium py-2">
+      <div className="relative z-[60] bg-[#96982d] text-[#f5e7c5] text-[11px] tracking-[0.2em] uppercase font-medium py-2">
         <div className="flex items-center justify-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full bg-[#f5e7c5]" />
           <span>We're Launching Soon</span>
