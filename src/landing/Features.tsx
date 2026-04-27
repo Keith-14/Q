@@ -1,34 +1,49 @@
-import { useNavigate, useLocation } from "react-router-dom";
-import { motion } from "framer-motion";
+"use client";
+
+import { useState } from "react";
+import { Loader2, ArrowRight } from "lucide-react";
 import emojiImg from "@/assets/emoji.png";
+import ctaBanner from "@assets/image_1777288131096.png";
 
 const features = [
   {
-    icon: <span className="text-3xl">🕌</span>,
+    icon: <span className="text-2xl">📰</span>,
+    title: "Muslim News",
+    description:
+      "Stay updated with trusted global and local news relevant to the Muslim Ummah.",
+  },
+  {
+    icon: <span className="text-2xl">🕌</span>,
     title: "Prayer Times & Qibla",
     description:
       "Accurate prayer times based on your location with alerts, reminders, and precise Qibla direction anywhere in the world.",
   },
   {
-    icon: <span className="text-3xl">⚡</span>,
+    icon: <span className="text-2xl">🛒</span>,
+    title: "Islamic Ecommerce",
+    description:
+      "Shop for halal products, Islamic books, prayer essentials, and more from trusted sellers.",
+  },
+  {
+    icon: <span className="text-2xl">🤖</span>,
+    title: "AI Islamic Assistant",
+    description:
+      "Ask questions about Islam, prayer guidance, and daily practices with an AI-powered chatbot.",
+  },
+  {
+    icon: <span className="text-2xl">⚡</span>,
     title: "Prayer Tracking",
     description:
       "Monitor your daily prayers and build consistent spiritual habits with progress tracking.",
   },
   {
-    icon: <span className="text-3xl">👥</span>,
-    title: "Community Connection",
-    description:
-      "Connect with Muslims worldwide, share experiences, and build meaningful relationships.",
-  },
-  {
-    icon: <span className="text-3xl">❤️</span>,
+    icon: <span className="text-2xl">❤️</span>,
     title: "Halal Finder",
     description:
       "Discover halal restaurants, certified products, and trusted services near you.",
   },
   {
-    icon: <span className="text-3xl">📖</span>,
+    icon: <span className="text-2xl">📖</span>,
     title: "Islamic Learning",
     description:
       "Access Quran, Hadith collections, and structured Islamic education resources.",
@@ -37,8 +52,8 @@ const features = [
     icon: (
       <img
         src={emojiImg}
-        alt="Mood Analytics"
-        className="w-8 h-8 object-contain"
+        alt=""
+        className="w-6 h-6 object-contain"
       />
     ),
     title: "Mood Analytics",
@@ -46,37 +61,19 @@ const features = [
       "Visual insights into your spiritual journey with detailed Mood Analytics",
   },
   {
-    icon: <span className="text-3xl">🛒</span>,
-    title: "Islamic Ecommerce",
-    description:
-      "Shop for halal products, Islamic books, prayer essentials, and more from trusted sellers.",
-  },
-  {
-    icon: <span className="text-3xl">🤖</span>,
-    title: "AI Islamic Assistant",
-    description:
-      "Ask questions about Islam, prayer guidance, and daily practices with an AI-powered chatbot.",
-  },
-  {
-    icon: <span className="text-3xl">🧮</span>,
+    icon: <span className="text-2xl">🧮</span>,
     title: "Zakat Calculator",
     description:
       "Easily calculate your Zakat accurately based on Islamic guidelines and current values.",
   },
   {
-    icon: <span className="text-3xl">🕋</span>,
+    icon: <span className="text-2xl">🕋</span>,
     title: "Hajj & Umrah Packages",
     description:
       "Explore trusted Hajj and Umrah travel packages with guidance, planning, and support.",
   },
   {
-    icon: <span className="text-3xl">📰</span>,
-    title: "Muslim News",
-    description:
-      "Stay updated with trusted global and local news relevant to the Muslim Ummah.",
-  },
-  {
-    icon: <span className="text-3xl">📱</span>,
+    icon: <span className="text-2xl">📱</span>,
     title: "Halal Scanner",
     description:
       "Scan food labels and product ingredients to instantly verify halal compliance with AI-powered insights.",
@@ -84,116 +81,157 @@ const features = [
 ];
 
 export default function Features() {
-  const navigate = useNavigate();
-  const location = useLocation();
+  const [emailCta, setEmailCta] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [, setIsSubmitted] = useState(false);
+  const [, setError] = useState("");
 
-  const scrollToWaitlist = () => {
-    const el = document.getElementById("waitlist");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    } else if (location.pathname !== "/") {
-      navigate("/");
-      setTimeout(() => {
-        const element = document.getElementById("waitlist");
-        if (element) element.scrollIntoView({ behavior: "smooth" });
-      }, 100);
+  const submitEmail = async (value: string) => {
+    setError("");
+    setIsLoading(true);
+
+    try {
+      const { createClient } = await import("@supabase/supabase-js");
+      const waitlistSupabaseUrl = import.meta.env.VITE_WAITLIST_SUPABASE_URL;
+      const waitlistSupabaseKey = import.meta.env
+        .VITE_WAITLIST_SUPABASE_ANON_KEY;
+
+      if (
+        !waitlistSupabaseUrl ||
+        !waitlistSupabaseKey ||
+        waitlistSupabaseKey === "YOUR_WAITLIST_ANON_KEY_HERE"
+      ) {
+        throw new Error(
+          "Waitlist database not configured. Please add the anon key to your .env file.",
+        );
+      }
+
+      const waitlistSupabase = createClient(
+        waitlistSupabaseUrl,
+        waitlistSupabaseKey,
+      );
+
+      const { error: supabaseError } = await waitlistSupabase
+        .from("waitlist")
+        .insert([{ email: value }]);
+
+      if (supabaseError) {
+        if (supabaseError.code === "23505") {
+          throw new Error("This email is already on the waitlist.");
+        }
+        throw new Error(supabaseError.message);
+      }
+
+      setIsSubmitted(true);
+      setEmailCta("");
+      setTimeout(() => setIsSubmitted(false), 5000);
+    } catch (err: any) {
+      setError(err.message || "Something went wrong");
+      setTimeout(() => setError(""), 5000);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.2 },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  const handleCtaSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (emailCta) submitEmail(emailCta);
   };
 
   return (
-    <div className="min-h-screen bg-[#ffeaba]">
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20"
-      >
+    <div className="min-h-screen bg-[#f6e7c8]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-24">
         {/* Header */}
-        <motion.div variants={itemVariants} className="text-center mb-20">
-          <div className="flex justify-center mb-6">
-            <div className="w-14 h-14 rounded-2xl bg-white/40 backdrop-blur-sm flex items-center justify-center shadow-sm">
-              <span className="text-2xl">✨</span>
-            </div>
-          </div>
-
-          <h1 className="text-5xl sm:text-6xl font-bold text-[#34453a] mb-6">
-            Powerful Features for Your
-            <span className="text-teal-700"> Spiritual Journey</span>
+        <div className="text-center mb-14 sm:mb-16">
+          <h1 className="font-jakarta font-bold text-[#3a1f10] text-4xl sm:text-5xl lg:text-[56px] leading-tight">
+            Powerful Features for
+            <br />
+            <span className="text-[#b74628]">Your Spiritual Journey</span>
           </h1>
 
-          <p className="text-xl text-[#5f5a4f] max-w-2xl mx-auto">
+          <p className="mt-6 text-[#7a6a5a] text-base sm:text-lg max-w-2xl mx-auto">
             Everything you need to enhance your Muslim lifestyle — worship,
             learning, commerce, and travel ✨
           </p>
-        </motion.div>
+        </div>
 
         {/* Features Grid */}
-        <motion.div
-          variants={containerVariants}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-        >
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
           {features.map((feature) => (
-            <motion.div
+            <div
               key={feature.title}
-              variants={cardVariants}
-              whileHover={{ y: -8 }}
-              className="group p-8 rounded-2xl bg-gradient-to-b from-[#34453a] to-[#161d17] text-white shadow-lg shadow-black/30 border border-white/10 transition"
+              className="rounded-2xl bg-[#f4cda0] p-6 transition hover:-translate-y-1 hover:shadow-md"
             >
-              <motion.div
-                whileHover={{ scale: 1.15 }}
-                transition={{ duration: 0.4 }}
-                className="w-16 h-16 rounded-xl bg-white/10 flex items-center justify-center mb-6"
-              >
+              <div className="w-10 h-10 rounded-md bg-[#f6e7c8] flex items-center justify-center mb-5">
                 {feature.icon}
-              </motion.div>
-
-              <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
-              <p className="text-white/70 leading-relaxed">
+              </div>
+              <h3 className="font-jakarta font-bold text-[#3a1f10] text-lg mb-2">
+                {feature.title}
+              </h3>
+              <p className="text-[#7a6a5a] text-sm leading-relaxed">
                 {feature.description}
               </p>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
-        {/* CTA */}
-        <motion.div
-          variants={itemVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="mt-24 text-center"
-        >
-          <p className="text-[#5f5a4f] mb-8 text-lg">
-            Ready to transform your spiritual life?
-          </p>
-          <motion.button
-            onClick={scrollToWaitlist}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-block px-8 py-4 bg-teal-700 hover:bg-teal-800 text-white font-semibold rounded-lg transition cursor-pointer"
-          >
-            Join the Waitlist
-          </motion.button>
-        </motion.div>
-      </motion.div>
+        {/* CTA Banner */}
+        <div className="mt-20 sm:mt-24">
+          <div className="relative rounded-[40px] overflow-hidden bg-[#f6e7c8]">
+            <img
+              src={ctaBanner}
+              alt=""
+              aria-hidden="true"
+              className="block w-full h-auto select-none"
+              draggable={false}
+            />
+
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+              <h3 className="font-jakarta font-bold text-[#3a1f10] text-2xl sm:text-3xl lg:text-4xl">
+                Be the First to{" "}
+                <span className="text-[#7a8a3a]">Experience</span> BARAKAH
+              </h3>
+              <p className="mt-2 sm:mt-3 text-[#5a4a3c] text-xs sm:text-sm lg:text-base">
+                Join our exclusive waitlist and be notified when we launch.
+              </p>
+
+              <form
+                onSubmit={handleCtaSubmit}
+                className="mt-4 sm:mt-6 w-full max-w-md flex items-center bg-white rounded-full p-1 sm:p-1.5 shadow-md"
+              >
+                <input
+                  type="email"
+                  required
+                  value={emailCta}
+                  onChange={(e) => setEmailCta(e.target.value)}
+                  placeholder="Enter your email"
+                  className="flex-1 min-w-0 px-3 sm:px-4 py-1.5 sm:py-2 bg-transparent text-[#3a2a1f] placeholder:text-[#a89a86] text-xs sm:text-sm focus:outline-none"
+                />
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="px-3 sm:px-5 py-1.5 sm:py-2 bg-[#7a3a1c] hover:bg-[#6a3018] text-white text-xs sm:text-sm font-semibold rounded-full flex items-center gap-1 sm:gap-1.5 transition-colors whitespace-nowrap"
+                >
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="animate-spin" size={12} />
+                      Joining
+                    </>
+                  ) : (
+                    <>
+                      Join Waitlist <ArrowRight size={12} />
+                    </>
+                  )}
+                </button>
+              </form>
+
+              <p className="mt-2 sm:mt-3 text-[10px] sm:text-xs text-[#7a6a5a]">
+                🔒 We respect your privacy. Unsubscribe anytime.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
