@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { Loader2, ArrowRight, Plus, Minus } from "lucide-react";
 import ctaBanner from "@assets/image_1777288131096.png";
-import aboutHeader from "@assets/image_1777295684428.png";
 
 const values = [
   {
@@ -128,13 +127,14 @@ export default function About() {
     <div className="min-h-screen bg-[#fdeed7]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-24">
         {/* HEADER */}
-        <div className="flex justify-center mb-12 sm:mb-16">
-          <img
-            src={aboutHeader}
-            alt="About BARAKAH - Built by Muslims, for Muslims."
-            className="block w-full max-w-md h-auto select-none"
-            draggable={false}
-          />
+        <div className="text-center mb-12 sm:mb-16">
+          <h1 className="font-jakarta font-bold text-4xl sm:text-5xl lg:text-6xl">
+            <span className="text-[#3a1f10]">About </span>
+            <span className="text-[#7a3a1c]">BARAKAH</span>
+          </h1>
+          <p className="mt-3 text-[#7a6a5a] text-sm sm:text-base">
+            Built by Muslims, for Muslims.
+          </p>
         </div>
 
         {/* MISSION & VISION */}
