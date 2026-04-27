@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { CheckCircle2, AlertCircle, Loader2, ArrowRight } from "lucide-react";
 import heroBg from "@assets/hero-bg_1777242380832.png";
 import statsBar from "@assets/image_1777244421919.png";
-import ctaBanner from "@assets/image_1777287361116.png";
+import ctaBanner from "@assets/image_1777288131096.png";
 
 export default function Home() {
   /* ================= STATE ================= */
@@ -207,41 +207,56 @@ export default function Home() {
           <div className="relative">
             <img
               src={ctaBanner}
-              alt="Be the first to experience Barakah. Join our exclusive waitlist and be notified when we launch."
+              alt=""
+              aria-hidden="true"
               className="block w-full h-auto rounded-[28px] select-none"
               draggable={false}
             />
 
-            {/* Working form overlaid on top of the form drawn into the banner */}
-            <form
-              onSubmit={handleCtaSubmit}
-              className="absolute left-[12%] right-[12%] top-[56%] -translate-y-1/2 flex items-center bg-white rounded-full p-[0.9%] shadow-md"
-            >
-              <input
-                type="email"
-                required
-                value={emailCta}
-                onChange={(e) => setEmailCta(e.target.value)}
-                placeholder="Enter your email"
-                className="flex-1 min-w-0 px-3 sm:px-5 py-2 sm:py-3 bg-transparent text-[#3a2a1f] placeholder:text-[#a89a86] text-[11px] sm:text-sm focus:outline-none"
-              />
-              <button
-                type="submit"
-                disabled={isLoading}
-                className="px-3 sm:px-6 py-2 sm:py-3 bg-[#7a3a1c] hover:bg-[#6a3018] text-white text-[11px] sm:text-sm font-medium rounded-full flex items-center gap-1 sm:gap-1.5 transition-colors whitespace-nowrap"
+            {/* Text + form overlay */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+              <h3 className="font-jakarta font-bold text-[#3a1f10] text-2xl sm:text-3xl lg:text-4xl">
+                Be the First to{" "}
+                <span className="text-[#7a8a3a]">Experience</span> BARAKAH
+              </h3>
+              <p className="mt-2 sm:mt-3 text-[#5a4a3c] text-xs sm:text-sm lg:text-base">
+                Join our exclusive waitlist and be notified when we launch.
+              </p>
+
+              <form
+                onSubmit={handleCtaSubmit}
+                className="mt-4 sm:mt-6 w-full max-w-md flex items-center bg-white rounded-full p-1 sm:p-1.5 shadow-md"
               >
-                {isLoading ? (
-                  <>
-                    <Loader2 className="animate-spin" size={12} />
-                    Joining
-                  </>
-                ) : (
-                  <>
-                    Join Waitlist <ArrowRight size={12} />
-                  </>
-                )}
-              </button>
-            </form>
+                <input
+                  type="email"
+                  required
+                  value={emailCta}
+                  onChange={(e) => setEmailCta(e.target.value)}
+                  placeholder="Enter your email"
+                  className="flex-1 min-w-0 px-3 sm:px-4 py-1.5 sm:py-2 bg-transparent text-[#3a2a1f] placeholder:text-[#a89a86] text-xs sm:text-sm focus:outline-none"
+                />
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="px-3 sm:px-5 py-1.5 sm:py-2 bg-[#7a3a1c] hover:bg-[#6a3018] text-white text-xs sm:text-sm font-semibold rounded-full flex items-center gap-1 sm:gap-1.5 transition-colors whitespace-nowrap"
+                >
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="animate-spin" size={12} />
+                      Joining
+                    </>
+                  ) : (
+                    <>
+                      Join Waitlist <ArrowRight size={12} />
+                    </>
+                  )}
+                </button>
+              </form>
+
+              <p className="mt-2 sm:mt-3 text-[10px] sm:text-xs text-[#7a6a5a]">
+                🔒 We respect your privacy. Unsubscribe anytime.
+              </p>
+            </div>
           </div>
         </div>
       </section>
