@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Loader2, ArrowRight } from "lucide-react";
 import emojiImg from "@/assets/emoji.png";
 import ctaBanner from "@assets/image_1777288131096.png";
@@ -85,6 +85,15 @@ export default function Features() {
   const [isLoading, setIsLoading] = useState(false);
   const [, setIsSubmitted] = useState(false);
   const [, setError] = useState("");
+
+  useEffect(() => {
+    if (window.location.hash) {
+      const el = document.querySelector(window.location.hash);
+      if (el) {
+        setTimeout(() => el.scrollIntoView({ behavior: "smooth" }), 100);
+      }
+    }
+  }, []);
 
   const submitEmail = async (value: string) => {
     setError("");
@@ -176,8 +185,8 @@ export default function Features() {
         </div>
 
         {/* CTA Banner */}
-        <div className="mt-20 sm:mt-24">
-          <div className="relative rounded-[40px] overflow-hidden bg-[#f6e7c8]">
+        <div id="waitlist" className="mt-20 sm:mt-24 scroll-mt-24">
+          <div className="relative rounded-[60px] overflow-hidden bg-[#fdeed7]">
             <img
               src={ctaBanner}
               alt=""
