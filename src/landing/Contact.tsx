@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Mail, Phone, MapPin, Clock, CheckCircle2 } from "lucide-react";
+import contactBanner from "@assets/image_1777295962056.png";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -31,43 +32,14 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen bg-[#fdeed7]">
-      {/* HERO */}
-      <section
-        className="relative overflow-hidden bg-[#1a120b] text-white"
-        style={{
-          backgroundImage:
-            "linear-gradient(90deg, rgba(26,18,11,0.85) 0%, rgba(26,18,11,0.6) 50%, rgba(26,18,11,0.85) 100%), radial-gradient(circle at 20% 50%, #4a3325 0%, #1a120b 70%)",
-        }}
-      >
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16 sm:py-20 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-          {/* B mark */}
-          <div className="flex items-center justify-center lg:justify-start">
-            <div className="relative">
-              <span
-                className="font-cormorant font-bold text-white text-[140px] sm:text-[180px] leading-none select-none"
-                aria-hidden="true"
-              >
-                B
-              </span>
-              <span
-                className="absolute -left-4 top-1/2 -translate-y-1/2 text-white text-2xl"
-                aria-hidden="true"
-              >
-                ✦
-              </span>
-            </div>
-          </div>
-
-          {/* Heading */}
-          <div className="text-center lg:text-left">
-            <h1 className="font-jakarta font-bold text-4xl sm:text-5xl lg:text-6xl leading-tight">
-              Get in <span className="text-[#a8b860]">Touch</span>
-            </h1>
-            <p className="mt-4 text-white/70 text-base sm:text-lg max-w-md mx-auto lg:mx-0">
-              Have a question or feedback? We'd love to hear from you 💬
-            </p>
-          </div>
-        </div>
+      {/* HERO BANNER */}
+      <section className="w-full">
+        <img
+          src={contactBanner}
+          alt="Get in Touch - Have a question or feedback? We'd love to hear from you"
+          className="block w-full h-auto select-none"
+          draggable={false}
+        />
       </section>
 
       {/* CONTENT */}
