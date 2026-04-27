@@ -139,7 +139,7 @@ export default function Features() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f6e7c8]">
+    <div className="min-h-screen bg-[#fdeed7]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-24">
         {/* Header */}
         <div className="text-center mb-14 sm:mb-16">
@@ -160,9 +160,9 @@ export default function Features() {
           {features.map((feature) => (
             <div
               key={feature.title}
-              className="rounded-2xl bg-[#f4cda0] p-6 transition hover:-translate-y-1 hover:shadow-md"
+              className="rounded-2xl bg-[#ffe8ca] border border-[#e8d5c4] p-6 transition hover:-translate-y-1 hover:shadow-md"
             >
-              <div className="w-10 h-10 rounded-md bg-[#f6e7c8] flex items-center justify-center mb-5">
+              <div className="w-10 h-10 rounded-md bg-[#fdeed7] flex items-center justify-center mb-5">
                 {feature.icon}
               </div>
               <h3 className="font-jakarta font-bold text-[#3a1f10] text-lg mb-2">
