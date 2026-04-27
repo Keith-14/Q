@@ -43,7 +43,7 @@ export default function Header() {
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="relative z-50 bg-[#f6e7c8]"
+        className="relative z-50 bg-[#fae5d1]"
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between">
           {/* LOGO */}
@@ -129,9 +129,7 @@ export default function Header() {
                       key={link.path}
                       to={link.path}
                       className={`block py-2 text-base ${
-                        active
-                          ? "text-[#b74628] font-medium"
-                          : "text-[#3a2a1f]"
+                        active ? "text-[#b74628] font-medium" : "text-[#3a2a1f]"
                       }`}
                     >
                       {link.name}

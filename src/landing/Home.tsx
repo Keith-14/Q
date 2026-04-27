@@ -186,17 +186,15 @@ export default function Home() {
 
       {/* ================= QUOTE ================= */}
       <section className="bg-[#f6e7c8] py-20">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <blockquote className="text-2xl sm:text-[28px] italic font-medium text-[#3a2a1f] leading-snug">
-            <span className="text-[#3a2a1f]">"The believers are but </span>
-            <span className="text-[#b74628]">brothers</span>
-            <span className="text-[#3a2a1f]">, so make</span>
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <blockquote className="font-serif-display italic text-[28px] sm:text-[40px] leading-[1.35] text-[#3a1f10]">
+            <span>&ldquo;The believers are but </span>
+            <span className="text-[#7a8a3a]">brothers</span>
+            <span>, so make</span>
             <br />
-            <span className="text-[#3a2a1f]">settlement between your </span>
-            <span className="text-[#7a8a3a]">brothers.</span>
-            <span className="text-[#3a2a1f]">"</span>
+            <span>settlement between your brothers.&rdquo;</span>
           </blockquote>
-          <p className="mt-5 text-[#5a4a3c] text-sm">
+          <p className="mt-8 font-serif-display not-italic text-[#5a4a3c] text-lg sm:text-xl">
             — Surah Al-Hujurat 49:10
           </p>
         </div>
