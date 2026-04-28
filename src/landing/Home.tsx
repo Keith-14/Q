@@ -108,9 +108,9 @@ export default function Home() {
             </h1>
 
             <p className="mt-6 text-[15px] text-[#5a4a3c] max-w-md leading-relaxed">
-              Unlock purposeful living with an all-in-one
+              Unlock purposeful living with an all-in-one ecosystem for Muslims.
               <br />
-              unlock purposeful living with an all-
+               Get personalized AI guidance, community support, and reliable resources for worship, travel, and daily habits, turning sincerity into everyday barakah.
             </p>
 
             {/* Inline waitlist form */}
@@ -143,17 +143,6 @@ export default function Home() {
             </form>
 
             {/* Avatars + social proof */}
-            <div className="mt-5 flex items-center gap-3">
-              <div className="flex -space-x-2">
-                <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#3a2a1f] to-[#1a1a1a] border-2 border-[#f6e7c8]" />
-                <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#7a5a3a] to-[#3a2a1f] border-2 border-[#f6e7c8]" />
-                <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#b74628] to-[#7a3a1a] border-2 border-[#f6e7c8]" />
-              </div>
-              <p className="text-xs text-[#5a4a3c]">
-                <span className="font-semibold text-[#3a2a1f]">10+ users</span>{" "}
-                have already joined
-              </p>
-            </div>
 
             {isSubmitted && (
               <div className="mt-4 flex items-center gap-2 text-emerald-700 text-sm">

@@ -78,6 +78,12 @@ const features = [
     description:
       "Scan food labels and product ingredients to instantly verify halal compliance with AI-powered insights.",
   },
+  {
+    icon: <span className="text-2xl">💬</span>,
+    title: "Guftagu",
+    description:
+      "Chat with users in real time to get guidance, share insights, and stay connected within your spiritual journey.",
+  },
 ];
 
 export default function Features() {
