@@ -193,28 +193,30 @@ export default function Home() {
       {/* ================= FINAL CTA ================= */}
       <section id="waitlist" className="bg-[#f6e7c8] pb-24">
         <div className="max-w-5xl mx-auto px-6">
-          <div className="relative rounded-[40px] overflow-hidden bg-[#f6e7c8]">
+          <div className="relative rounded-[40px] overflow-hidden bg-[#f6e7c8] flex flex-col items-center justify-center py-12 sm:py-16 lg:py-24">
             <img
               src={ctaBanner}
               alt=""
               aria-hidden="true"
-              className="block w-full h-auto select-none"
+              className="absolute inset-0 w-full h-full object-cover object-bottom select-none"
               draggable={false}
             />
 
             {/* Text + form overlay */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
-              <h3 className="font-jakarta font-bold text-[#3a1f10] text-2xl sm:text-3xl lg:text-4xl">
+            <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 sm:px-6 w-full">
+              <h3 className="font-jakarta font-bold text-[#3a1f10] text-[22px] sm:text-3xl lg:text-4xl leading-tight">
                 Be the First to{" "}
-                <span className="text-[#7a8a3a]">Experience</span> BARAKAH
+                <span className="text-[#7a8a3a]">Experience</span>
+                <br className="sm:hidden" />
+                <span className="inline-block mt-1 sm:mt-0"> BARAKAH</span>
               </h3>
-              <p className="mt-2 sm:mt-3 text-[#5a4a3c] text-xs sm:text-sm lg:text-base">
+              <p className="mt-3 text-[#5a4a3c] text-sm lg:text-base max-w-md mx-auto">
                 Join our exclusive waitlist and be notified when we launch.
               </p>
 
               <form
                 onSubmit={handleCtaSubmit}
-                className="mt-4 sm:mt-6 w-full max-w-md flex items-center bg-white rounded-full p-1 sm:p-1.5 shadow-md"
+                className="mt-6 w-full max-w-md flex items-center bg-white rounded-full p-1 sm:p-1.5 shadow-md mx-auto"
               >
                 <input
                   type="email"
@@ -222,27 +224,27 @@ export default function Home() {
                   value={emailCta}
                   onChange={(e) => setEmailCta(e.target.value)}
                   placeholder="Enter your email"
-                  className="flex-1 min-w-0 px-3 sm:px-4 py-1.5 sm:py-2 bg-transparent text-[#3a2a1f] placeholder:text-[#a89a86] text-xs sm:text-sm focus:outline-none"
+                  className="flex-1 min-w-0 px-4 py-2 sm:py-2 bg-transparent text-[#3a2a1f] placeholder:text-[#a89a86] text-sm focus:outline-none"
                 />
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="px-3 sm:px-5 py-1.5 sm:py-2 bg-[#7a3a1c] hover:bg-[#6a3018] text-white text-xs sm:text-sm font-semibold rounded-full flex items-center gap-1 sm:gap-1.5 transition-colors whitespace-nowrap"
+                  className="px-5 py-2 bg-[#7a3a1c] hover:bg-[#6a3018] text-white text-sm font-semibold rounded-full flex items-center gap-1.5 transition-colors whitespace-nowrap"
                 >
                   {isLoading ? (
                     <>
-                      <Loader2 className="animate-spin" size={12} />
+                      <Loader2 className="animate-spin" size={14} />
                       Joining
                     </>
                   ) : (
                     <>
-                      Join Waitlist <ArrowRight size={12} />
+                      Join Waitlist <ArrowRight size={14} />
                     </>
                   )}
                 </button>
               </form>
 
-              <p className="mt-2 sm:mt-3 text-[10px] sm:text-xs text-[#7a6a5a]">
+              <p className="mt-4 text-xs text-[#7a6a5a]">
                 🔒 We respect your privacy. Unsubscribe anytime.
               </p>
             </div>
