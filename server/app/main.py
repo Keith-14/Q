@@ -9,11 +9,15 @@ app = FastAPI(
     version="1.0.0",
 )
 
-origins = (
-    ["http://localhost:5173"]
-    if os.getenv("ENV") == "development"
-    else ["*"]
-)
+origins = [
+    "http://localhost:5173",
+    "http://localhost:5000",
+    "https://barakah-server-cvyu.onrender.com",
+]
+
+# Allow all origins in development
+if os.getenv("ENV") != "production":
+    origins.append("*")
 
 app.add_middleware(
     CORSMiddleware,
