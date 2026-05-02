@@ -31,6 +31,7 @@ export const HalalScanner = () => {
   const [scannedBarcode, setScannedBarcode] = useState<string | null>(null);
   const [manualBarcode, setManualBarcode] = useState('');
   const readerRef = useRef<BrowserMultiFormatReader | null>(null);
+  const scanLoopRef = useRef<number | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const mountedRef = useRef(true);
@@ -38,9 +39,9 @@ export const HalalScanner = () => {
 
   const cleanupScanner = useCallback(async () => {
     try {
-      if (readerRef.current) {
-        // BrowserMultiFormatReader does not expose reset() in the browser package
-        readerRef.current = null;
+      if (scanLoopRef.current) {
+        cancelAnimationFrame(scanLoopRef.current);
+        scanLoopRef.current = null;
       }
       if (streamRef.current) {
         streamRef.current.getTracks().forEach(track => track.stop());
@@ -49,8 +50,9 @@ export const HalalScanner = () => {
       if (videoRef.current) {
         videoRef.current.srcObject = null;
       }
+      readerRef.current = null;
     } catch {
-      // ignore cleanup errors
+      // ignore
     }
   }, []);
 
@@ -193,10 +195,10 @@ export const HalalScanner = () => {
     }
   };
 
-  const stopScanning = async () => {
+  const stopScanning = useCallback(async () => {
     await cleanupScanner();
-    setScanning(false);
-  };
+    if (mountedRef.current) setScanning(false);
+  }, [cleanupScanner]);
 
   useEffect(() => {
     if (!localStorage.getItem('barakah_session_id')) {
@@ -208,9 +210,14 @@ export const HalalScanner = () => {
     mountedRef.current = true;
     return () => {
       mountedRef.current = false;
-      cleanupScanner();
+      if (scanLoopRef.current) {
+        cancelAnimationFrame(scanLoopRef.current);
+      }
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach(track => track.stop());
+      }
     };
-  }, [cleanupScanner]);
+  }, []);
 
  type StatusKey = 'halal' | 'not_halal' | 'doubtful';
 
