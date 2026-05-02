@@ -27,6 +27,8 @@ export const HalalScanner = () => {
   const [microcopy, setMicrocopy] = useState<string | null>(null);
   const [alternatives, setAlternatives] = useState<Alternative[]>([]);
   const [loading, setLoading] = useState(false);
+  const [hasResult, setHasResult] = useState(false);
+  const [scannedBarcode, setScannedBarcode] = useState<string | null>(null);
   const [manualBarcode, setManualBarcode] = useState('');
   const readerRef = useRef<BrowserMultiFormatReader | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -66,6 +68,8 @@ export const HalalScanner = () => {
       setMicrocopy(null);
       setAlternatives([]);
       setError(null);
+      setHasResult(false);
+      setScannedBarcode(decodedText);
 
       // stop camera AFTER state updates, not before
       await cleanupScanner();
@@ -107,6 +111,7 @@ export const HalalScanner = () => {
         setVerdict(data.verdict ?? null);
         setMicrocopy(data.microcopy ?? null);
         setAlternatives(data.alternatives ?? []);
+        setHasResult(true);
 
       } catch (err) {
         console.error('Fetch error:', err);
@@ -125,6 +130,8 @@ export const HalalScanner = () => {
     setVerdict(null);
     setMicrocopy(null);
     setAlternatives([]);
+    setHasResult(false);
+    setScannedBarcode(null);
     isProcessingRef.current = false;
 
     await cleanupScanner();
@@ -170,7 +177,7 @@ export const HalalScanner = () => {
 
       reader.decodeFromVideoElement(video, (result, err) => {
         console.log('decode tick', result?.getText(), err?.name);
-        if (result && !isProcessingRef.current) {
+        if (result && !isProcessingRef.current && streamRef.current) {
           console.log('Barcode detected:', result.getText());
           handleBarcodeDetected(result.getText());
         }
@@ -347,6 +354,14 @@ const statusConfig: Record<StatusKey, StatusConfig> = {
           <p className="text-destructive text-sm text-center mb-4">{error}</p>
         )}
 
+        {/* Scanned Barcode */}
+        {scannedBarcode && (
+          <div className="w-full max-w-[340px] mb-3 px-4 py-2 rounded-xl bg-card border border-border/40 flex items-center justify-between">
+            <span className="text-xs text-muted-foreground">Barcode detected</span>
+            <span className="text-xs font-mono text-foreground">{scannedBarcode}</span>
+          </div>
+        )}
+
         {/* Status badges */}
         <div className="flex gap-3 mb-5">
           {(['halal', 'not_halal', 'doubtful'] as const).map((status) => {
@@ -377,7 +392,7 @@ const statusConfig: Record<StatusKey, StatusConfig> = {
         )}
 
         {/* Result message */}
-        {result && result.status && !loading && (
+        {hasResult && result && result.status && !loading && (
           <div
             className={`w-full max-w-[340px] rounded-2xl px-6 py-5 text-center ${statusConfig[safeStatus].messageBg} border border-[#d4c9a8]/30`}
           >
@@ -393,14 +408,14 @@ const statusConfig: Record<StatusKey, StatusConfig> = {
         )}
 
         {/* Microcopy */}
-        {microcopy && !loading && (
+        {hasResult && microcopy && !loading && (
           <p className="text-sm text-center text-muted-foreground italic mt-3 max-w-[300px]">
             {microcopy}
           </p>
         )}
 
         {/* Verdict */}
-        {verdict && !loading && (
+        {hasResult && verdict && !loading && (
           <div className="w-full max-w-[340px] rounded-2xl px-6 py-4 mt-3 bg-card border border-border/30">
             <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
               Ruling
@@ -410,7 +425,7 @@ const statusConfig: Record<StatusKey, StatusConfig> = {
         )}
 
         {/* Halal alternatives */}
-        {alternatives.length > 0 && !loading && (
+        {hasResult && alternatives.length > 0 && !loading && (
           <div className="w-full max-w-[340px] rounded-2xl px-6 py-4 mt-3 mb-6 bg-card border border-border/30">
             <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
               🛒 Halal alternatives
