@@ -10,7 +10,9 @@ import ctaBanner from "@assets/image_1777288131096.png";
 export default function Home() {
   /* ================= STATE ================= */
   const [email, setEmail] = useState("");
+  const [source, setSource] = useState("");
   const [emailCta, setEmailCta] = useState("");
+  const [sourceCta, setSourceCta] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -27,8 +29,8 @@ export default function Home() {
     }
   }, []);
 
-  /* ================= SUBMIT (logic unchanged) ================= */
-  const submitEmail = async (value: string) => {
+  /* ================= SUBMIT ================= */
+  const submitEmail = async (value: string, sourceValue: string) => {
     setError("");
     setIsLoading(true);
 
@@ -55,7 +57,7 @@ export default function Home() {
 
       const { error: supabaseError } = await waitlistSupabase
         .from("waitlist")
-        .insert([{ email: value }]);
+        .insert([{ email: value, referral_source: sourceValue || "Not specified" }]);
 
       if (supabaseError) {
         if (supabaseError.code === "23505") {
@@ -66,7 +68,9 @@ export default function Home() {
 
       setIsSubmitted(true);
       setEmail("");
+      setSource("");
       setEmailCta("");
+      setSourceCta("");
       setTimeout(() => setIsSubmitted(false), 5000);
     } catch (err: any) {
       setError(err.message || "Something went wrong");
@@ -78,12 +82,12 @@ export default function Home() {
 
   const handleHeroSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    submitEmail(email);
+    submitEmail(email, source);
   };
 
   const handleCtaSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    submitEmail(emailCta);
+    submitEmail(emailCta, sourceCta);
   };
 
   return (
@@ -116,7 +120,7 @@ export default function Home() {
             {/* Inline waitlist form */}
             <form
               onSubmit={handleHeroSubmit}
-              className="mt-8 max-w-md flex items-center bg-white rounded-full p-1.5 shadow-sm border border-[#e6cfa2]"
+              className="mt-8 max-w-xl flex flex-col sm:flex-row items-stretch sm:items-center bg-white sm:rounded-full rounded-2xl p-1.5 shadow-sm border border-[#e6cfa2] gap-2 sm:gap-0"
             >
               <input
                 type="email"
@@ -124,12 +128,27 @@ export default function Home() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
-                className="flex-1 px-5 py-2 bg-transparent text-[#3a2a1f] placeholder:text-[#a89a86] text-sm focus:outline-none"
+                className="flex-1 px-5 py-2 sm:py-0 bg-transparent text-[#3a2a1f] placeholder:text-[#a89a86] text-sm focus:outline-none"
               />
+              <div className="hidden sm:block w-px h-6 bg-[#e6cfa2]"></div>
+              <select
+                value={source}
+                onChange={(e) => setSource(e.target.value)}
+                required
+                className="px-4 py-2 sm:py-0 bg-transparent text-[#3a2a1f] text-sm focus:outline-none cursor-pointer"
+              >
+                <option value="" disabled>Found us via...</option>
+                <option value="Friend">Friend</option>
+                <option value="Instagram">Instagram</option>
+                <option value="Twitter">Twitter</option>
+                <option value="TikTok">TikTok</option>
+                <option value="Google">Google</option>
+                <option value="Other">Other</option>
+              </select>
               <button
                 type="submit"
                 disabled={isLoading}
-                className="px-5 py-2.5 bg-[#b74628] hover:bg-[#a23e22] text-white text-sm font-medium rounded-full flex items-center gap-1.5 transition-colors"
+                className="w-full sm:w-auto px-5 py-2.5 bg-[#b74628] hover:bg-[#a23e22] text-white text-sm font-medium rounded-full flex items-center justify-center gap-1.5 transition-colors"
               >
                 {isLoading ? (
                   <>
@@ -216,7 +235,7 @@ export default function Home() {
 
               <form
                 onSubmit={handleCtaSubmit}
-                className="mt-6 w-full max-w-md flex items-center bg-white rounded-full p-1 sm:p-1.5 shadow-md mx-auto"
+                className="mt-6 w-full max-w-xl flex flex-col sm:flex-row items-stretch sm:items-center bg-white sm:rounded-full rounded-2xl p-1 sm:p-1.5 shadow-md mx-auto gap-2 sm:gap-0"
               >
                 <input
                   type="email"
@@ -224,12 +243,27 @@ export default function Home() {
                   value={emailCta}
                   onChange={(e) => setEmailCta(e.target.value)}
                   placeholder="Enter your email"
-                  className="flex-1 min-w-0 px-4 py-2 sm:py-2 bg-transparent text-[#3a2a1f] placeholder:text-[#a89a86] text-sm focus:outline-none"
+                  className="flex-1 min-w-0 px-4 py-2 sm:py-1 bg-transparent text-[#3a2a1f] placeholder:text-[#a89a86] text-sm focus:outline-none"
                 />
+                <div className="hidden sm:block w-px h-6 bg-[#e6cfa2]"></div>
+                <select
+                  value={sourceCta}
+                  onChange={(e) => setSourceCta(e.target.value)}
+                  required
+                  className="px-4 py-2 sm:py-1 bg-transparent text-[#3a2a1f] text-sm focus:outline-none cursor-pointer"
+                >
+                  <option value="" disabled>Found us via...</option>
+                  <option value="Friend">Friend</option>
+                  <option value="Instagram">Instagram</option>
+                  <option value="Twitter">Twitter</option>
+                  <option value="TikTok">TikTok</option>
+                  <option value="Google">Google</option>
+                  <option value="Other">Other</option>
+                </select>
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="px-5 py-2 bg-[#7a3a1c] hover:bg-[#6a3018] text-white text-sm font-semibold rounded-full flex items-center gap-1.5 transition-colors whitespace-nowrap"
+                  className="w-full sm:w-auto px-5 py-2 bg-[#7a3a1c] hover:bg-[#6a3018] text-white text-sm font-semibold rounded-full flex items-center justify-center gap-1.5 transition-colors whitespace-nowrap"
                 >
                   {isLoading ? (
                     <>

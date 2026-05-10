@@ -88,6 +88,7 @@ const features = [
 
 export default function Features() {
   const [emailCta, setEmailCta] = useState("");
+  const [sourceCta, setSourceCta] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [, setIsSubmitted] = useState(false);
   const [, setError] = useState("");
@@ -101,7 +102,7 @@ export default function Features() {
     }
   }, []);
 
-  const submitEmail = async (value: string) => {
+  const submitEmail = async (value: string, sourceValue: string) => {
     setError("");
     setIsLoading(true);
 
@@ -128,7 +129,7 @@ export default function Features() {
 
       const { error: supabaseError } = await waitlistSupabase
         .from("waitlist")
-        .insert([{ email: value }]);
+        .insert([{ email: value, referral_source: sourceValue || "Not specified" }]);
 
       if (supabaseError) {
         if (supabaseError.code === "23505") {
@@ -139,6 +140,7 @@ export default function Features() {
 
       setIsSubmitted(true);
       setEmailCta("");
+      setSourceCta("");
       setTimeout(() => setIsSubmitted(false), 5000);
     } catch (err: any) {
       setError(err.message || "Something went wrong");
@@ -150,7 +152,7 @@ export default function Features() {
 
   const handleCtaSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (emailCta) submitEmail(emailCta);
+    if (emailCta) submitEmail(emailCta, sourceCta);
   };
 
   return (
@@ -215,7 +217,7 @@ export default function Features() {
 
               <form
                 onSubmit={handleCtaSubmit}
-                className="mt-6 w-full max-w-md flex items-center bg-white rounded-full p-1 sm:p-1.5 shadow-md mx-auto"
+                className="mt-6 w-full max-w-xl flex flex-col sm:flex-row items-stretch sm:items-center bg-white sm:rounded-full rounded-2xl p-1 sm:p-1.5 shadow-md mx-auto gap-2 sm:gap-0"
               >
                 <input
                   type="email"
@@ -223,12 +225,27 @@ export default function Features() {
                   value={emailCta}
                   onChange={(e) => setEmailCta(e.target.value)}
                   placeholder="Enter your email"
-                  className="flex-1 min-w-0 px-4 py-2 sm:py-2 bg-transparent text-[#3a2a1f] placeholder:text-[#a89a86] text-sm focus:outline-none"
+                  className="flex-1 min-w-0 px-4 py-2 sm:py-1 bg-transparent text-[#3a2a1f] placeholder:text-[#a89a86] text-sm focus:outline-none"
                 />
+                <div className="hidden sm:block w-px h-6 bg-[#e6cfa2]"></div>
+                <select
+                  value={sourceCta}
+                  onChange={(e) => setSourceCta(e.target.value)}
+                  required
+                  className="px-4 py-2 sm:py-1 bg-transparent text-[#3a2a1f] text-sm focus:outline-none cursor-pointer"
+                >
+                  <option value="" disabled>Found us via...</option>
+                  <option value="Friend">Friend</option>
+                  <option value="Instagram">Instagram</option>
+                  <option value="Twitter">Twitter</option>
+                  <option value="TikTok">TikTok</option>
+                  <option value="Google">Google</option>
+                  <option value="Other">Other</option>
+                </select>
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="px-5 py-2 bg-[#7a3a1c] hover:bg-[#6a3018] text-white text-sm font-semibold rounded-full flex items-center gap-1.5 transition-colors whitespace-nowrap"
+                  className="w-full sm:w-auto px-5 py-2 bg-[#7a3a1c] hover:bg-[#6a3018] text-white text-sm font-semibold rounded-full flex items-center justify-center gap-1.5 transition-colors whitespace-nowrap"
                 >
                   {isLoading ? (
                     <>
