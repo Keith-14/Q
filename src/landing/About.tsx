@@ -285,10 +285,10 @@ export default function About() {
                   <option value="" disabled>Found us via...</option>
                   <option value="Friend">Friend</option>
                   <option value="Instagram">Instagram</option>
-                  <option value="Twitter">Twitter</option>
-                  <option value="TikTok">TikTok</option>
-                  <option value="Google">Google</option>
-                  <option value="Other">Other</option>
+                  <option value="Facebook">Facebook</option>
+                  <option value="YouTube">YouTube</option>
+                  <option value="Linkedin">Linkedin</option>
+                  <option value="Word of Mouth">Word of Mouth</option>
                 </select>
                 <button
                   type="submit"
