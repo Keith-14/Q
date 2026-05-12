@@ -278,6 +278,19 @@ export default function Home() {
                 </button>
               </form>
 
+              {isSubmitted && (
+                <div className="mt-4 flex items-center justify-center gap-2 text-emerald-700 text-sm font-medium">
+                  <CheckCircle2 size={16} />
+                  You're on the list!
+                </div>
+              )}
+              {error && (
+                <div className="mt-4 flex items-center justify-center gap-2 text-red-600 text-sm font-medium">
+                  <AlertCircle size={16} />
+                  {error}
+                </div>
+              )}
+
               <p className="mt-4 text-xs text-[#7a6a5a]">
                 🔒 We respect your privacy. Unsubscribe anytime.
               </p>

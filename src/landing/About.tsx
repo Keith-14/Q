@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Loader2, ArrowRight, Plus, Minus } from "lucide-react";
+import { Loader2, ArrowRight, Plus, Minus, CheckCircle2, AlertCircle } from "lucide-react";
 import ctaBanner from "@assets/image_1777288131096.png";
 
 const values = [
@@ -60,8 +60,8 @@ export default function About() {
   const [emailCta, setEmailCta] = useState("");
   const [sourceCta, setSourceCta] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [, setIsSubmitted] = useState(false);
-  const [, setError] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (window.location.hash) {
@@ -307,6 +307,19 @@ export default function About() {
                   )}
                 </button>
               </form>
+
+              {isSubmitted && (
+                <div className="mt-4 flex items-center justify-center gap-2 text-emerald-700 text-sm font-medium">
+                  <CheckCircle2 size={16} />
+                  You're on the list!
+                </div>
+              )}
+              {error && (
+                <div className="mt-4 flex items-center justify-center gap-2 text-red-600 text-sm font-medium">
+                  <AlertCircle size={16} />
+                  {error}
+                </div>
+              )}
 
               <p className="mt-4 text-xs text-[#7a6a5a]">
                 🔒 We respect your privacy. Unsubscribe anytime.
